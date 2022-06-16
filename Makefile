@@ -2,7 +2,7 @@ CC = cc
 
 RM = rm -rf
 
-NAME = push_swap
+NAME = echo
 
 MANDATORY = src/echo.c\
 
@@ -29,6 +29,7 @@ clean:
 
 fclean: clean
 	make fclean -C ft_printf
+	make fclean -C libft
 	${RM} ${NAME}
 
 re: fclean all
