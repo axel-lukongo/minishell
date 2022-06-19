@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 12:05:47 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/19 23:32:12 by alukongo         ###   ########.fr       */
+/*   Created: 2022/06/19 23:32:52 by alukongo          #+#    #+#             */
+/*   Updated: 2022/06/19 23:32:56 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
-//good
-t_list	*ft_lstnew(void *content)
+
+t_list	*ft_lstnew2(void *content, void *result)
 {
 	t_list	*ptr;
 
@@ -21,5 +21,6 @@ t_list	*ft_lstnew(void *content)
 		return (0);
 	ptr->next = 0;
 	ptr->content = content;
+	ptr->result = result;
 	return (ptr);
 }

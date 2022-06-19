@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:17:25 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/18 00:20:33 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/19 23:30:53 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ void			ft_putnbr_fd(int n, int fd);
 typedef struct s_list
 {
 	void			*content;
+	void			*result;
 	struct s_list	*next;
 }					t_list;
 t_list			*ft_lstnew(void *content);
+t_list			*ft_lstnew2(void *content, void *result);
 void			ft_lstadd_front(t_list **alst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);

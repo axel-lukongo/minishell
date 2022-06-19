@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 14:02:50 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/16 17:44:23 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:37:27 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ int				ft_echo(char **args)
 		write(1, "\n", 1);
 	return (SUCCESS);
 }
-
+/*
 int main(int ac, char **av)
 {
 	(void) ac;
 	ft_echo(av);
 }
+*/
