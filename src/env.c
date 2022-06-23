@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:51:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/19 23:35:07 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/23 19:20:55 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_list *init_env(char **env)
 	}
 	return(list_env);
 }
-
+/*
 int	main(int ac, char **av, char *env[])
 {
 	(void)ac;
@@ -50,8 +50,9 @@ int	main(int ac, char **av, char *env[])
 	my_env = init_env(env);
 	while(my_env)
 	{
-		printf("%s", (char *)my_env->content);
-		printf("=%s\n", (char *)my_env->result);
+		//printf("%s", (char *)my_env->content);
+		//printf("=%s\n", (char *)my_env->result);
 		my_env = my_env->next;
 	}
 }
+*/

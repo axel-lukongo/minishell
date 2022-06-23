@@ -2,10 +2,11 @@ CC = cc
 
 RM = rm -rf
 
-NAME = env
+NAME = minishell
 
 MANDATORY = src/echo.c\
 			src/env.c\
+			src/pipex.c\
 
 MANDATORY_SRCS	=	${MANDATORY}
 

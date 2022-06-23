@@ -1,8 +1,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # define SUCCESS 0
+# define ERROR -1
 #include "../libft/libft.h"
 #include "../ft_printf/ft_printf.h"
+#include <unistd.h>
+#include<stdio.h>
+#include <fcntl.h>
 int				ft_echo(char **args);
 
 typedef struct	s_env_list
