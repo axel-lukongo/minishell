@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:51:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/23 19:20:55 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:45:29 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_list *init_env(char **env)
 	char *str;
 	t_list *new_node;
 	t_list *list_env;
-	
+
+	list_env = NULL;
 	list_env = 0;
 	i = 0;
 	while (env[i])
@@ -29,11 +30,9 @@ t_list *init_env(char **env)
 		if(!str)
 			return(0);
 		strs = ft_split(str, '=');
-			//i should free all before to exit
 		new_node = ft_lstnew2(strs[0], strs[1]);
 		if (!new_node)
 			return(0);
-			//i should free all before exit
 		ft_lstadd_back(&list_env, new_node);
 		i++;
 	}
@@ -54,5 +53,4 @@ int	main(int ac, char **av, char *env[])
 		//printf("=%s\n", (char *)my_env->result);
 		my_env = my_env->next;
 	}
-}
-*/
+}*/

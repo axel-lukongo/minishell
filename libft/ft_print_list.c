@@ -6,23 +6,26 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 12:19:53 by alukongo          #+#    #+#             */
-/*   Updated: 2021/11/26 12:24:19 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:29:31 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include<stdio.h>
 //good
-void	print_list(t_list *beta)
+t_list	*print_list(t_list *beta)
 {
-	int	*c;
-
+	char	*c;
+	t_list *test;
+	
+	test = beta;
 	while (beta)
 	{
-		c = beta->content;
-		printf("[%d]--->", *c);
+		c = (char *)beta->content;
+		printf("[%s]--->", c);
 		beta = beta->next;
 	}
 	printf("NULL");
 	printf("\n");
+	return(test);
 }

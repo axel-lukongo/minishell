@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 17:17:25 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/19 23:30:53 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:50:05 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_list
 {
 	void			*content;
 	void			*result;
+	char			**g_path;
+	char			**valid_path;
 	struct s_list	*next;
 }					t_list;
 t_list			*ft_lstnew(void *content);
@@ -81,4 +83,5 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 void			ft_list_reverse(t_list **begin_list);
+t_list			*print_list(t_list *beta);
 #endif
