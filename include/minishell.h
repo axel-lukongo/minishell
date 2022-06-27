@@ -9,6 +9,11 @@
 #include <fcntl.h>
 int				ft_echo(char **args);
 t_list			*init_env(char **env);
+void			pipex(char **av, int pid1, int pid2, t_list *path);
+void			redirection(int fd, char **av);
+void			ft_exec(char **av, int pid1);
+void			ft_close(int *fd);
+char			*send_path(char *commande);
 
 typedef struct	m_list
 {

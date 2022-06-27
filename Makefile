@@ -7,6 +7,8 @@ NAME = minishell
 MANDATORY = src/echo.c\
 			src/env.c\
 			src/pipex.c\
+			src/path_function.c\
+			src/exec_process.c\
 
 MANDATORY_SRCS	=	${MANDATORY}
 

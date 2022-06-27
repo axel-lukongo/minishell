@@ -1,48 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 16:49:59 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/27 17:04:08 by alukongo         ###   ########.fr       */
+/*   Created: 2022/06/27 16:56:16 by alukongo          #+#    #+#             */
+/*   Updated: 2022/06/27 17:13:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void	redirection(int fd, char **av)
-{
- // int	fd;
-
-  fd = open(av[3], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-  dup2(fd, STDOUT_FILENO);
-  execve("/bin/ls",&av[1],NULL);
-}
-
-void pipex(char **av, int pid1, int pid2, t_list *path)
+void ft_exec(char **av, int pid1)
 {
  int fd[2];
- (void) path;
 
  if(pipe(fd) == ERROR)
 	return ;
  pid1 = fork(); 
  if (pid1 == 0)
  {
-	dup2(fd[1], STDOUT_FILENO);
-	ft_close(fd);
-	execve(g_data.valid_path[0], ft_split(av[1], 0), NULL);
+	//dup2(fd[1], STDOUT_FILENO);
+	//ft_close(fd);
+	execve(send_path(av[1]), ft_split(av[1], 0), NULL);
  }
- pid2 = fork();
- if (pid2 == 0)
- {
-	dup2(fd[0], STDIN_FILENO);
-	ft_close(fd);
-	execve(g_data.valid_path[1], ft_split(av[2], 0), NULL);
- } 
  ft_close(fd);
- waitpid(pid1,NULL,0);
- waitpid(pid2,NULL,0);
+ waitpid(pid1, NULL, 0);
 }
