@@ -6,12 +6,11 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:51:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/27 13:45:29 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:56:48 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
-
 
 t_list *init_env(char **env)
 {
@@ -37,6 +36,23 @@ t_list *init_env(char **env)
 		i++;
 	}
 	return(list_env);
+}
+
+void	ft_env(t_list *env)
+{
+	int size;
+
+	size = ft_lstsize(env);
+	while (size)
+	{
+		ft_putstr_fd(env->content, 1);
+		ft_putstr_fd(" = ", 1);
+		ft_putstr_fd(env->result, 1);
+		ft_putchar_fd('\n', 1);
+		size--;
+		if (size > 0)
+			env = env->next;
+	}
 }
 /*
 int	main(int ac, char **av, char *env[])

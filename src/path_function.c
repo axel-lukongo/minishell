@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:57:29 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/27 17:14:13 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:58:48 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@ void ft_close(int *fd)
 	close(fd[0]);
 	close(fd[1]);
 }
+
+char *my_find(t_list *lst, char *name)
+{
+	int	size;
+	
+	size = ft_lstsize(lst);
+	while (size)
+	{
+		if (ft_strcmp(lst->content, name) == 0)
+			return (lst->result);
+		size--;
+		if (size > 0)
+			lst = lst->next;
+	}
+	return (NULL);
+}
+
 
 void find_good_path(int ac, char **av)
 {
@@ -77,11 +94,11 @@ int main(int ac, char **av, char *env[])
 	int pid2;
 	t_list *my_list;
 
+	(void) ac;
+	(void) av;
 	pid1 = 0;
 	pid2 = 0;
 	my_list = init_env(env);
-	find_path(my_list);
-	find_good_path(ac, av);
-	ft_exec(av, pid1);
-	//pipex(av, pid1, pid2, my_list);
+	ft_cd(av[2] ,my_list);
+	ft_env(my_list);
 }

@@ -9,6 +9,9 @@ MANDATORY = src/echo.c\
 			src/pipex.c\
 			src/path_function.c\
 			src/exec_process.c\
+			src/heredoc.c\
+			src/ft_cd.c\
+			src/ft_set_env.c\
 
 MANDATORY_SRCS	=	${MANDATORY}
 

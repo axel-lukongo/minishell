@@ -6,20 +6,21 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 16:49:59 by alukongo          #+#    #+#             */
-/*   Updated: 2022/06/27 17:04:08 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:17:51 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../include/minishell.h"
 
-void	redirection(int fd, char **av)
+/*void	redirection(char **av)
 {
- // int	fd;
+ int	fd;
 
   fd = open(av[3], O_WRONLY | O_CREAT | O_TRUNC, 0644);
   dup2(fd, STDOUT_FILENO);
-  execve("/bin/ls",&av[1],NULL);
-}
+  execve(send_path(av[1]),&av[1],NULL);
+}*/
+
 
 void pipex(char **av, int pid1, int pid2, t_list *path)
 {
