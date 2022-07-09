@@ -19,6 +19,7 @@ char			*my_find(t_list *lst, char *name);
 void			ft_cd(char *path, t_list *env);
 void			set_env(t_list *env, char *name, char *result);
 void			ft_env(t_list *env);
+void 			ft_unset(t_list *env, char *name);
 
 typedef struct	m_list
 {

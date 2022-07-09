@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:57:29 by alukongo          #+#    #+#             */
-/*   Updated: 2022/07/06 20:58:48 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/09 02:07:51 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ int main(int ac, char **av, char *env[])
 	pid1 = 0;
 	pid2 = 0;
 	my_list = init_env(env);
-	ft_cd(av[2] ,my_list);
+	//ft_cd(av[2] ,my_list);
+	//ft_env(my_list);
+	ft_unset(my_list, av[1]);
+	printf("ici\n");
 	ft_env(my_list);
 }

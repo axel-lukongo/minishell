@@ -12,6 +12,7 @@ MANDATORY = src/echo.c\
 			src/heredoc.c\
 			src/ft_cd.c\
 			src/ft_set_env.c\
+			src/ft_unset.c\
 
 MANDATORY_SRCS	=	${MANDATORY}
 
