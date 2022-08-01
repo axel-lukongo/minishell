@@ -1,0 +1,39 @@
+               .——— (lol.txt)
+          .——— (>)
+    |    |          .——— (cat -e)
+    |      `——— (|)								(PART 2 &&)
+    |         |          .——— (echo lol)
+    |           `——— (|)
+    |                `——— (ls)
+ ——— (&&)
+    |          .——— (result.txt)
+      `——— (>>)
+         |          .——— (test.txt)
+           `——— (<)								(PART 1 &&)
+              |          .——— (cat -e)
+                `——— (|)
+                     `——— (ls -l)
+
+ls -l | cat -e < tesT.txt >> result.txt
+
+EXEC les 2 PARTS DE l'arbre
+
+               .——— (lol.txt)
+          .——— (>)
+    |    |          .——— (cat -e)
+    |      `——— (|)								(PART 2 ||)
+    |         |          .——— (echo lol)
+    |           `——— (|)
+    |                `——— (ls)
+ ——— (||)
+    |          .——— (result.txt)
+      `——— (>>)
+         |          .——— (test.txt)
+           `——— (<)								(PART 1 ||)
+              |          .——— (cat -e)
+                `——— (|)
+                     `——— (ls -l)
+
+ls -l | cat -e < tesT.txt >> result.txt
+
+IF PART 1 != 0 exec PART 2
