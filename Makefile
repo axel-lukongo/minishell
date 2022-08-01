@@ -13,6 +13,7 @@ MANDATORY = src/echo.c\
 			src/ft_cd.c\
 			src/ft_set_env.c\
 			src/ft_unset.c\
+			src/export.c\
 
 MANDATORY_SRCS	=	${MANDATORY}
 

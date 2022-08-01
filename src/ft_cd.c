@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 16:14:22 by alukongo          #+#    #+#             */
-/*   Updated: 2022/07/06 20:40:08 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/29 23:03:45 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void error_msg(char *path)
 	ft_putstr_fd(path, 1);
 	ft_putstr_fd(err, 1);
 }
-
-
 
 void ft_cd(char *path, t_list *env)
 {

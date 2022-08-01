@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:57:29 by alukongo          #+#    #+#             */
-/*   Updated: 2022/07/09 02:07:51 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/07/30 00:08:36 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_close(int *fd)
 char *my_find(t_list *lst, char *name)
 {
 	int	size;
-	
+
 	size = ft_lstsize(lst);
 	while (size)
 	{
@@ -33,7 +33,6 @@ char *my_find(t_list *lst, char *name)
 	}
 	return (NULL);
 }
-
 
 void find_good_path(int ac, char **av)
 {
@@ -101,7 +100,7 @@ int main(int ac, char **av, char *env[])
 	my_list = init_env(env);
 	//ft_cd(av[2] ,my_list);
 	//ft_env(my_list);
-	ft_unset(my_list, av[1]);
-	printf("ici\n");
-	ft_env(my_list);
+	//ft_unset(my_list, av[1]);
+	my_export(my_list);
+	//ft_env(my_list);
 }

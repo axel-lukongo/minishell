@@ -20,6 +20,7 @@ void			ft_cd(char *path, t_list *env);
 void			set_env(t_list *env, char *name, char *result);
 void			ft_env(t_list *env);
 void 			ft_unset(t_list *env, char *name);
+void			my_export(t_list *env);
 
 typedef struct	m_list
 {
