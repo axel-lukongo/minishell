@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
+#    By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/07/08 17:49:30 by denissereno      ###   ########.fr        #
+#    Updated: 2022/08/03 21:00:46 by alukongo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS		= 	srcs/main.c \
 \
 				srcs/execute/executor.c \
 				srcs/execute/pipex.c \
-				srcs/execute/builtin.c \
+				srcs/execute/exec_builtin.c \
 \
 				srcs/lexer/lexer.c \
 \
@@ -35,6 +35,9 @@ SRCS		= 	srcs/main.c \
 \
 				srcs/expander/env.c \
 				srcs/expander/match.c \
+				srcs/builtin/export.c \
+\
+
 
 NAME		= minishell
 OBJS_DIR	= objs/
@@ -52,6 +55,7 @@ $(OBJS_DIR)%.o : %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/parsing
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
+	@mkdir -p $(OBJS_DIR)srcs/builtin
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

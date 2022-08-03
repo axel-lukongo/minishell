@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/07/29 19:05:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/02 02:01:16 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,8 @@ void	execute(t_global *g);
 int 	is_builtin(char *str);
 void    execute_builtin(t_global *g, char **cmd);
 char	*delete_quote(char *str, t_alloc **alloc);
+void	my_export(t_list *env);
+
 //
 // USTACK
 void		print_ustack(t_ustack *stack);

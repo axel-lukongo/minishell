@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/07/24 15:53:37 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/02 02:03:29 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,8 @@ void    execute_builtin(t_global *g, char **cmd)
 		t_env	*node;
 		if (!cmd[1])
 		{
-			print_list_env(g->env);
+			my_export(g->env);
+			//print_list_env(g->env);
 			g->last_return = 0;
 			return ;
 		}
