@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/07/31 10:30:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/04 01:53:48 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	main(int argc, char **argv, char **env)
 	g.alloc = NULL;
 	g.last_return = 0;
 	g.env = init_env(env, g.alloc);
+	//printf("variable du env: %s\n", (char *) g.env->content);
+	//printf("variable du env: %s\n", (char *) g.env->result);
 	g.sh_pid = getpid();
 	g.ast = NULL;
 	g.lex = NULL;

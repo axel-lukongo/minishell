@@ -6,7 +6,7 @@
 #    By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/08/03 21:00:46 by alukongo         ###   ########.fr        #
+#    Updated: 2022/08/04 01:54:04 by alukongo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ OBJS_DIR	= objs/
 OBJS		= $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
+CC_FLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
 TFLAGS		= -I -L -Lincludes -lreadline libft/libft.a
 
 $(OBJS_DIR)%.o : %.c includes/minishell.h

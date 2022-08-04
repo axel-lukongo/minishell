@@ -3,51 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/07/19 15:01:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/04 02:03:35 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/minishell.h"
 
-t_list *init_env(char **env, t_alloc *alloc)
+t_list	*init_env(char **env, t_alloc *alloc)
 {
-	int i;
-	char **strs;
-	char *str;
-	t_list *new_node;
-	t_list *list_env;
-	t_env	*node;
-	
+	int		i;
+	char	**strs;
+	char	*str;
+	t_list	*new_node;
+	t_list	*list_env;
+
+	(void) alloc;
+	list_env = NULL;
 	list_env = 0;
 	i = 0;
 	while (env[i])
 	{
-		str = ft_strdup(env[i], alloc);
+		str = my_strdup(env[i]);
 		if(!str)
 			return(0);
-		strs = ft_split(str, '=', alloc);
-		node = ft_malloc(sizeof(*node), &alloc);
-		*node = (t_env){strs[0], strs[1]};
-		new_node = ft_lstnew((void *){node}, alloc);
+		strs = my_split(str, '=');
+		new_node = ft_lstnew2(strs[0], strs[1]);
 		if (!new_node)
-			return (0);
+			return(0);
 		ft_lstadd_back(&list_env, new_node);
 		i++;
 	}
-	// FOR TESTING EXPANDING
-	node = ft_malloc(sizeof(*node), &alloc);
-	*node = (t_env){"A", "ech"};
-	new_node = ft_lstnew((void *){node}, alloc);
-	ft_lstadd_back(&list_env, new_node);
-	node = ft_malloc(sizeof(*node), &alloc);
-	*node = (t_env){"B", "o"};
-	new_node = ft_lstnew((void *){node}, alloc);
-	ft_lstadd_back(&list_env, new_node);
-	// END TEST
-	// print_list_env(list_env);
 	return(list_env);
 }
 

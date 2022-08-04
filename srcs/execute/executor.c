@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:47:51 by denissereno       #+#    #+#             */
-/*   Updated: 2022/07/31 10:33:55 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/04 01:41:18 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	execute(t_global *g)
 		exec = get_exec_container(g, tr); // on converti la node de l'arbre en structure utilisable pour executer
 		if (!exec->exec[0])
 			break ;
-        cmd = ft_split_quote(exec->exec[0]->cmd, ' ', g->alloc); // on split en supprimant les quotes
+		cmd = ft_split_quote(exec->exec[0]->cmd, ' ', g->alloc); // on split en supprimant les quotes
 		if (cmd && is_directory(cmd[0])) // si la cmd est un fichier
 		{
 			printf("bash: %s: is a directory\n", cmd[0]);

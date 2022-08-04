@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/08/02 02:08:42 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/04 02:01:36 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int		ft_isprint(int c);
 int		ft_isascii(int c);
 size_t	ft_strlcpy(char *dst, const char *src,
 			size_t dstsize);
+t_list	*ft_lstnew2(void *content, void *result);
+char	**my_split(char const *s, char c);
+char	*my_strdup(const char *src);
 char	*ft_strtrim(char const *s1, char const *set, t_alloc *alloc);
 char	*ft_substr(char const *s, unsigned int start, size_t len,
 			t_alloc *alloc);

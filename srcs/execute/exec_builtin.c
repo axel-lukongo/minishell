@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/02 02:03:29 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/04 01:36:50 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	is_allowed_var(char *var)
 	return (-1);
 }
 
-void    execute_builtin(t_global *g, char **cmd)
+void	execute_builtin(t_global *g, char **cmd)
 {
-    char    *value;
+	char	*value;
 	int		cd;
 
 	if (!ft_strcmp(cmd[0], "exit"))
@@ -239,6 +239,7 @@ void    execute_builtin(t_global *g, char **cmd)
 		t_env	*node;
 		if (!cmd[1])
 		{
+			//printf("je rentre ici");
 			my_export(g->env);
 			//print_list_env(g->env);
 			g->last_return = 0;
