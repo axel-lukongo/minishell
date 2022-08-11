@@ -6,20 +6,20 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/11 14:47:58 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:18:32 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //test
 //TEST
-int is_builtin(char *str)
+int	is_builtin(char *str)
 {
-    if (!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
-        || !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
+	if	(!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
+		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
 		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
-        return (1);
-    return (0);
+		return (1);
+	return (0);
 }
 
 int	count_char(char *str, int ch)
@@ -29,9 +29,9 @@ int	count_char(char *str, int ch)
 
 	i = 0;
 	n = 0;
-	while (str[i])
+	while	(str[i])
 	{
-		if (str[i] == ch)
+		if	(str[i] == ch)
 			n++;
 		i++;
 	}
@@ -47,11 +47,11 @@ char	*del_last_path(t_global *g, char *path)
 	sl = count_char(path, '/');
 	i = 0;
 	new = ft_malloc(sizeof(char) * ft_strlen(path) + 1, &g->alloc);
-	while (path[i] && sl != 0)
+	while	(path[i] && sl != 0)
 	{
-		if (path[i] == '/')
+		if	(path[i] == '/')
 			sl--;
-		if (sl == 0 && path[i] == '/')
+		if	(sl == 0 && path[i] == '/')
 			break ;
 		new[i] = path[i];
 		i++;
@@ -81,13 +81,13 @@ int	is_allowed_var(char *var)
 	int	i;
 
 	i = 0;
-	while (var[i])
+	while	(var[i])
 	{
-		if (!is_shell_char_var_allowed(var[i]))
+		if	(!is_shell_char_var_allowed(var[i]))
 			return (0);
 		i++;
 	}
-	return (-1);
+	return	(-1);
 }
 /*
 static void error_msg(char *path)
@@ -103,13 +103,13 @@ static void error_msg(char *path)
 }
 */
 
-void my_exit(t_global *g, char **cmd)
+void	my_exit(t_global *g, char **cmd)
 {
-	if (cmd[1])
+	if	(cmd[1])
 		{ // A FINIR AVEC LA LIMIT 64 
-			if (ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
+			if	(ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
 			{
-				if (cmd[2] != NULL)
+				if	(cmd[2] != NULL)
 				{
 					printf("bash: exit: too many arguments\n");
 					g->last_return = 1;
@@ -127,11 +127,19 @@ void my_exit(t_global *g, char **cmd)
 			exit(0);
 }
 
-void my_env(t_global *g, char **cmd)
+void cd_error_msg(t_global *g, char **cmd)
+{
+	write(2, "cd: no such file or directory: ", 31);
+	write(2, cmd[1], ft_strlen(cmd[1]));
+	write(2, "\n", 1);
+	g->last_return = 1;
+}
+
+void	my_env(t_global *g, char **cmd)
 {
 	char	*value;
 
-	if (!cmd[1])
+	if	(!cmd[1])
 		{
 			print_list_env(g->env);
 			g->last_return = 0;
@@ -139,7 +147,7 @@ void my_env(t_global *g, char **cmd)
 		else
 		{
 			value = get_value_by_name(g->env, cmd[1]);
-			if (!value)
+			if	(!value)
 			{
 				write(2, "env: ", 5);
 				write(2, cmd[1], ft_strlen(cmd[1]));
@@ -151,9 +159,9 @@ void my_env(t_global *g, char **cmd)
 		}
 }
 
-void my_unset(t_global *g, char **cmd)
+void	my_unset(t_global *g, char **cmd)
 {
-	if (!cmd[1])
+	if	(!cmd[1])
 	{
 		write(2, "unset: not enough arguments\n", 28);
 		return ;
@@ -162,9 +170,37 @@ void my_unset(t_global *g, char **cmd)
 	g->last_return = 0;
 }
 
-void	execute_builtin(t_global *g, char **cmd)
+void	cd_dash_or_nothing(t_global *g, char **cmd)
 {
 	char	*value;
+
+	if	(cmd[1][0] == '-' && ft_strlen(cmd[1]) == 1)
+	{
+		value = get_value_ustack(g->dir_stack, 1);
+		if	(!value)
+			write(2, "cd: no such entry in dir stack\n", 31);
+		else
+		{
+			chdir(value);
+			push_ustack(g->dir_stack, value);
+			change_value_by_name(g, "PWD", value);
+		}
+		return ;
+	}
+	else if	(cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
+	{
+		change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
+		chdir(get_node_by_name(g->env, "HOME")->value);
+		push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
+		change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
+		// CODER ICI DEPLACER JUSQUAU HOME : CD --
+	}
+}
+
+
+void	execute_builtin(t_global *g, char **cmd)
+{
+	//char	*value;
 	int		cd;
 
 	if (!ft_strcmp(cmd[0], "exit"))
@@ -230,17 +266,20 @@ void	execute_builtin(t_global *g, char **cmd)
 			return ;
 		if (!cmd[1] && get_node_by_name(g->env, "HOME"))
 		{
-			//printf("--------im here--------\n");
+			//cd_dash_or_nothing(g, cmd);
 			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
 			chdir(get_node_by_name(g->env, "HOME")->value);
 			push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
 			change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
 		}
-		else if	(cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] != '/')
+		else if	(cmd[1] && !dir_change_stack(cmd[1]))
 		{
 			//printf("%s\n", cmd[1]);
 			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
-			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
+			if	(cmd[1][0] != '/')
+				cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
+			else
+				cd = chdir(cmd[1]);
 			if (!cd)
 			{
 				if (!ft_strcmp(cmd[1], ".."))
@@ -257,15 +296,16 @@ void	execute_builtin(t_global *g, char **cmd)
 			}				
 			else
 			{
-				write(2, "cd: no such file or directory: ", 31);
-				write(2, cmd[1], ft_strlen(cmd[1]));
-				write(2, "\n", 1);
-				g->last_return = 1;
+				cd_error_msg(g, cmd);
+				// write(2, "cd: no such file or directory: ", 31);
+				// write(2, cmd[1], ft_strlen(cmd[1]));
+				// write(2, "\n", 1);
+				// g->last_return = 1;
 			}
 		}
+		/*
 		else if (cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] == '/')
 		{
-			//printf("->%s\n", cmd[1]);
 			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
 			cd = chdir(cmd[1]);
 			if (!cd)
@@ -281,30 +321,31 @@ void	execute_builtin(t_global *g, char **cmd)
 				write(2, "\n", 1);
 				g->last_return = 1;
 			}
-		}
+		}*/
 		else if (dir_change_stack(cmd[1]))
 		{
-			if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 1)
-			{
-				value = get_value_ustack(g->dir_stack, 1);
-				if (!value)
-					write(2, "cd: no such entry in dir stack\n", 31);
-				else
-				{
-					chdir(value);
-					push_ustack(g->dir_stack, value);
-					change_value_by_name(g, "PWD", value);
-				}
-				return ;
-			}
-			else if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
-			{
-				change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
-				chdir(get_node_by_name(g->env, "HOME")->value);
-				push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
-				change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
-				// CODER ICI DEPLACER JUSQUAU HOME : CD --
-			}
+			cd_dash_or_nothing(g, cmd);
+			// if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 1)
+			// {
+			// 	value = get_value_ustack(g->dir_stack, 1);
+			// 	if (!value)
+			// 		write(2, "cd: no such entry in dir stack\n", 31);
+			// 	else
+			// 	{
+			// 		chdir(value);
+			// 		push_ustack(g->dir_stack, value);
+			// 		change_value_by_name(g, "PWD", value);
+			// 	}
+			// 	return ;
+			// }
+			// else if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
+			// {
+			// 	change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
+			// 	chdir(get_node_by_name(g->env, "HOME")->value);
+			// 	push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
+			// 	change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
+			// 	// CODER ICI DEPLACER JUSQUAU HOME : CD --
+			// }
 			// printf("---------je rentre ici 1----------\n");
 			// cd = ft_atoi(ft_split(cmd[1], '-', g->alloc)[0]);
 			// value = get_value_ustack(g->dir_stack, cd);
