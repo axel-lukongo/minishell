@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/11 17:09:09 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:38:08 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,13 +196,7 @@ void	cd_dash_or_nothing(t_global *g, char **cmd)
 		return ;
 	}
 	else if	(cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
-	{
-		change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
-		chdir(get_node_by_name(g->env, "HOME")->value);
-		push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
-		change_value_by_name(g, "PWD", getcwd((char *)NULL, 0));
-		//CODER ICI DEPLACER JUSQUAU HOME : CD --
-	}
+		my_cd2(g);
 }
 
 void my_cd(t_global *g, char **cmd)
