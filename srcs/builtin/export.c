@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/04 00:15:05 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:58:45 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)())
 {
 	t_list *current;
 	void *next_list_content;
-	void *next_list_result;
+	//void *next_list_result;
 	current = *begin_list;
 	while (current->next)
 	{
@@ -76,11 +76,11 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)())
 		{
 			//printf("content[0]: %s ||| conent_next[0]: %s", (char *)current->content, (char *)current->next->content);
 			next_list_content = current->content;
-			next_list_result = current->result;
+			//next_list_result = current->result;
 			current->content = current->next->content;
-			current->result = current->next->result;
+			//current->result = current->next->result;
 			current->next->content = next_list_content;
-			current->next->result = next_list_result;
+			//current->next->result = next_list_result;
 			current = *begin_list; 
 		}
 		else
@@ -89,10 +89,28 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)())
 	//print_list_env(*begin_list);
 }
 
+// void	ft_env(t_list *env)
+// {
+// 	int	size;
+
+// 	size = ft_lstsize(env);
+// 	while (size)
+// 	{
+// 		printf("%s", (char *)env->content);
+// 		//ft_putstr_fd((char *)env->content, 1);
+// 	//	ft_putstr_fd(" = ", 1);
+// 	//	ft_putstr_fd(env->result, 1);
+// 		ft_putchar_fd('\n', 1);
+// 		size--;
+// 		if (size > 0)
+// 			env = env->next;
+// 	}
+// }
+
 void	my_export(t_list *env)
 {
-	t_list *cpy_env;
-	int size;
+	t_list	*cpy_env;
+	int		size;
 	
 	size = ft_lstsize(env);
 	cpy_env = NULL;

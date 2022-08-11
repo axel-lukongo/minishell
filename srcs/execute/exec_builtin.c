@@ -6,12 +6,13 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/04 01:36:50 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 01:59:13 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+//test
+//TEST
 int is_builtin(char *str)
 {
     if (!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
@@ -66,7 +67,7 @@ int	dir_change_stack(char *str)
 	i = 1;
 	if (str[0] != '-')
 		return (0);
-	if (str[0] == '-' && ft_strlen(str) == 1)
+	if (str[0] == '-')
 		return (1);
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
@@ -88,15 +89,23 @@ int	is_allowed_var(char *var)
 	}
 	return (-1);
 }
-
-void	execute_builtin(t_global *g, char **cmd)
+/*
+static void error_msg(char *path)
 {
-	char	*value;
-	int		cd;
+	char *err;
+	char *msg;
+	
+	err =  strerror(errno);
+	msg = my_strjoin(": ", err);
+	ft_putstr_fd("mishell: cd: ", 1);
+	ft_putstr_fd(path, 1);
+	ft_putstr_fd(err, 1);
+}
+*/
 
-	if (!ft_strcmp(cmd[0], "exit"))
-	{
-		if (cmd[1])
+void my_exit(t_global *g, char **cmd)
+{
+	if (cmd[1])
 		{ // A FINIR AVEC LA LIMIT 64 
 			if (ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
 			{
@@ -116,10 +125,13 @@ void	execute_builtin(t_global *g, char **cmd)
 		}
 		else
 			exit(0);
-	}
-	else if (!ft_strcmp(cmd[0], "env"))
-	{
-		if (!cmd[1])
+}
+
+void my_env(t_global *g, char **cmd)
+{
+	char	*value;
+
+	if (!cmd[1])
 		{
 			print_list_env(g->env);
 			g->last_return = 0;
@@ -137,18 +149,82 @@ void	execute_builtin(t_global *g, char **cmd)
 			}
 			g->last_return = 0;
 		}
-	}
-	else if (!ft_strcmp(cmd[0], "unset"))
+}
+
+void my_unset(t_global *g, char **cmd)
+{
+	if (!cmd[1])
 	{
-		if (!cmd[1])
-		{
-			write(2, "unset: not enough arguments\n", 28);
-			return ;
-		}
-		destroy_env_var(g, cmd[1]);
-		g->last_return = 0;
+		write(2, "unset: not enough arguments\n", 28);
+		return ;
 	}
-	else if (!ft_strcmp(cmd[0], "cd")) // CHANGER PWD PAR GETCWD
+	destroy_env_var(g, cmd[1]);
+	g->last_return = 0;
+}
+
+void	execute_builtin(t_global *g, char **cmd)
+{
+	char	*value;
+	int		cd;
+
+	if (!ft_strcmp(cmd[0], "exit"))
+	{
+		my_exit(g, cmd);
+		// if (cmd[1])
+		// { // A FINIR AVEC LA LIMIT 64 
+		// 	if (ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
+		// 	{
+		// 		if (cmd[2] != NULL)
+		// 		{
+		// 			printf("bash: exit: too many arguments\n");
+		// 			g->last_return = 1;
+		// 		}
+		// 		else
+		// 			exit(ft_atoi(cmd[1]) % 256);
+		// 	}
+		// 	else
+		// 	{
+		// 		printf("bash: exit: exit: numeric argument required\n");
+		// 		exit(255);
+		// 	}
+		// }
+		// else
+		// 	exit(0);
+	}
+	else if	(!ft_strcmp(cmd[0], "env"))
+	{
+		my_env(g, cmd);
+		// if (!cmd[1])
+		// {
+		// 	print_list_env(g->env);
+		// 	g->last_return = 0;
+		// }
+		// else
+		// {
+		// 	value = get_value_by_name(g->env, cmd[1]);
+		// 	if (!value)
+		// 	{
+		// 		write(2, "env: ", 5);
+		// 		write(2, cmd[1], ft_strlen(cmd[1]));
+		// 		write(2, ": No such file or directory\n", 28);
+		// 		g->last_return = 127;
+		// 		return ;
+		// 	}
+		// 	g->last_return = 0;
+		// }
+	}
+	else if	(!ft_strcmp(cmd[0], "unset"))
+	{
+		my_unset(g, cmd);
+	// 	if (!cmd[1])
+	// 	{
+	// 		write(2, "unset: not enough arguments\n", 28);
+	// 		return ;
+	// 	}
+	// 	destroy_env_var(g, cmd[1]);
+	// 	g->last_return = 0;
+	}
+	else if	(!ft_strcmp(cmd[0], "cd")) // CHANGER PWD PAR GETCWD
 	{
 		if (!get_node_by_name(g->env, "PWD"))
 			return ;
@@ -158,9 +234,9 @@ void	execute_builtin(t_global *g, char **cmd)
 			push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
 			change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
 		}
-		else if (cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] != '/')
+		else if	(cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] != '/')
 		{
-			printf("%s\n", cmd[1]);
+			//printf("%s\n", cmd[1]);
 			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
 			if (!cd)
 			{
@@ -219,18 +295,29 @@ void	execute_builtin(t_global *g, char **cmd)
 			}
 			else if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
 			{
+				value = "/Users/axellukongo";
+				if (!value)
+					write(2, "cd: no such entry in dir stack\n", 31);
+				else
+				{
+					chdir(value);
+					push_ustack(g->dir_stack, value);
+					change_value_by_name(g, "PWD", value);
+				}
+				return ;
 				// CODER ICI DEPLACER JUSQUAU HOME : CD --
 			}
-			cd = ft_atoi(ft_split(cmd[1], '-', g->alloc)[0]);
-			value = get_value_ustack(g->dir_stack, cd);
-			if (!value)
-				write(2, "cd: no such entry in dir stack\n", 31);
-			else
-			{
-				chdir(value);
-				push_ustack(g->dir_stack, value);
-				change_value_by_name(g, "PWD", value);
-			}
+			// printf("---------je rentre ici 1----------\n");
+			// cd = ft_atoi(ft_split(cmd[1], '-', g->alloc)[0]);
+			// value = get_value_ustack(g->dir_stack, cd);
+			// if (!value)
+			// 	write(2, "cd: no such entry in dir stack\n", 31);
+			// else
+			// {
+			// 	chdir(value);
+			// 	push_ustack(g->dir_stack, value);
+			// 	change_value_by_name(g, "PWD", value);
+			// }
 		}
 	}
 	else if (!ft_strcmp(cmd[0], "export"))

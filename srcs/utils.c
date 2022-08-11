@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:56:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/07/08 13:52:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/09 19:21:51 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_list_env(t_list *li)
 {
 	t_env	*env;
 
+	//printf("---------ici---------\n");
 	while (li)
 	{
 		env = (t_env *)li->content;

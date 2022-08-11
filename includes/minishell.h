@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/02 02:01:16 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/10 23:26:59 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <dirent.h>
 #include <stdint.h>
+#include <errno.h>
 
 # include "ansi.h"
 # include "../libft/libft.h"
@@ -223,7 +224,7 @@ void		pop_ustack(t_ustack *stack, char *value, int index, int type);
 void		push_ustack(t_ustack *stack, char *value);
 void		clear_ustack(t_ustack *stack);
 t_ustack	*init_ustack(int size, t_global *g);
-char    	*get_value_ustack(t_ustack *st, int index);
+char		*get_value_ustack(t_ustack *st, int index);
 
 typedef struct Trunk
 {
