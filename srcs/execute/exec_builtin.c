@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/11 01:59:13 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:47:58 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,8 @@ void	execute_builtin(t_global *g, char **cmd)
 			return ;
 		if (!cmd[1] && get_node_by_name(g->env, "HOME"))
 		{
+			//printf("--------im here--------\n");
+			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
 			chdir(get_node_by_name(g->env, "HOME")->value);
 			push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
 			change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
@@ -237,6 +239,7 @@ void	execute_builtin(t_global *g, char **cmd)
 		else if	(cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] != '/')
 		{
 			//printf("%s\n", cmd[1]);
+			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
 			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
 			if (!cd)
 			{
@@ -262,14 +265,15 @@ void	execute_builtin(t_global *g, char **cmd)
 		}
 		else if (cmd[1] && !dir_change_stack(cmd[1]) && cmd[1][0] == '/')
 		{
-			printf("->%s\n", cmd[1]);
+			//printf("->%s\n", cmd[1]);
+			change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
 			cd = chdir(cmd[1]);
 			if (!cd)
 			{
 				push_ustack(g->dir_stack, ft_strjoin(get_node_by_name(g->env, "HOME")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
 				change_value_by_name(g, "PWD", cmd[1]);
 				g->last_return = 0;
-			}				
+			}
 			else
 			{
 				write(2, "cd: no such file or directory: ", 31);
@@ -295,16 +299,10 @@ void	execute_builtin(t_global *g, char **cmd)
 			}
 			else if (cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
 			{
-				value = "/Users/axellukongo";
-				if (!value)
-					write(2, "cd: no such entry in dir stack\n", 31);
-				else
-				{
-					chdir(value);
-					push_ustack(g->dir_stack, value);
-					change_value_by_name(g, "PWD", value);
-				}
-				return ;
+				change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
+				chdir(get_node_by_name(g->env, "HOME")->value);
+				push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
+				change_value_by_name(g, "PWD", get_node_by_name(g->env, "HOME")->value);
 				// CODER ICI DEPLACER JUSQUAU HOME : CD --
 			}
 			// printf("---------je rentre ici 1----------\n");
