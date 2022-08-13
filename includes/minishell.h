@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/11 20:22:35 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:37:20 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ int		count_char(char *str, int ch);
 char	*del_last_path(t_global *g, char *path);
 int		dir_change_stack(char *str);
 int		is_allowed_var(char *var);
+void	ft_echo(char **args);
 
 //
 // USTACK

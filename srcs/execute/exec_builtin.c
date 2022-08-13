@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/11 20:23:19 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:56:23 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,40 +163,45 @@ void	my_unset(t_global *g, char **cmd)
 	g->last_return = 0;
 }
 
+void ft_cd(t_global *g, char **cmd)
+{
+	if (!get_node_by_name(g->env, "PWD"))
+		return ;
+	if (!cmd[1] && get_node_by_name(g->env, "HOME"))
+		my_cd2(g);
+	else if	(cmd[1] && !dir_change_stack(cmd[1]))
+		my_cd(g, cmd);
+	else if (dir_change_stack(cmd[1]))
+		cd_dash_or_nothing(g, cmd);
+}
+
 void	execute_builtin(t_global *g, char **cmd)
 {
-	if (!ft_strcmp(cmd[0], "exit"))
+	if	(!ft_strcmp(cmd[0], "exit"))
 		my_exit(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "env"))
 		my_env(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "unset"))
 		my_unset(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "cd")) // CHANGER PWD PAR GETCWD
-	{
-		if (!get_node_by_name(g->env, "PWD"))
-			return ;
-		if (!cmd[1] && get_node_by_name(g->env, "HOME"))
-			my_cd2(g);
-		else if	(cmd[1] && !dir_change_stack(cmd[1]))
-			my_cd(g, cmd);
-		else if (dir_change_stack(cmd[1]))
-		{
-			cd_dash_or_nothing(g, cmd);
-		}
-	}
+		ft_cd(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "export"))
 		my_export(g, cmd);
-	else if (!ft_strcmp(cmd[0], "dirs"))
+	else if	(!ft_strcmp(cmd[0], "dirs"))
 	{
 		print_ustack(g->dir_stack);
 		g->last_return = 0;
 	}
-	else if (!ft_strcmp(cmd[0], "pwd"))
+	else if	(!ft_strcmp(cmd[0], "pwd"))
 	{
-		if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
+		if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
 			printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
 		else
 			printf("%s\n", get_value_by_name(g->env, "PWD"));
+	}
+	else if (!ft_strcmp(cmd[0], "echo"))
+	{
+		ft_echo(cmd);
 	}
 }
 

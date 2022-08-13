@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 20:07:36 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/11 20:08:17 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:56:30 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	is_builtin(char *str)
 {
-	if	(!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
+	if	(!ft_strcmp(str, "echo") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
 		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
 		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
-		return (1);
+		{
+			//printf("is builtin\n");
+			return (1);
+		}
 	return (0);
 }
 
