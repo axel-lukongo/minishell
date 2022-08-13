@@ -6,7 +6,7 @@
 #    By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/08/04 01:54:04 by alukongo         ###   ########.fr        #
+#    Updated: 2022/08/11 20:09:12 by alukongo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ SRCS		= 	srcs/main.c \
 				srcs/env.c \
 				srcs/utils.c \
 				srcs/ustack.c \
+				srcs/builtin/cd.c\
+				srcs/builtin/builtin_utils.c\
 \
 				srcs/execute/executor.c \
 				srcs/execute/pipex.c \

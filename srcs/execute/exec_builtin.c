@@ -6,89 +6,89 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/11 19:38:08 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:23:19 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //test
 //TEST
-int	is_builtin(char *str)
-{
-	if	(!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
-		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
-		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
-		return (1);
-	return (0);
-}
+// int	is_builtin(char *str)
+// {
+// 	if	(!ft_strcmp(str, "echo -n") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
+// 		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
+// 		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
+// 		return (1);
+// 	return (0);
+// }
 
-int	count_char(char *str, int ch)
-{
-	int	n;
-	int	i;
+// int	count_char(char *str, int ch)
+// {
+// 	int	n;
+// 	int	i;
 
-	i = 0;
-	n = 0;
-	while	(str[i])
-	{
-		if	(str[i] == ch)
-			n++;
-		i++;
-	}
-	return (n);
-}
+// 	i = 0;
+// 	n = 0;
+// 	while	(str[i])
+// 	{
+// 		if	(str[i] == ch)
+// 			n++;
+// 		i++;
+// 	}
+// 	return (n);
+// }
 
-char	*del_last_path(t_global *g, char *path)
-{
-	int		sl;
-	int		i;
-	char	*new;
+// char	*del_last_path(t_global *g, char *path)
+// {
+// 	int		sl;
+// 	int		i;
+// 	char	*new;
 
-	sl = count_char(path, '/');
-	i = 0;
-	new = ft_malloc(sizeof(char) * ft_strlen(path) + 1, &g->alloc);
-	while	(path[i] && sl != 0)
-	{
-		if	(path[i] == '/')
-			sl--;
-		if	(sl == 0 && path[i] == '/')
-			break ;
-		new[i] = path[i];
-		i++;
-	}
-	new[i] = 0;
-	return (new);
-}
+// 	sl = count_char(path, '/');
+// 	i = 0;
+// 	new = ft_malloc(sizeof(char) * ft_strlen(path) + 1, &g->alloc);
+// 	while	(path[i] && sl != 0)
+// 	{
+// 		if	(path[i] == '/')
+// 			sl--;
+// 		if	(sl == 0 && path[i] == '/')
+// 			break ;
+// 		new[i] = path[i];
+// 		i++;
+// 	}
+// 	new[i] = 0;
+// 	return (new);
+// }
 
-int	dir_change_stack(char *str)
-{
-	int	i;
+// int	dir_change_stack(char *str)
+// {
+// 	int	i;
 
-	i = 1;
-	if (str[0] != '-')
-		return (0);
-	if (str[0] == '-')
-		return (1);
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	if (str[i] != 0)
-		return (0);
-	return (1);
-}
+// 	i = 1;
+// 	if (str[0] != '-')
+// 		return (0);
+// 	if (str[0] == '-')
+// 		return (1);
+// 	while (str[i] >= '0' && str[i] <= '9')
+// 		i++;
+// 	if (str[i] != 0)
+// 		return (0);
+// 	return (1);
+// }
 
-int	is_allowed_var(char *var)
-{
-	int	i;
+// int	is_allowed_var(char *var)
+// {
+// 	int	i;
 
-	i = 0;
-	while	(var[i])
-	{
-		if	(!is_shell_char_var_allowed(var[i]))
-			return (0);
-		i++;
-	}
-	return	(-1);
-}
+// 	i = 0;
+// 	while	(var[i])
+// 	{
+// 		if	(!is_shell_char_var_allowed(var[i]))
+// 			return (0);
+// 		i++;
+// 	}
+// 	return	(-1);
+// }
 /*
 static void error_msg(char *path)
 {
@@ -127,13 +127,6 @@ void	my_exit(t_global *g, char **cmd)
 			exit(0);
 }
 
-void cd_error_msg(t_global *g, char **cmd)
-{
-	write(2, "cd: no such file or directory: ", 31);
-	write(2, cmd[1], ft_strlen(cmd[1]));
-	write(2, "\n", 1);
-	g->last_return = 1;
-}
 
 void	my_env(t_global *g, char **cmd)
 {
@@ -170,64 +163,6 @@ void	my_unset(t_global *g, char **cmd)
 	g->last_return = 0;
 }
 
-void my_cd2(t_global *g)
-{
-	change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
-	chdir(get_node_by_name(g->env, "HOME")->value);
-	push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
-	change_value_by_name(g, "PWD", getcwd((char *)NULL, 0));
-}
-
-void	cd_dash_or_nothing(t_global *g, char **cmd)
-{
-	char	*value;
-
-	if	(cmd[1][0] == '-' && ft_strlen(cmd[1]) == 1)
-	{
-		value = get_value_ustack(g->dir_stack, 1);
-		if	(!value)
-			write(2, "cd: no such entry in dir stack\n", 31);
-		else
-		{
-			chdir(value);
-			push_ustack(g->dir_stack, value);
-			change_value_by_name(g, "PWD", getcwd((char *)NULL, 0));
-		}
-		return ;
-	}
-	else if	(cmd[1][0] == '-' && ft_strlen(cmd[1]) == 2 && cmd[1][1] == '-')
-		my_cd2(g);
-}
-
-void my_cd(t_global *g, char **cmd)
-{
-	int	cd;
-	if	(cmd[1] && !dir_change_stack(cmd[1]))
-	{
-		change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
-		if	(cmd[1][0] != '/')
-			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
-		else
-			cd = chdir(cmd[1]);
-		if (!cd)
-		{
-			if (!ft_strcmp(cmd[1], ".."))
-			{
-				push_ustack(g->dir_stack, del_last_path(g, get_node_by_name(g->env, "PWD")->value));
-				change_value_by_name(g, "PWD", getcwd((char *)NULL, 0));
-			}
-			else
-			{
-				push_ustack(g->dir_stack, ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
-				change_value_by_name(g, "PWD", getcwd((char *)NULL, 0));
-			}
-			g->last_return = 0;
-		}
-		else
-			cd_error_msg(g, cmd);
-	}
-}
-
 void	execute_builtin(t_global *g, char **cmd)
 {
 	if (!ft_strcmp(cmd[0], "exit"))
@@ -250,34 +185,7 @@ void	execute_builtin(t_global *g, char **cmd)
 		}
 	}
 	else if	(!ft_strcmp(cmd[0], "export"))
-	{
-		char	**env;
-		t_env	*node;
-		if	(!cmd[1])
-		{
-			//printf("je rentre ici");
-			my_export(g->env);
-			//print_list_env(g->env);
-			g->last_return = 0;
-			return ;
-		}
-		else
-		{
-			if (!count_char(cmd[1], '=') || cmd[1][0] == '=')
-				return ;
-			env = ft_split(cmd[1], '=', g->alloc);
-			node = ft_malloc(sizeof(*node), &g->alloc);
-			if (!env[1])
-				*node = (t_env){env[0], ""};
-			else
-				*node = (t_env){env[0], env[1]};
-			if (is_var_env_exist(g->env, env[0]))
-				change_value_by_name(g, env[0], node->value);
-			else
-				ft_lstadd_back(&g->env, ft_lstnew((void *){node}, g->alloc));
-		}
-
-	}
+		my_export(g, cmd);
 	else if (!ft_strcmp(cmd[0], "dirs"))
 	{
 		print_ustack(g->dir_stack);

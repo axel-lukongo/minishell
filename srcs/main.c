@@ -6,11 +6,13 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/10 18:28:40 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/13 18:30:49 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char *test;
 
 void	copy_str(char dest[1024], char *src)
 {
@@ -68,6 +70,14 @@ char	*get_prompt_str(t_global *g)
 	return (pr);
 }
 
+void	handle_signale_ctrl_c(int sig)
+{
+	//ici il faut clear tous ce qui a ete allouer
+	write(1,"\n", 1);
+	ft_putstr_fd(test, 1);
+	(void)sig;
+}
+
 int	loop(t_global *g)
 {
 	char		*str;
@@ -75,6 +85,9 @@ int	loop(t_global *g)
 	while (1)
 	{
 		str = get_prompt_str(g);
+		test = str;
+		signal(SIGINT, &handle_signale_ctrl_c);
+	//	signal(SIGQUIT, SIG_IGN);
 		g->line = readline(str);
 		g->lex = lexer(g->line, &g->alloc); // on creer notre liste de token
 		g->ast = parsing(g->lex, g); // on parse et converti en arbre

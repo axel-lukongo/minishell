@@ -6,13 +6,44 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/09 19:58:45 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:22:12 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_list	*ft_lstnew2(void *content, void *result)
+void	my_export(t_global *g, char **cmd)
+{
+	char	**env;
+	t_env	*node;
+	if	(!cmd[1])
+	{
+		//printf("je rentre ici");
+		//my_export(g->env);
+		print_list_env(g->env);
+		g->last_return = 0;
+		return ;
+	}
+	else
+	{
+		if (!count_char(cmd[1], '=') || cmd[1][0] == '=')
+			return ;
+		env = ft_split(cmd[1], '=', g->alloc);
+		node = ft_malloc(sizeof(*node), &g->alloc);
+		if (!env[1])
+			*node = (t_env){env[0], ""};
+		else
+			*node = (t_env){env[0], env[1]};
+		if (is_var_env_exist(g->env, env[0]))
+			change_value_by_name(g, env[0], node->value);
+		else
+			ft_lstadd_back(&g->env, ft_lstnew((void *){node}, g->alloc));
+		}
+
+}
+
+
+/*t_list	*ft_lstnew2(void *content, void *result)
 {
 	t_list	*ptr;
 
@@ -119,3 +150,4 @@ void	my_export(t_list *env)
 	print_list_env(cpy_env);
 	//ft_env(cpy_env);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/10 23:26:59 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:22:35 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,19 @@ void	execute(t_global *g);
 int 	is_builtin(char *str);
 void    execute_builtin(t_global *g, char **cmd);
 char	*delete_quote(char *str, t_alloc **alloc);
-void	my_export(t_list *env);
+
+//BUILTIN
+int		is_builtin(char *str);
+void	my_cd(t_global *g, char **cmd);
+void	cd_dash_or_nothing(t_global *g, char **cmd);
+void	my_cd2(t_global *g);
+void	cd_error_msg(t_global *g, char **cmd);
+//void	my_export(t_list *env);
+void	my_export(t_global *g, char **cmd);
+int		count_char(char *str, int ch);
+char	*del_last_path(t_global *g, char *path);
+int		dir_change_stack(char *str);
+int		is_allowed_var(char *var);
 
 //
 // USTACK
