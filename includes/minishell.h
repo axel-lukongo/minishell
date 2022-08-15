@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/13 19:37:20 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:04:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,8 +221,8 @@ void	my_cd(t_global *g, char **cmd);
 void	cd_dash_or_nothing(t_global *g, char **cmd);
 void	my_cd2(t_global *g);
 void	cd_error_msg(t_global *g, char **cmd);
-//void	my_export(t_list *env);
-void	my_export(t_global *g, char **cmd);
+void	my_export(t_list *env);
+// void	my_export(t_global *g, char **cmd);
 int		count_char(char *str, int ch);
 char	*del_last_path(t_global *g, char *path);
 int		dir_change_stack(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/13 19:56:23 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:05:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,8 @@ void	execute_builtin(t_global *g, char **cmd)
 	else if	(!ft_strcmp(cmd[0], "cd")) // CHANGER PWD PAR GETCWD
 		ft_cd(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "export"))
-		my_export(g, cmd);
+		my_export(g->env);
+		// my_export(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "dirs"))
 	{
 		print_ustack(g->dir_stack);

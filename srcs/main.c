@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/13 18:30:49 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:20:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char *test;
+char 	*test;
+char	*line;
 
 void	copy_str(char dest[1024], char *src)
 {
@@ -74,6 +75,7 @@ void	handle_signale_ctrl_c(int sig)
 {
 	//ici il faut clear tous ce qui a ete allouer
 	write(1,"\n", 1);
+	line = 0;
 	ft_putstr_fd(test, 1);
 	(void)sig;
 }
@@ -82,19 +84,20 @@ int	loop(t_global *g)
 {
 	char		*str;
 	
+	signal(SIGINT, &handle_signale_ctrl_c);
 	while (1)
 	{
 		str = get_prompt_str(g);
 		test = str;
-		signal(SIGINT, &handle_signale_ctrl_c);
 	//	signal(SIGQUIT, SIG_IGN);
-		g->line = readline(str);
-		g->lex = lexer(g->line, &g->alloc); // on creer notre liste de token
+		line = readline(str);
+		printf("---> %s\n", str);
+		g->lex = lexer(line, &g->alloc); // on creer notre liste de token
 		g->ast = parsing(g->lex, g); // on parse et converti en arbre
 		expander(g->ast, g); // on expand les *, $VAR et backslashs
 		execute(g); // on execute l'arbre
 		g->node_id = 0;
-		free(g->line);
+		free(line);
 	} // REPARER LEXER CONCATENER AVEC WILDCARD ET ENV : echo "tetou"*"$HOME""salam"
 	// REGARDER LE ECHO // //// //////.... REACTION BIZARRE A VOIR
 }
