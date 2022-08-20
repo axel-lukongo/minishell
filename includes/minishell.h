@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/15 16:04:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/19 14:46:53 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ typedef struct	s_lex
 	int			enved;
 }	t_lex;
 
+extern t_parsing *g_p;
+
 // -> LIST
 void	print_list(t_list *li);
 void	print_list_env(t_list *li);
@@ -180,21 +182,53 @@ int		count_tree_nodes(t_tree *tr);
 //
 // -> UTILS
 int		ft_cmptomax(char *s1, char *s2);
+void	copy_str(char dest[1024], char *src);
 //
 // // <====== MINISHELL ======>
 //
 // LEXER
 t_list	*lexer(char *buffer, t_alloc **alloc);
+void	add_to_list(int type, char *str, t_list **li, t_alloc **alloc);
+void	add_to_list_front(int type, char *str, t_list **li, t_alloc **alloc);
+void	concat_to_last(t_token	tok, t_list **lst,
+	t_alloc **alloc, int change_type);
+void	concat_to_last_no_space(t_token	tok, t_list **lst,
+	t_alloc **alloc, int change_type);
+int		ft_istoken(char c);
+int		ft_istoken_no_space(char c);
+int		ft_isspace(char c);
+int		get_btok(t_list *li, int pos);
+void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex);
+void	end_if_enved(t_alloc **alloc, t_lex *lex);
+void	end_other_option(t_alloc **alloc, t_lex *lex);
+void	end_add_last(t_alloc **alloc, t_lex *lex);
+int		add_not_quoted_2(char *b, t_alloc **alloc, t_lex *lex);
+void	add_simple_quote(char *buffer, t_alloc **alloc, t_lex *lex);
+void	add_parent(t_alloc **alloc, t_lex *lex, char *s, int type);
+int		add_wildcard(char *buffer, t_alloc **alloc, t_lex *lex);
+void	buffer_writing(char *buffer, t_alloc **alloc, t_lex *lex);
+void	add_redir(char *s, t_alloc **alloc, t_lex *lex, int type);
+void	add_binop(char *s, t_alloc **alloc, t_lex *lex, int type);
+void	write_char(char *buffer, t_alloc **alloc, t_lex *lex);
+void	first_wildcarded(char *buffer, t_alloc **alloc, t_lex *lex);
+void	add_type(int type, t_lex *lex, t_alloc **alloc);
+void	concat_other(char *buffer, t_alloc **alloc, t_lex *lex);
+void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex);
+void	add_double_quote(char *buffer, t_alloc **alloc, t_lex *lex);
 //
 // PARSER
 //
+t_tree	*parse_op(t_global *g);
 t_tree	*parse_redir(t_global *g);
 t_tree	*parse_word(t_global *g);
 t_tree	*parsing(t_list *tli, t_global *g);
+t_tree	*create_token_node(int type, t_global *g);
+t_tree	*left_brace(t_tree *tr, t_global *g);
+t_tree	*create_exp_token_node(int type, char *str, t_tree **a, t_global *g);
 //
 // ENV
 int		is_shell_char_var_allowed(char c);
-t_list	*init_env(char **env, t_alloc *alloc);
+t_list	*init_env(char **env, t_alloc *alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
 char	*get_value_by_name(t_list *env, char *name);
 void	change_value_by_name(t_global *g, char *name, char *value);
@@ -207,6 +241,10 @@ int		is_char(char *str, char c);
 int		when_is_char(char *str, char c);
 int		count_char(char *str, int ch);
 void	print_tree_command_line(t_tree	*tr);
+char	*backslash(char *str, t_global *g);
+char	*get_var_name(char *str, int i);
+void	double_dollar(char **result, t_global *g, t_vector2D *it, char *str);
+void	dollar_question(char **result, t_global *g, t_vector2D *it, char *str);
 //
 // EXEC
 void	pipex(int n, t_exec **cmd, t_list *env, t_global *g);
@@ -214,6 +252,8 @@ void	execute(t_global *g);
 int 	is_builtin(char *str);
 void    execute_builtin(t_global *g, char **cmd);
 char	*delete_quote(char *str, t_alloc **alloc);
+char	**convert_tree_to_cmd(t_tree	*tr, t_global *g);
+int		is_directory(char *str);
 
 //BUILTIN
 int		is_builtin(char *str);
@@ -221,8 +261,10 @@ void	my_cd(t_global *g, char **cmd);
 void	cd_dash_or_nothing(t_global *g, char **cmd);
 void	my_cd2(t_global *g);
 void	cd_error_msg(t_global *g, char **cmd);
-void	my_export(t_list *env);
-// void	my_export(t_global *g, char **cmd);
+t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size);
+int		cmp(void *content, void *content_ref);
+void	ft_list_sort(t_list **begin_list, int (*cmp)());
+void	my_export(t_global *g, char **cmd);
 int		count_char(char *str, int ch);
 char	*del_last_path(t_global *g, char *path);
 int		dir_change_stack(char *str);

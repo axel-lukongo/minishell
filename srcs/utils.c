@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:56:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/09 19:21:51 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:48:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int	ft_cmptomax(char *s1, char *s2)
 
 void	print_list(t_list *t_lst)
 {
+	t_token	*lol;
+
 	while (t_lst)
 	{
-		t_token *lol = (t_token *)t_lst->content;
+		lol = (t_token *)t_lst->content;
 		printf("[%d]", lol->type);
 		if (lol->str)
 			printf(" -> %s\n", lol->str);
@@ -42,11 +44,49 @@ void	print_list_env(t_list *li)
 {
 	t_env	*env;
 
-	//printf("---------ici---------\n");
 	while (li)
 	{
 		env = (t_env *)li->content;
 		printf("%s=%s\n", env->name, env->value);
 		li = li->next;
 	}
+}
+
+void	copy_str(char dest[1024], char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = 0;
+}
+
+t_list	*init_env(char **env, t_alloc *alloc, int i)
+{
+	char	**strs;
+	char	*str;
+	t_list	*new_node;
+	t_list	*list_env;
+	t_env	*node;
+
+	list_env = 0;
+	while (env[i])
+	{
+		str = ft_strdup(env[i], alloc);
+		if (!str)
+			return (0);
+		strs = ft_split(str, '=', alloc);
+		node = ft_malloc(sizeof(*node), &alloc);
+		*node = (t_env){strs[0], strs[1]};
+		new_node = ft_lstnew((void *){node}, alloc);
+		if (!new_node)
+			return (0);
+		ft_lstadd_back(&list_env, new_node);
+		i++;
+	}
+	return (list_env);
 }

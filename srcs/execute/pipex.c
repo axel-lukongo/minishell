@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/07/31 10:34:14 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/18 18:47:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ char	*delete_quote(char *str, t_alloc **alloc)
 		else if (str[i] == '\\')
 		{
 			if ((quote.x || quote.y) && str[i + 1] != '\\')
+			{
+				i += 1;
 				dest[j++] = str[i + 1];
+			}
 			else
 			{
 				dest[j++] = str[i + 1];

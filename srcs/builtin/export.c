@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/15 16:12:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/17 15:55:40 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	my_aff_export(t_list *env)
 
 void	my_export(t_global *g, char **cmd)
 {
-	char	**env;
-	t_env	*node;
+	// char	**env;
+	// t_env	*node;
 	if	(!cmd[1])
 	{
 		my_aff_export(g->env);

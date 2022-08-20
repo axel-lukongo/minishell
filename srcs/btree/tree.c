@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darian <darian@student.42.fr>              +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:54:32 by darian            #+#    #+#             */
-/*   Updated: 2022/06/29 15:09:21 by darian           ###   ########.fr       */
+/*   Updated: 2022/08/19 15:28:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	clean_tree_a(t_tree *tr)
 		return ;
 	clean_tree_a(tr->left);
 	clean_tree_a(tr->right);
-	// if (tr->value)
-	// 	free(tr->value);
-	printf("%s\n", tr->value);
 	tr->left = NULL;
 	tr->right = NULL;
 	tr->parent = NULL;
@@ -65,7 +62,6 @@ t_tree	*join_tree(t_tree *left, t_tree *right, t_token tok, t_global *g)
 		right->parent = tr;
 	return (tr);
 }
-
 
 void	print_tree_prefix(t_tree *tr, int *space)
 {

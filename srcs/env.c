@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/08/07 23:29:27 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:47:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/minishell.h"
-
-t_list *init_env(char **env, t_alloc *alloc)
-{
-	int i;
-	char **strs;
-	char *str;
-	t_list *new_node;
-	t_list *list_env;
-	t_env	*node;
-	
-	list_env = 0;
-	i = 0;
-	while (env[i])
-	{
-		str = ft_strdup(env[i], alloc);
-		if(!str)
-			return(0);
-		strs = ft_split(str, '=', alloc);
-		node = ft_malloc(sizeof(*node), &alloc);
-		*node = (t_env){strs[0], strs[1]};
-		new_node = ft_lstnew((void *){node}, alloc);
-		if (!new_node)
-			return (0);
-		ft_lstadd_back(&list_env, new_node);
-		i++;
-	}
-	// FOR TESTING EXPANDING
-	node = ft_malloc(sizeof(*node), &alloc);
-	*node = (t_env){"A", "ech"};
-	new_node = ft_lstnew((void *){node}, alloc);
-	ft_lstadd_back(&list_env, new_node);
-	node = ft_malloc(sizeof(*node), &alloc);
-	*node = (t_env){"B", "o"};
-	new_node = ft_lstnew((void *){node}, alloc);
-	ft_lstadd_back(&list_env, new_node);
-	// END TEST
-	// print_list_env(list_env);
-	return(list_env);
-}
-
 
 t_env	*get_node_by_name(t_list *env, char *name)
 {

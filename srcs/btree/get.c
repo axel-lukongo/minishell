@@ -6,27 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:10:01 by darian            #+#    #+#             */
-/*   Updated: 2022/07/31 10:31:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/19 15:23:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// t_tree	*get_first_exec_node(t_tree *tr)
-// {
-// 	if (!tr)
-// 		return (tr);
-// 	if (tr->left)
-// 		return (get_first_exec_node(tr->left));
-// 	if (tr->right)
-// 		return (get_first_exec_node(tr->right));
-// 	if (tr->parent)
-// 		return (tr->parent);
-// 	else
-// 		return (tr);
-// }
-
-// if tr.type == AND ou OR aller a gauche, si != AND ou OR return le sub_tree.
 
 t_tree	*get_first_exec_node(t_tree *tr)
 {
@@ -34,9 +18,11 @@ t_tree	*get_first_exec_node(t_tree *tr)
 		return (NULL);
 	while (1)
 	{
-		if (tr && (tr->type == AND || tr->type == OR) && tr->left && tr->left->type != RESULT)
+		if (tr && (tr->type == AND || tr->type == OR) && tr->left
+			&& tr->left->type != RESULT)
 			tr = tr->left;
-		else if (tr && (tr->type == AND || tr->type == OR) && tr->right && tr->right->type != RESULT)
+		else if (tr && (tr->type == AND || tr->type == OR)
+			&& tr->right && tr->right->type != RESULT)
 			tr = tr->right;
 		else
 			return (tr);
@@ -44,9 +30,8 @@ t_tree	*get_first_exec_node(t_tree *tr)
 	return (NULL);
 }
 
-void	delete_tree(t_tree* node, int id, t_tree **root)
+void	delete_tree(t_tree *node, int id, t_tree **root)
 {
-
 	if (node->id == id)
 	{
 		if (node->id == (*root)->id)
@@ -87,15 +72,17 @@ int	count_executable_nodes(t_tree	*tr)
 
 	if (!tr)
 		return (0);
-	if (tr->type == CMD || tr->type == WILDCARD || tr->type == ENV || tr->type == FILE || tr->type == WILDENV
-		|| tr->type == BACKSLASH || tr->type == BACKENV || tr->type == WILDBACK || tr->type == WILDENVBACK)
+	if (tr->type == CMD || tr->type == WILDCARD || tr->type == ENV
+		|| tr->type == FILE || tr->type == WILDENV || tr->type == BACKSLASH
+		|| tr->type == BACKENV || tr->type == WILDBACK
+		|| tr->type == WILDENVBACK)
 		count = 1;
-	else 
+	else
 		count = 0;
 	if (tr->left)
-   	 count += count_executable_nodes(tr->left);
+		count += count_executable_nodes(tr->left);
 	if (tr->right)
-  	  count += count_executable_nodes(tr->right);
+		count += count_executable_nodes(tr->right);
 	return (count);
 }
 
@@ -115,20 +102,27 @@ t_exec	**create_exec_tab(t_global *g, t_tree *tr)
 	t_exec	**exec;
 	t_tree	*sub;
 	int		i;
-	
-	exec = ft_malloc(sizeof(t_exec *) * (count_executable_nodes(tr) + 1), &g->alloc);
+
+	exec = ft_malloc(sizeof(t_exec *) * (count_executable_nodes(tr) + 1),
+			&g->alloc);
 	i = 0;
 	while (tr)
 	{
 		sub = get_last_node(tr);
 		if (!sub || !sub->value)
 			break ;
-		else if (sub->type != CMD && sub->type != ENV && sub->type != WILDCARD && sub->type != WILDENV && sub->type != BACKSLASH && sub->type != BACKENV && sub->type != WILDENVBACK && sub->type != WILDBACK && sub->type != FILE && count_tree_nodes(tr) == 1)
+		else if (sub->type != CMD && sub->type != ENV && sub->type != WILDCARD
+			&& sub->type != WILDENV && sub->type != BACKSLASH && sub->type
+			!= BACKENV && sub->type != WILDENVBACK && sub->type != WILDBACK
+			&& sub->type != FILE && count_tree_nodes(tr) == 1)
 		{
 			delete_tree(tr, sub->id, &tr);
 			break ;
 		}
-		else if (sub->type != CMD && sub->type != ENV && sub->type != WILDCARD && sub->type != WILDENV && sub->type != BACKSLASH && sub->type != BACKENV && sub->type != WILDENVBACK && sub->type != WILDBACK && sub->type != FILE && count_tree_nodes(tr) != 1)
+		else if (sub->type != CMD && sub->type != ENV && sub->type != WILDCARD
+			&& sub->type != WILDENV && sub->type != BACKSLASH && sub->type
+			!= BACKENV && sub->type != WILDENVBACK && sub->type != WILDBACK
+			&& sub->type != FILE && count_tree_nodes(tr) != 1)
 			delete_tree(tr, sub->id, &tr);
 		else
 		{

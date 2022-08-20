@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:47:05 by darian            #+#    #+#             */
-/*   Updated: 2022/07/19 14:27:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/19 15:08:40 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 		}
 		else if (src[i] == '\\')
 		{
-			if ((quote.x || quote.y) && src[i + 1] != '\\')
-				dest[j++] = src[i + 1];
+			if ((quote.y && src[i + 1] != '\\' && src[i + 1] != '"') || quote.x)
+				dest[j++] = src[i];
 			else
 			{
 				dest[j++] = src[i + 1];

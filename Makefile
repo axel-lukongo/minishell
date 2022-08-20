@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+         #
+#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/08/13 19:41:07 by alukongo         ###   ########.fr        #
+#    Updated: 2022/08/19 14:52:50 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,25 +20,37 @@ SRCS		= 	srcs/main.c \
 				srcs/env.c \
 				srcs/utils.c \
 				srcs/ustack.c \
-				srcs/builtin/cd.c\
-				srcs/builtin/builtin_utils.c\
-				srcs/builtin/echo.c\
+				srcs/ustack_2.c \
 \
 				srcs/execute/executor.c \
 				srcs/execute/pipex.c \
 				srcs/execute/exec_builtin.c \
+				srcs/execute/exec_utils.c \
 \
 				srcs/lexer/lexer.c \
+				srcs/lexer/lexer_2.c \
+				srcs/lexer/lexer_3.c \
+				srcs/lexer/lexer_4.c \
+				srcs/lexer/lexer_5.c \
+				srcs/lexer/lexer_utils_1.c \
+				srcs/lexer/lexer_utils_2.c \
 \
 				srcs/btree/print_tree.c \
 				srcs/btree/tree.c \
 				srcs/btree/get.c \
 \
 				srcs/parsing/parser.c \
+				srcs/parsing/parser_utils.c \
 \
 				srcs/expander/env.c \
+				srcs/expander/env_2.c \
 				srcs/expander/match.c \
+				srcs/expander/back.c \
+\
 				srcs/builtin/export.c \
+				srcs/builtin/cd.c\
+				srcs/builtin/builtin_utils.c\
+				srcs/builtin/echo.c\
 \
 
 
@@ -48,7 +60,7 @@ OBJS		= $(SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
-TFLAGS		= -I -L -Lincludes -lreadline libft/libft.a
+TFLAGS		= -I -L -Lincludes -lreadline libft/libft.a 
 
 $(OBJS_DIR)%.o : %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)
