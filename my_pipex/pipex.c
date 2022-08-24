@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:50:49 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 15:12:27 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:01:37 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ void	close_pipes(t_ppxb *pipex)
 		i++;
 	}
 }
+
+/**
+ * @brief etape1: recuperer les fd du premier et dernier fichier
+ * etape2: recuperer le nombre de pipe necessaire aisi que le nb de commande
+ * etape3: recuperer le path dans l'env et le split
+ * etape4: crée les pipe
+ * etape5: cree les divers process et executer les cmd
+ * etape6: fermer les pipe et attendre le process parent
+ * 
+ * @param argc 
+ * @param argv 
+ * @param envp 
+ * @return int 
+ */
 
 int	main(int argc, char **argv, char *envp[])
 {
