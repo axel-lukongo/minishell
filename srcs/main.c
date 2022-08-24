@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/19 14:46:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/22 17:11:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,28 @@ char	*get_prompt_str(t_global *g)
 void	handle_signale_ctrl_c(int sig)
 {
 	write(STDERR_FILENO, "\n", 1);
-	// rl_replace_line("", 0); pour remettre une nouvelle ligne direct apres
-	// le signal.
-	// rl_on_new_line();
-	// rl_redisplay();
+	rl_replace_line("", 0); 
+	rl_on_new_line();
+	rl_redisplay();
 	(void)sig;
+}
+
+void	exec_line(t_global *g)
+{
+	char	**cmds;
+	int		i;
+
+	i = 0;
+	cmds = ft_split(g->line, ';', g->alloc);
+	while (cmds[i])
+	{
+		g->lex = lexer(cmds[i], &g->alloc);
+		g->ast = parsing(g->lex, g);
+		expander(g->ast, g);
+		execute(g);
+		g->node_id = 0;
+		i++;
+	}
 }
 
 int	loop(t_global *g)
@@ -74,14 +91,11 @@ int	loop(t_global *g)
 		signal(SIGINT, &handle_signale_ctrl_c);
 		str = get_prompt_str(g);
 		g->line = readline(str);
-		g->lex = lexer(g->line, &g->alloc);
-		g->ast = parsing(g->lex, g);
-		expander(g->ast, g);
-		execute(g);
-		g->node_id = 0;
+		if (!g->line)
+			return (0);
+		exec_line(g);
 		free(g->line);
 	}
-	// REGARDER LE ECHO // //// //////.... REACTION BIZARRE A VOIR
 }
 
 int	main(int argc, char **argv, char **env)
@@ -100,6 +114,7 @@ int	main(int argc, char **argv, char **env)
 	g.char_env = env;
 	g.node_id = 0;
 	g.writed = 0;
+	g.export = init_env(env, g.alloc, 0);
 	g.dir_stack = init_ustack(99, &g);
 	push_ustack(g.dir_stack, get_value_by_name(g.env, "PWD"));
 	loop(&g);

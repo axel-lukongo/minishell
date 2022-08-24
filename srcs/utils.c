@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:56:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/19 14:48:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/22 16:16:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	print_list(t_list *t_lst)
 		if (lol->str)
 			printf(" -> %s\n", lol->str);
 		t_lst = t_lst->next;
+	}
+}
+
+void	print_list_export(t_list *li)
+{
+	t_env	*env;
+
+	while (li)
+	{
+		env = (t_env *)li->content;
+		if (env->value)
+			printf("export %s=\"%s\"\n", env->name, env->value);
+		else
+			printf("export %s\n", env->name);
+		li = li->next;
 	}
 }
 

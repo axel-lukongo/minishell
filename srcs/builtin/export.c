@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/17 15:55:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/22 17:13:31 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,81 @@ void	my_aff_export(t_list *env)
 	cpy_env = NULL;
 	cpy_env = ft_cpy_env(cpy_env, env, size);
 	ft_list_sort(&cpy_env, cmp);
-	print_list_env(cpy_env);
+	print_list_export(cpy_env);
 	//ft_env(cpy_env);
+}
+
+int	is_valid_identifier(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strlen(str) == 0)
+		return (0);
+	if (str[0] >= '0' && str[0] <= '9')
+		return (0);
+	while (str[i])
+	{
+		if ((str[i] < 'A' || str[i] > 'Z') && (str[i] < 'a' || str[i] > 'z')
+			&& (str[i] < '0' || str[i] > '9') && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	my_export(t_global *g, char **cmd)
 {
-	// char	**env;
-	// t_env	*node;
-	if	(!cmd[1])
+	t_env	*node;
+	char	**split;
+	int		i;
+
+	i = 1;
+	if	(!cmd[1] || (cmd[1][0] == '-' && cmd[1][1] == '-' && !cmd[1][2]))
 	{
-		my_aff_export(g->env);
+		my_aff_export(g->export);
 		g->last_return = 0;
-		return ;
 	}
-	else
+	while (cmd[i])
 	{
-		printf("Ca marchera\n");
-		// if (!count_char(cmd[1], '=') || cmd[1][0] == '=')
-		// 	return ;
-		// env = ft_split(cmd[1], '=', g->alloc);
-		// node = ft_malloc(sizeof(*node), &g->alloc);
-		// if (!env[1])
-		// 	*node = (t_env){env[0], ""};
-		// else
-		// 	*node = (t_env){env[0], env[1]};
-		// if (is_var_env_exist(g->env, env[0]))
-		// 	change_value_by_name(g, env[0], node->value);
-		// else
-		// 	ft_lstadd_back(&g->env, ft_lstnew((void *){node}, g->alloc));
+		split = ft_split(cmd[i], '=', g->alloc);
+		// else // invalid identifier : "", =, %, nb (au debut), ?, @, ~, \\, {, }, [, ], *,  #, !, + // export # affiche expodt
+		// {// "..." += "....". Add to the end
+			if (cmd[i][0] == '=')
+			{
+				printf("bash: export: `%s': not a valid identifier\n", cmd[i]);
+				g->last_return = 1;
+			}
+			else if (split[0][0] == '-')
+			{
+				printf("bash: export: %c%c: invalid option\n", split[0][0]
+					, split[0][1]);
+			}
+			else if (!split[1] && is_valid_identifier(split[0]))
+			{
+				node = ft_malloc(sizeof(*node), &g->alloc);
+				node->name = split[0];
+				node->value = NULL;
+				if (!is_var_env_exist(g->export, split[0]))
+					ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
+				g->last_return = 0;
+			}
+			else if (split[1] && is_valid_identifier(split[0]))
+			{
+				node = ft_malloc(sizeof(*node), &g->alloc);
+				node->name = split[0];
+				node->value = split[1];
+				change_value_or_add_it(g, &g->export, split[0], split[1]);
+				change_value_or_add_it(g, &g->env, split[0], split[1]);
+				g->last_return = 0;
+			}
+			else 
+			{
+				printf("bash: export: `%s': not a valid identifier\n", cmd[i]);
+				g->last_return = 1;
+			}
+		// }
+		i++;
 	}
 }
 

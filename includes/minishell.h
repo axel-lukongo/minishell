@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/19 14:46:53 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/22 16:50:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct	s_global
 	char		**char_env;
 	t_ustack	*dir_stack;
 	int			writed;
+	t_list		*export;
 }	t_global;
 
 typedef struct	s_lex
@@ -171,6 +172,7 @@ extern t_parsing *g_p;
 // -> LIST
 void	print_list(t_list *li);
 void	print_list_env(t_list *li);
+void	print_list_export(t_list *li);
 void	destroy_env_var(t_global *g, char *name);
 //
 // TREE
@@ -232,6 +234,8 @@ t_list	*init_env(char **env, t_alloc *alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
 char	*get_value_by_name(t_list *env, char *name);
 void	change_value_by_name(t_global *g, char *name, char *value);
+void	change_value_or_add_it(t_global *g, t_list **env, char *name
+	, char *value);
 int		is_var_env_exist(t_list	*env, char *name);
 //
 // EXPANDER

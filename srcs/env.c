@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/08/19 14:47:38 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/22 16:52:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,30 @@ void	change_value_by_name(t_global *g, char *name, char *value)
 			node->value = value;
 		env = env->next;
 	}
+}
+
+void	change_value_or_add_it(t_global *g, t_list **env, char *name
+	, char *value)
+{
+	t_env	*node;
+	t_list	*buf;
+	t_env	*new;
+
+	buf = *env;
+	while (buf)
+	{
+		node = (t_env *)buf->content;
+		if (ft_strncmp(name, node->name, 32767) == 0)
+		{
+			node->value = value;
+			return ;
+		}
+		buf = buf->next;
+	}
+	new = ft_malloc(sizeof(*new), &g->alloc);
+	new->name = name;
+	new->value = value;
+	ft_lstadd_back(env, ft_lstnew((void *)new, g->alloc));
 }
 
 void	destroy_env_var(t_global *g, char *name)
