@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/22 17:13:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 18:23:23 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	my_export(t_global *g, char **cmd)
 	}
 	while (cmd[i])
 	{
-		split = ft_split(cmd[i], '=', g->alloc);
+		split = ft_split_export(cmd[i], '=', g->alloc);
 		// else // invalid identifier : "", =, %, nb (au debut), ?, @, ~, \\, {, }, [, ], *,  #, !, + // export # affiche expodt
 		// {// "..." += "....". Add to the end
 			if (cmd[i][0] == '=')
