@@ -1,0 +1,21 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/axellukongo/projet42/my_pipex'
+cc -g -Wall -Werror -Wextra -c pipex.c -o pipex.o
+cc -g -Wall -Werror -Wextra -c child.c -o child.o
+ 
+cc -g -Wall -Werror -Wextra -c error.c -o error.o
+cc -g -Wall -Werror -Wextra -c files.c -o files.o
+cc -g -Wall -Werror -Wextra -c free.c -o free.o
+ 
+cc -g -Wall -Werror -Wextra -c here_doc.c -o here_doc.o
+ 
+cc -g -Wall -Werror -Wextra -c gnl/get_next_line.c -o gnl/get_next_line.o
+cc -g -Wall -Werror -Wextra -c gnl/get_next_line_utils.c -o gnl/get_next_line_utils.o
+cc -g -Wall -Werror -Wextra -c functions/ft_split.c -o functions/ft_split.o
+cc -g -Wall -Werror -Wextra -c functions/ft_strdup.c -o functions/ft_strdup.o
+cc -g -Wall -Werror -Wextra -c functions/ft_strjoin.c -o functions/ft_strjoin.o
+cc -g -Wall -Werror -Wextra -c functions/ft_strncmp.c -o functions/ft_strncmp.o
+cc -g -Wall -Werror -Wextra pipex.c child.c error.c files.c free.c here_doc.c gnl/get_next_line.c gnl/get_next_line_utils.c functions/ft_split.c functions/ft_strdup.c functions/ft_strjoin.c functions/ft_strncmp.c  -o minishell
+echo -e "\033[1;32mminishell created!\033[0m"
+make: Leaving directory `/Users/axellukongo/projet42/my_pipex'
+ 
