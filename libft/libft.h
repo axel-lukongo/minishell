@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/08/10 21:54:00 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/24 17:51:28 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *),
 int		ft_strcmp(char const *s1, char const *s2);
 int		is_backed(char *str, int i);
 int 	ft_strisdigit(char *str);
-uint64_t ft_atoi_u64(char *nptr);
+u_int64_t ft_atoi_u64(char *nptr);
 
 #endif
