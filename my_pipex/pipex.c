@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:50:49 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 13:59:57 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:12:27 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	close_pipes(t_ppxb *pipex)
 	}
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char *envp[])
 {
 	t_ppxb	pipex;
 
