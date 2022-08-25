@@ -6,11 +6,19 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:57 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 14:29:12 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:08:52 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
+
+/**
+ * @brief ici je verifie si je dois faire un here_doc
+ * 
+ * @param arg 
+ * @param pipex 
+ * @return int 
+ */
 
 int	args_in(char *arg, t_ppxb *pipex)
 {

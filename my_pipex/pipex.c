@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:50:49 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 19:01:37 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:13:50 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	creat_pipes(t_ppxb *pipex)
 	while (i < pipex->nbr_cmd - 1)
 	{
 		if (pipe(pipex->pipe + 2 * i) < 0)
-			parent_free(pipex);
+			free_parent(pipex);
 		i++;
 	}
 }
@@ -67,13 +67,13 @@ int	main(int argc, char **argv, char *envp[])
 	pipex.my_env_path = find_path_in_env(envp);
 	pipex.cmd_paths = ft_split(pipex.my_env_path, ':');
 	if (!pipex.cmd_paths)
-		pipe_free(&pipex);
+		free_pipe(&pipex);
 	creat_pipes(&pipex);
 	pipex.idx = -1;
 	while (++(pipex.idx) < pipex.nbr_cmd)
 		child(pipex, argv, envp);
 	close_pipes(&pipex);
 	waitpid(-1, NULL, 0);
-	parent_free(&pipex);
+	free_parent(&pipex);
 	return (0);
 }

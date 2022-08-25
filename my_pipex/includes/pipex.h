@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:41:13 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 14:24:51 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:13:50 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	close_pipes(t_ppxb *pipex);
 
 void	child(t_ppxb pipex, char **argv, char **envp);
 /* free.c */
-void	parent_free(t_ppxb *pipex);
-void	child_free(t_ppxb *pipex);
-void	pipe_free(t_ppxb *pipex);
+void	free_parent(t_ppxb *pipex);
+void	free_child(t_ppxb *pipex);
+void	free_pipe(t_ppxb *pipex);
 
 /* files.c */
 char	*find_path_in_env(char **envp);

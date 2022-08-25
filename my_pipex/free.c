@@ -6,12 +6,12 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:52 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 13:44:48 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:13:50 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
-void	parent_free(t_ppxb *pipex)
+void	free_parent(t_ppxb *pipex)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ void	parent_free(t_ppxb *pipex)
 	free(pipex->pipe);
 }
 
-void	child_free(t_ppxb *pipex)
+void	free_child(t_ppxb *pipex)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ void	child_free(t_ppxb *pipex)
 	free(pipex->cmd);
 }
 
-void	pipe_free(t_ppxb *pipex)
+void	free_pipe(t_ppxb *pipex)
 {
 	close(pipex->infile);
 	close(pipex->outfile);

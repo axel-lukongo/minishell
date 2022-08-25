@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:32 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 14:41:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/25 10:12:27 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	child(t_ppxb p, char **argv, char **envp)
 		if (!p.cmd)
 		{
 			msg_pipe(p.cmd_args[0]);
-			child_free(&p);
+			free_child(&p);
 			exit(1);
 		}
 		execve(p.cmd, p.cmd_args, envp);
