@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/08/22 16:52:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 15:54:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void	change_value_or_add_it(t_global *g, t_list **env, char *name
 	ft_lstadd_back(env, ft_lstnew((void *)new, g->alloc));
 }
 
-void	destroy_env_var(t_global *g, char *name)
+void	destroy_env_var(t_list	**lst, char *name)
 {
 	t_env	*node;
 	t_list	*li;
 	t_list	*prev;
 
-	li = g->env;
+	li = *lst;
 	prev = NULL;
 	while (li)
 	{
@@ -107,7 +107,7 @@ void	destroy_env_var(t_global *g, char *name)
 		if (!ft_strcmp(node->name, name))
 		{
 			if (prev == NULL)
-				g->env = li;
+				*lst = li;
 			else
 				prev->next = li->next;
 		}

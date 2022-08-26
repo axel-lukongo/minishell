@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/22 16:50:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 15:54:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct	s_lex
 	int			backed;
 	int			wildcarded;
 	int			enved;
+	int			space;
 }	t_lex;
 
 extern t_parsing *g_p;
@@ -173,7 +174,7 @@ extern t_parsing *g_p;
 void	print_list(t_list *li);
 void	print_list_env(t_list *li);
 void	print_list_export(t_list *li);
-void	destroy_env_var(t_global *g, char *name);
+void	destroy_env_var(t_list	**lst, char *name);
 //
 // TREE
 t_tree	*new_tree(t_token tok, t_global *g);
@@ -269,6 +270,7 @@ t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size);
 int		cmp(void *content, void *content_ref);
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
 void	my_export(t_global *g, char **cmd);
+void	my_unset(t_global *g, char **cmd);
 int		count_char(char *str, int ch);
 char	*del_last_path(t_global *g, char *path);
 int		dir_change_stack(char *str);

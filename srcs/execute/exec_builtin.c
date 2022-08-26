@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/17 15:55:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 16:02:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,17 +152,6 @@ void	my_env(t_global *g, char **cmd)
 		}
 }
 
-void	my_unset(t_global *g, char **cmd)
-{
-	if	(!cmd[1])
-	{
-		write(2, "unset: not enough arguments\n", 28);
-		return ;
-	}
-	destroy_env_var(g, cmd[1]);
-	g->last_return = 0;
-}
-
 void ft_cd(t_global *g, char **cmd)
 {
 	if (!get_node_by_name(g->env, "PWD"))
@@ -198,7 +187,7 @@ void	execute_builtin(t_global *g, char **cmd)
 		if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
 			printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
 		else
-			printf("%s\n", get_value_by_name(g->env, "PWD"));
+			printf("%s\n", getcwd(NULL, 0));
 	}
 	else if (!ft_strcmp(cmd[0], "echo"))
 	{

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/17 16:06:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 14:09:18 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex)
 			add_type(CMD, lex, alloc);
 		else
 			concat_other(buffer, alloc, lex);
+		if (buffer[lex->i] != ' ')
+			lex->space = 0;
+		else
+			lex->space = 1;
 		lex->c = 0;
 		lex->start = 1;
 	}

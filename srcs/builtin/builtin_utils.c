@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 20:07:36 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/13 19:56:30 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:06:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	dir_change_stack(char *str)
 	int	i;
 
 	i = 1;
+	if (!str)
+		return (0);
 	if (str[0] != '-')
 		return (0);
 	if (str[0] == '-')

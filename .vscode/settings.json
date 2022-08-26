@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "minishell.h": "c",
+        "lexer_3.C": "cpp",
+        "readline.h": "c",
+        "__config": "c",
+        "stdlib.h": "c"
+    }
+}

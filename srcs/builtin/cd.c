@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:41:14 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/11 20:04:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:03:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 void	cd_error_msg(t_global *g, char **cmd)
 {
-	write(2, "cd: no such file or directory: ", 31);
-	write(2, cmd[1], ft_strlen(cmd[1]));
-	write(2, "\n", 1);
-	g->last_return = 1;
+	if (!is_directory(cmd[1]))
+	{
+		printf("cd: %s: Not a directory\n", cmd[1]);
+		g->last_return = 1;
+	}
+	else
+	{
+		write(2, "cd: no such file or directory: ", 31);
+		write(2, cmd[1], ft_strlen(cmd[1]));
+		write(2, "\n", 1);
+		g->last_return = 1;
+	}
 }
 
 void	my_cd2(t_global *g)

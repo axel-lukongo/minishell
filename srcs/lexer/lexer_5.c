@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/17 16:11:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 14:09:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 
 void	end_if_enved(t_alloc **alloc, t_lex *lex)
 {
+	printf("la\n");
 	if (get_btok(lex->t_lst, lex->k) == WILDCARD && !lex->backed)
 		concat_to_last_no_space((t_token){WILDENV,
 			lex->buf}, &lex->t_lst, alloc, 1);
@@ -58,8 +59,14 @@ void	end_if_enved(t_alloc **alloc, t_lex *lex)
 		concat_to_last_no_space((t_token){BACKENV,
 			lex->buf}, &lex->t_lst, alloc, 1);
 	else
-		concat_to_last_no_space((t_token){ENV,
-			lex->buf}, &lex->t_lst, alloc, 1);
+	{
+		if (lex->space)
+			concat_to_last((t_token){ENV,
+				lex->buf}, &lex->t_lst, alloc, 1);
+		else
+			concat_to_last_no_space((t_token){ENV,
+				lex->buf}, &lex->t_lst, alloc, 1);
+	}
 }
 
 void	end_other_option(t_alloc **alloc, t_lex *lex)

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:42:28 by darian            #+#    #+#             */
-/*   Updated: 2022/08/18 18:25:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 13:57:23 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	dollar_var(char *str, t_vector2D *it, t_global *g, char **result)
 
 void	loop_env(char *str, t_vector2D *it, char **result, t_global *g)
 {
-	t_vector2D	quoted;
-
-	quoted = (t_vector2D){0, 0};
+	static t_vector2D	quoted = (t_vector2D){0, 0}; // si pas autorisé trouver autre soluce 
+	printf("%c\n", str[it->y]);
+	// quoted = (t_vector2D){0, 0};
 	if (str[it->y] == '"' && !quoted.x)
 		quoted.y = (quoted.y + 1) % 2;
 	if (str[it->y] == '\'' && !quoted.y)
@@ -78,7 +78,10 @@ void	loop_env(char *str, t_vector2D *it, char **result, t_global *g)
 		dollar_question(result, g, it, str);
 	else if (str[it->y] == '$' && is_shell_char_var_allowed(str[it->y + 1])
 		&& !quoted.x)
+		{
+			printf("s %d, d %d, lul\n", quoted.x, quoted.y);
 		dollar_var(str, it, g, result);
+		}
 	else
 	{
 		if (!(str[it->y] == '$' && str[it->y + 1] == '"' && !quoted.y)
