@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 15:55:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 18:56:29 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,43 @@ int	is_valid_identifier(char *str)
 	return (1);
 }
 
-char	*del_start_end_char(char *str, char c, t_alloc **alloc)
+void	my_export(t_global *g, char **cmd)
 {
-	int		i;
-	int		n;
-	int		pos;
-	char	*new;
-
-	i = 0;
-	n = 0;
-	while (str[n] == c)
-		n++;
-	i = ft_strlen(str) - 1;
-	while (str[i] == c)
+	t_env	*node;
+	
+	if (split[0][0] == '-')
 	{
-		i--;
-		n++;
+		printf("bash: export: %c%c: invalid option\n", split[0][0]
+			, split[0][1]);
 	}
-	pos = i;
-	new = ft_malloc((sizeof(char) * ft_strlen(str) - n + 1), alloc);
-	n = 0;
-	i = 0;
-	while (str[n] == c)
-		n++;
-	while (n <= pos)
-		new[i++] = str[n++];
-	new[i] = 0;
-	return (new);
+	else if (!split[1] && is_valid_identifier(split[0]))
+	{
+		node = ft_malloc(sizeof(*node), &g->alloc);
+		node->name = split[0];
+		node->value = NULL;
+		if (!is_var_env_exist(g->export, split[0]))
+			ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
+		g->last_return = 0;
+	}
+	else if (split[1] && is_valid_identifier(split[0]))
+	{
+		node = ft_malloc(sizeof(*node), &g->alloc);
+		node->name = split[0];
+		node->value = split[1];
+		change_value_or_add_it(g, &g->export, split[0], split[1]);
+		change_value_or_add_it(g, &g->env, split[0], split[1]);
+		g->last_return = 0;
+	}
+}
+
+void print_err(t_global *g, char **s, int i)
+{
+	printf("bash: export: `%s': not a valid identifier\n", s[i]);
+	g->last_return = 1;
 }
 
 void	my_export(t_global *g, char **cmd)
 {
-	t_env	*node;
 	char	**split;
 	int		i;
 

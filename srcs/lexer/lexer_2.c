@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/24 14:09:18 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/24 17:50:35 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	write_char(char *buffer, t_alloc **alloc, t_lex *lex)
 {
 	if ((buffer[lex->i] != '"' || lex->q.x != 1) && (buffer[lex->i] != '\''
-			|| lex->q.y != 1) && buffer[lex->i] >= 0)
+			|| lex->q.y != 1) && buffer[lex->i])
 	{
 		lex->buf[lex->c++] = buffer[lex->i];
 		if (lex->c >= lex->buf_size)
