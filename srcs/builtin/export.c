@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 18:56:29 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:00:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,33 @@ int	is_valid_identifier(char *str)
 	return (1);
 }
 
-void	my_export(t_global *g, char **cmd)
+char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 {
-	t_env	*node;
-	
-	if (split[0][0] == '-')
+	int		i;
+	int		n;
+	int		pos;
+	char	*new;
+
+	i = 0;
+	n = 0;
+	while (str[n] == c)
+		n++;
+	i = ft_strlen(str) - 1;
+	while (str[i] == c)
 	{
-		printf("bash: export: %c%c: invalid option\n", split[0][0]
-			, split[0][1]);
+		i--;
+		n++;
 	}
-	else if (!split[1] && is_valid_identifier(split[0]))
-	{
-		node = ft_malloc(sizeof(*node), &g->alloc);
-		node->name = split[0];
-		node->value = NULL;
-		if (!is_var_env_exist(g->export, split[0]))
-			ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
-		g->last_return = 0;
-	}
-	else if (split[1] && is_valid_identifier(split[0]))
-	{
-		node = ft_malloc(sizeof(*node), &g->alloc);
-		node->name = split[0];
-		node->value = split[1];
-		change_value_or_add_it(g, &g->export, split[0], split[1]);
-		change_value_or_add_it(g, &g->env, split[0], split[1]);
-		g->last_return = 0;
-	}
+	pos = i;
+	new = ft_malloc((sizeof(char) * ft_strlen(str) - n + 1), alloc);
+	n = 0;
+	i = 0;
+	while (str[n] == c)
+		n++;
+	while (n <= pos)
+		new[i++] = str[n++];
+	new[i] = 0;
+	return (new);
 }
 
 void print_err(t_global *g, char **s, int i)
@@ -78,56 +78,106 @@ void print_err(t_global *g, char **s, int i)
 	g->last_return = 1;
 }
 
-void	my_export(t_global *g, char **cmd)
+char    **split_two(char **new, char *str, char c, t_alloc **alloc)
+{
+        int     i;
+        int     j;
+
+        i = 0;
+        j = 0;
+        while (str[i] != c && str[i])
+                i++;
+        new = ft_malloc(sizeof(char *) * 3, alloc);
+        new[0] = ft_malloc(sizeof(char) * (i + 1), alloc);
+        new[1] = ft_malloc(sizeof(char) * (ft_strlen(str) - i + 1), alloc);
+        i = 0;
+        while (str[i] != c && str[i])
+            new[0][j++] = str[i++];
+		new[0][j] = 0;
+        j = 0;
+		i++;
+        while (str[i])
+            new[1][j++] = str[i++];
+		new[1][j] = 0;
+        new[2] = NULL;
+        return (new);
+}
+
+char    **ft_split_first(char *str, char c, t_alloc **alloc)
+{
+        char    **new;
+        int             i;
+
+        i= 0;
+        new = NULL;
+        while (str[i] != c && str[i])
+                i++;
+        if (!str[i])
+        {
+                new = ft_malloc(sizeof(char *) * 2, alloc);
+                new[0] = ft_strdup(str, *alloc);
+                new[1] = NULL;
+                return (new);
+        }
+        else
+                return(split_two(new, str, c, alloc));
+}
+
+void	add_value_export(char **split, t_global *g)
+{
+	t_env	*node;
+
+	node = ft_malloc(sizeof(*node), &g->alloc);
+	node->name = split[0];
+	node->value = NULL;
+	if (!is_var_env_exist(g->export, split[0]))
+		ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
+	g->last_return = 0;
+}
+
+void	add_value_env(char **split, t_global *g)
+{
+	t_env	*node;
+
+	node = ft_malloc(sizeof(*node), &g->alloc);
+	node->name = split[0];
+	node->value = del_start_end_char(split[1], ' ', &g->alloc);
+	change_value_or_add_it(g, &g->export, split[0], node->value);
+	change_value_or_add_it(g, &g->env, split[0], node->value);
+	g->last_return = 0;
+}
+
+void	export_utils(int i, char **cmd, t_global *g)
 {
 	char	**split;
+
+	split = ft_split_first(cmd[i], '=', &g->alloc);
+	if (split[0] && split[0][0] == '-')
+	{
+		printf("bash: export: %c%c: invalid option\n", split[0][0]
+			, split[0][1]);
+		g->last_return = 2;
+	}
+	else if (split[0] && !split[1] && is_valid_identifier(split[0]))
+		add_value_export(split, g);
+	else if (split[0] && split[1] && is_valid_identifier(split[0]))
+		add_value_env(split, g);
+	else 
+		print_err(g, cmd, i);
+}
+
+void	my_export(t_global *g, char **cmd)
+{
 	int		i;
 
 	i = 1;
-	if	(!cmd[1] || (cmd[1][0] == '-' && cmd[1][1] == '-' && !cmd[1][2]))
+	if	(!cmd[1])
 	{
 		my_aff_export(g->export);
 		g->last_return = 0;
 	}
 	while (cmd[i])
-	{
-		split = ft_split(cmd[i], '=', g->alloc);
-			if (cmd[i][0] == '=')
-			{
-				printf("bash: export: `%s': not a valid identifier\n", cmd[i]);
-				g->last_return = 1;
-			}
-			else if (split[0] && split[0][0] == '-')
-			{
-				printf("bash: export: %c%c: invalid option\n", split[0][0]
-					, split[0][1]);
-				g->last_return = 2;
-			}
-			else if (split[0] && !split[1] && is_valid_identifier(split[0]))
-			{
-				node = ft_malloc(sizeof(*node), &g->alloc);
-				node->name = split[0];
-				node->value = NULL;
-				if (!is_var_env_exist(g->export, split[0]))
-					ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
-				g->last_return = 0;
-			}
-			else if (split[0] && split[1] && is_valid_identifier(split[0]))
-			{
-				node = ft_malloc(sizeof(*node), &g->alloc);
-				node->name = split[0];
-				node->value = del_start_end_char(split[1], ' ', &g->alloc);
-				change_value_or_add_it(g, &g->export, split[0], node->value);
-				change_value_or_add_it(g, &g->env, split[0], node->value);
-				g->last_return = 0;
-			}
-			else 
-			{
-				printf("bash: export: `%s': not a valid identifier\n", cmd[i]);
-				g->last_return = 1;
-			}
-		i++;
-	}
+		export_utils(i++, cmd, g);
 }
 
 void	my_unset(t_global *g, char **cmd)
@@ -236,15 +286,9 @@ void	ft_env(t_list *env)
 	size = ft_lstsize(env);
 	while (size)
 	{
-		printf("%s", (char *)env->content);
-		//ft_putstr_fd((char *)env->content, 1);
-	//	ft_putstr_fd(" = ", 1);
-	//	ft_putstr_fd(env->result, 1);
 		ft_putchar_fd('\n', 1);
 		size--;
 		if (size > 0)
 			env = env->next;
 	}
 }
-
-
