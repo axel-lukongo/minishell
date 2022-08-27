@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/24 15:54:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/26 18:51:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <dirent.h>
-#include <stdint.h>
-#include <errno.h>
+# include <stdint.h>
+# include <errno.h>
 
 # include "ansi.h"
+# include "pipex.h"
+# include "get_next_line.h"
 # include "../libft/libft.h"
 
 // < > << >> | || && ARG CMD FILE ' " \ ENV 
@@ -166,6 +168,7 @@ typedef struct	s_lex
 	int			wildcarded;
 	int			enved;
 	int			space;
+	int			error;
 }	t_lex;
 
 extern t_parsing *g_p;
@@ -298,4 +301,59 @@ t_exec_con	*get_exec_container(t_global *g, t_tree *tr);
 void	delete_tree(t_tree* node, int id, t_tree **root);
 t_tree	*get_first_exec_node(t_tree *tr);
 int		count_executable_nodes(t_tree	*tr);
+
+
+# define ERR_INFILE "Infile"
+# define ERR_OUTFILE "Outfile"
+# define ERR_INPUT "Invalid number of arguments.\n"
+# define ERR_PIPE "Pipe"
+# define ERR_ENVP "Environment"
+# define ERR_CMD "Command not found: "
+# define ERR_HEREDOC "here_doc"
+
+typedef struct s_ppxb
+{
+	int		infile;
+	int		outfile;
+	char	*my_env_path;
+	char	**cmd_paths;
+	char	*cmd;
+	char	**cmd_args;
+	int		here_doc;
+	pid_t	pid;
+	int		nbr_cmd;
+	int		nbr_pipe;
+	int		*pipe;
+	int		idx;
+	int		*redir_type;
+	char	**cmds;
+	t_exec	**exec;
+}t_ppxb;
+
+/* pipex.c */
+void	close_pipes(t_ppxb *pipex);
+
+void	child(t_ppxb p, t_global *g);
+/* free.c */
+void	free_parent(t_ppxb *pipex);
+void	free_child(t_ppxb *pipex);
+void	free_pipe(t_ppxb *pipex);
+
+/* files.c */
+char	*find_path_in_env(char **envp);
+void	init_infile(char **argv, t_ppxb *pipex);
+void	init_outfile(char *argv, t_ppxb *pipex);
+
+/* here_doc.c */
+int		args_in(char *arg, t_ppxb *pipex);
+void	here_doc(char *argv, t_ppxb *pipex);
+
+/* error.c */
+void	msg_error(char *err);
+void	msg_pipe(char *arg);
+int		msg(char *err);
+
+
+int	ft_pipex(int argc, t_exec **cmd, t_global *g);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:53 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/17 16:07:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/26 12:13:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,27 @@ void	buffer_writing(char *buffer, t_alloc **alloc, t_lex *lex)
 
 void	add_redir(char *s, t_alloc **alloc, t_lex *lex, int type)
 {
+	printf("%d\n", get_btok(lex->t_lst, lex->k));
+	if (get_btok(lex->t_lst, lex->k) == DGREAT) // A CORRIGER
+	{
+		printf("bash: syntax error near unexpected token `>>'\n");
+		lex->error = 1;
+	}
+	if (get_btok(lex->t_lst, lex->k) == DLESS)
+	{
+		printf("bash: syntax error near unexpected token `<<'\n");
+		lex->error = 1;
+	}
+	if (get_btok(lex->t_lst, lex->k) == LESS)
+	{
+		printf("bash: syntax error near unexpected token `<'\n");
+		lex->error = 1;
+	}
+	if (get_btok(lex->t_lst, lex->k) == GREAT)
+	{
+		printf("bash: syntax error near unexpected token `>'\n");
+		lex->error = 1;
+	}
 	add_to_list(type, s, &lex->t_lst, alloc);
 	lex->k++;
 	lex->c = 0;

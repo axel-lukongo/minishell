@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:24:47 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/24 14:07:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/26 12:10:18 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	lexing(char *buffer, t_alloc **alloc, t_lex *lex)
 			if (!add_wildcard(buffer, alloc, lex))
 				return (0);
 		}
+		if (lex->error)
+			return (0);
 		lex->i++;
 	}
 	if (lex->c != 0)
@@ -95,7 +97,7 @@ t_list	*lexer(char *buffer, t_alloc **alloc)
 
 	lex = ft_malloc(sizeof(*lex), alloc);
 	*lex = (t_lex){NULL, NULL, 10, 0, 0, 0, 0, (t_vector2D){0, 0},
-		(t_vector2D){0, 0}, 0, 0, 0, 0, 0};
+		(t_vector2D){0, 0}, 0, 0, 0, 0, 0, 0};
 	if (!buffer)
 		return (NULL);
 	lex->buf = ft_malloc(sizeof(char) * 10, alloc);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/08/25 02:28:12 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:59:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	exec (char *cmd, t_list *env, t_global *g)
 	write(STDERR, "sh: ", 4);
 	write(STDERR, args[0], ft_strlen(args[0]));
 	write(STDERR, ": command not found\n", 20);
-	exit(127);
+	exit(27);
 }
 
 void	redir(t_exec *cmd, t_list *env, int fdin, t_global *g)
@@ -177,7 +177,7 @@ void	redir(t_exec *cmd, t_list *env, int fdin, t_global *g)
 	{
 		close(fd[1]);
 		dup2(fd[0], STDIN);
-		waitpid(pid, NULL, 0);
+		// waitpid(pid, NULL, 0);
 	}
 	else
 	{
@@ -198,7 +198,9 @@ void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
 	int	i;
 	int	k;
 	int	fd;
+	int	pid;
 
+	pid = 0;
 	i = 0;
 	k = 0;
 	fd = 1;
@@ -221,10 +223,17 @@ void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
 		else if (cmd[i + 1] && cmd[i + 1]->redirect_last == LESS)
 		{
 			dup2(open("test.txt", O_RDONLY), STDIN);
-			exec(ft_strjoin("cat ", cmd[i + 1]->cmd, &g->alloc), env, g);
+			pid = fork();
+			if (pid)
+			{
+				waitpid(pid, NULL, 0);
+			}
+			else
+				exec(ft_strjoin("cat ", cmd[i + 1]->cmd, &g->alloc), env, g);
 		}
 		else
 			fd = dup2(STDOUT, STDOUT);
+		// printf("%d\n", i);
 		redir(cmd[i++], env, fd, g);
 		k++;
 	}

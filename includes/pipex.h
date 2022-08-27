@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/24 13:40:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Created: 2022/08/24 13:41:13 by alukongo          #+#    #+#             */
+/*   Updated: 2022/08/26 18:51:42 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-int	msg(char *err)
-{
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
-void	msg_pipe(char *arg)
-{
-	write(2, "Command not found: ", ft_strlen("Command not found: "));
-	write(2, arg, ft_strlen(arg));
-	write(2, "\n", 1);
-}
+/* to write, read, close, access, pipe, dup, dup2, execve, fork */
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <stdio.h>
 
-void	msg_error(char *err)
-{
-	perror(err);
-	exit (1);
-}
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:50:49 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/26 19:24:06 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	close_pipes(t_ppxb *pipex)
  * @return int 
  */
 
-void	init_redir_type(t_ppxb *pipex)
-{
-	pipex->redir_type = malloc(sizeof(int) * pipex->nbr_pipe);
-	pipex->redir_type[0] = 1;
-	for (int i = 1; i < pipex->nbr_pipe - 1; i++)
-		pipex->redir_type[i] = 4;
-	pipex->redir_type[pipex->nbr_pipe - 1] = 0;
-}
 /*
 0 = >
 1 = <
@@ -67,28 +59,64 @@ void	init_redir_type(t_ppxb *pipex)
 4 = |
 */
 
-int	main(int argc, char **argv, char *envp[])
+int	count_cmd(t_exec **cmd)
+{
+	int		i;
+	int		n;
+
+	n = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i]->redirect_last == -1)
+			n++;
+		if (cmd[i]->redirect_last == PIPE)
+			n++;
+		i++;
+	}
+	return (n);
+}
+
+int	count_pipe(t_exec **cmd)
+{
+	int		i;
+	int		n;
+
+	n = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i]->redirect_last == PIPE)
+			n++;
+		i++;
+	}
+	return (n);
+}
+
+int	ft_pipex(int argc, t_exec **cmd, t_global *g)
 {
 	t_ppxb	pipex;
 
-	if (argc < args_in(argv[1], &pipex))
-		return (msg(ERR_INPUT));
-	init_infile(argv, &pipex);
-	init_outfile(argv[argc - 1], &pipex);
-	pipex.nbr_cmd = argc - 3 - pipex.here_doc;
-	pipex.nbr_pipe = 2 * (pipex.nbr_cmd - 1);
-	pipex.pipe = (int *)malloc(sizeof(int) * pipex.nbr_pipe);
-	init_redir_type(&pipex);
+	// if (argc < args_in(argv[1], &pipex))
+	// 	return (msg(ERR_INPUT));
+	// init_infile(argv, &pipex);
+	// init_outfile(argv[argc - 1], &pipex);
+	(void)argc;
+	printf("%d\n", argc);
+	pipex.nbr_cmd = count_cmd(cmd);
+	pipex.nbr_pipe = count_pipe(cmd);
+	pipex.pipe = (int *)ft_malloc(sizeof(int) * pipex.nbr_pipe, &g->alloc);
+	pipex.exec = cmd;
 	if (!pipex.pipe)
 		msg_error(ERR_PIPE);
-	pipex.my_env_path = find_path_in_env(envp);
-	pipex.cmd_paths = ft_split(pipex.my_env_path, ':');
+	pipex.my_env_path = get_value_by_name(g->env, "PATH");
+	pipex.cmd_paths = ft_split(pipex.my_env_path, ':', g->alloc);
 	if (!pipex.cmd_paths)
 		free_pipe(&pipex);
 	creat_pipes(&pipex);
 	pipex.idx = -1;
 	while (++(pipex.idx) < pipex.nbr_cmd)
-		child(pipex, argv, envp);
+		child(pipex, g);
 	close_pipes(&pipex);
 	waitpid(-1, NULL, 0);
 	free_parent(&pipex);

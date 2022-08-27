@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:47:51 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/18 17:24:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/26 18:42:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,18 @@
 
 void	execo(int pid, int status, t_exec_con *exec, t_global *g)
 {
+	(void)status;
+	(void)pid;
 	if (exec->nb_cmd == 1)
 	{
 		pid = fork();
-		if (pid == 0)
-			pipex(exec->nb_cmd, exec->exec, g->env, g);
-		waitpid(pid, &status, 0);
+		ft_pipex(exec->nb_cmd, exec->exec, g);
 	}
 	else if (exec->nb_cmd <= 0)
 		return ;
 	else
 	{
-		pid = fork();
-		if (pid == 0)
-			pipex(exec->nb_cmd, exec->exec, g->env, g);
-		waitpid(pid, &status, 0);
+		ft_pipex(exec->nb_cmd, exec->exec, g);
 	}
 }
 
