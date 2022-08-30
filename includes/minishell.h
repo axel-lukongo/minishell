@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 17:25:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:23:01 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ t_tree	*create_exp_token_node(int type, char *str, t_tree **a, t_global *g);
 //
 // ENV
 int		is_shell_char_var_allowed(char c);
-t_list	*init_env(char **env, t_alloc *alloc, int i);
+t_list	*init_env(char **env, t_alloc **alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
 char	*get_value_by_name(t_list *env, char *name);
 void	change_value_by_name(t_global *g, char *name, char *value);

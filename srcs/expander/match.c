@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   match.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 14:40:06 by darian            #+#    #+#             */
-/*   Updated: 2022/08/18 18:47:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:20:25 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ char	**exec_ls(t_alloc **alloc)
 		close(fd[1]);
 		read_val = read(fd[0], foo, sizeof(foo));
 		foo[read_val] = 0;
-		return (ft_split(foo, '\n', *alloc));
+		return (ft_split(foo, '\n', alloc));
 		wait(NULL);
 	}
 	return (NULL);
@@ -266,7 +266,7 @@ char	*wildcard(char *str, t_alloc *alloc)
 	int			i;
 
 	files = exec_ls(&alloc);
-	strs = ft_split(str, ' ', alloc);
+	strs = ft_split(str, ' ', &alloc);
 	res = NULL;
 	i = 0;
 	while (strs[i])

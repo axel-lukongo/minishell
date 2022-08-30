@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/08/30 18:48:41 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:32:25 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*valid_path(char *cmd, t_list *env, t_global *g)
 	int		i;
 
 	path_val = get_value_by_name(env, "PATH");
-	paths = ft_split(path_val, ':', g->alloc);
+	paths = ft_split(path_val, ':', &g->alloc);
 	if (!paths)
 		return (NULL);
 	i = 0;
@@ -48,7 +48,7 @@ char	**split_cmd(char *cmd, t_global *g)
 {
 	char	**res;
 
-	res = ft_split(cmd, ' ', g->alloc);
+	res = ft_split(cmd, ' ', &g->alloc);
 	if (!res)
 		return (NULL);
 	return (res);
@@ -144,6 +144,33 @@ char	*delete_path(char *str, t_alloc **alloc)
 	return (new);
 }
 
+char *ft_get_path(char **args, t_list *env, t_global *g)
+{
+	char *path;
+
+	if (!is_char(args[0], '/'))
+		path = valid_path(args[0], env, g);
+	else if (!(ft_strncmp(args[0], "./", 2)) || (!(ft_strncmp(args[0], "../", 3))))
+	{
+		if(!(ft_strncmp(args[0], "./", 2)))
+		{
+			path = ft_strjoin(get_value_by_name(env ,"PWD"), "/", &g->alloc);
+			path = ft_strjoin(path, args[0] + 2, &g->alloc);
+		}
+		else if(!(ft_strncmp(args[0], "../", 3)))
+		{
+			path = ft_strjoin(get_value_by_name(env ,"PWD"), "/", &g->alloc);
+			path = ft_strjoin(path, args[0] + 3, &g->alloc);
+		}
+	}
+	else
+	{
+		path = delete_path(args[0], &g->alloc);
+		path = valid_path(path, env, g);
+	}
+	return(path);
+}
+
 void	exec (char *cmd, t_list *env, t_global *g)
 {
 	char	**args;
@@ -156,17 +183,7 @@ void	exec (char *cmd, t_list *env, t_global *g)
 		if (!cmd)
 			exit(1);
 		args = ft_split_quote(cmd, ' ', g->alloc);
-		if (!is_char(args[0], '/'))
-			path = valid_path(args[0], env, g);
-		else if (args[0][0] == '.')
-		{
-			
-		}
-		else
-		{
-			path = delete_path(args[0], &g->alloc);
-			path = valid_path(path, env, g);
-		}
+		path = ft_get_path(args, env, g);
 		execve(path, args, g->char_env);
 		write(STDERR, "sh: ", 4);
 		write(STDERR, args[0], ft_strlen(args[0]));
@@ -174,9 +191,7 @@ void	exec (char *cmd, t_list *env, t_global *g)
 		exit(27);
 	}
 	else
-	{
 		waitpid(pid, &g->last_return, 0);
-	}
 }
 
 void	redir(t_exec *cmd, t_list *env, int fdin, t_global *g)
