@@ -6,11 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:52 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 11:09:23 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "includes/pipex.h"
 void	free_parent(t_ppxb *pipex)
 {
 	int	i;

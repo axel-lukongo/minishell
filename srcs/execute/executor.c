@@ -6,44 +6,35 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:47:51 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/26 18:42:38 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 16:55:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	execo(int pid, int status, t_exec_con *exec, t_global *g)
+void	execo(t_exec_con *exec, t_global *g)
 {
-	(void)status;
-	(void)pid;
-	if (exec->nb_cmd == 1)
-	{
-		pid = fork();
-		ft_pipex(exec->nb_cmd, exec->exec, g);
-	}
-	else if (exec->nb_cmd <= 0)
-		return ;
-	else
-	{
-		ft_pipex(exec->nb_cmd, exec->exec, g);
-	}
+	(void)exec;
+	(void)g;
+	// if (exec->nb_cmd == 1)
+	// 	ft_pipex(exec->nb_cmd, exec->exec, g);
+	// else if (exec->nb_cmd <= 0)
+	// 	return ;
+	// else
+	// {
+	// 	ft_pipex(exec->nb_cmd, exec->exec, g);
+	// }
 }
 
 void	executing(t_exec_con *exec, t_global *g)
 {
-	int		pid;
-	int		status;
-
-	pid = 0;
-	status = 0;
 	if (!ft_strcmp(exec->exec[0]->cmd, "!")
 		|| !ft_strcmp(exec->exec[0]->cmd, ":"))
 	{
 		g->last_return = 0;
 		return ;
 	}
-	execo(pid, status, exec, g);
-	g->last_return = status;
+	execo(exec, g);
 }
 
 void	change_return_type(t_exec_con *exec, t_global *g)

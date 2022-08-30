@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/08/26 17:59:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 18:48:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,22 +148,35 @@ void	exec (char *cmd, t_list *env, t_global *g)
 {
 	char	**args;
 	char	*path;
+	int		pid;
 
-	if (!cmd)
-		exit(1);
-	args = ft_split_quote(cmd, ' ', g->alloc);
-	if (!is_char(args[0], '/'))
-		path = valid_path(args[0], env, g);
+	pid = fork();
+	if (pid == 0)
+	{
+		if (!cmd)
+			exit(1);
+		args = ft_split_quote(cmd, ' ', g->alloc);
+		if (!is_char(args[0], '/'))
+			path = valid_path(args[0], env, g);
+		else if (args[0][0] == '.')
+		{
+			
+		}
+		else
+		{
+			path = delete_path(args[0], &g->alloc);
+			path = valid_path(path, env, g);
+		}
+		execve(path, args, g->char_env);
+		write(STDERR, "sh: ", 4);
+		write(STDERR, args[0], ft_strlen(args[0]));
+		write(STDERR, ": command not found\n", 20);
+		exit(27);
+	}
 	else
 	{
-		path = delete_path(args[0], &g->alloc);
-		path = valid_path(path, env, g);
+		waitpid(pid, &g->last_return, 0);
 	}
-	execve(path, args, g->char_env);
-	write(STDERR, "sh: ", 4);
-	write(STDERR, args[0], ft_strlen(args[0]));
-	write(STDERR, ": command not found\n", 20);
-	exit(27);
 }
 
 void	redir(t_exec *cmd, t_list *env, int fdin, t_global *g)

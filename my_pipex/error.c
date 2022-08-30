@@ -6,11 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 11:09:18 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "includes/pipex.h"
 int	msg(char *err)
 {
 	write(2, err, ft_strlen(err));

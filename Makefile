@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/08/26 18:33:20 by denissereno      ###   ########.fr        #
+#    Updated: 2022/08/30 16:57:00 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,15 @@ SRCS		= 	srcs/main.c \
 				srcs/ustack.c \
 				srcs/ustack_2.c \
 \
+				srcs/gnl/get_next_line.c \
+				srcs/gnl/get_next_line_utils.c \
+\
 				srcs/execute/executor.c \
 				srcs/execute/pipex.c \
+				srcs/execute/exec.c \
 				srcs/execute/exec_builtin.c \
 				srcs/execute/exec_utils.c \
+				srcs/execute/error.c \
 \
 				srcs/lexer/lexer.c \
 				srcs/lexer/lexer_2.c \
@@ -51,16 +56,6 @@ SRCS		= 	srcs/main.c \
 				srcs/builtin/cd.c\
 				srcs/builtin/builtin_utils.c\
 				srcs/builtin/echo.c\
-\
-				srcs/my_pipex/child.c\
-				srcs/my_pipex/error.c\
-				srcs/my_pipex/files.c\
-				srcs/my_pipex/free.c\
-				srcs/my_pipex/pipex.c\
-				srcs/my_pipex/here_doc.c\
-\
-				srcs/my_pipex/gnl/get_next_line_utils.c\
-				srcs/my_pipex/gnl/get_next_line.c\
 
 
 NAME		= minishell
@@ -80,8 +75,7 @@ $(OBJS_DIR)%.o : %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
 	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@mkdir -p $(OBJS_DIR)srcs/my_pipex
-	@mkdir -p $(OBJS_DIR)srcs/my_pipex/gnl
+	@mkdir -p $(OBJS_DIR)srcs/gnl
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

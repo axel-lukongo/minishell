@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/24 17:50:35 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:36:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	write_char(char *buffer, t_alloc **alloc, t_lex *lex)
 void	first_wildcarded(char *buffer, t_alloc **alloc, t_lex *lex)
 {
 	if (get_btok(lex->t_lst, lex->k) == WILDCARD)
+	{
 		concat_to_last_no_space((t_token){WILDENV, lex->buf}, &lex->t_lst,
 			alloc, 1);
+	}
 	else if (get_btok(lex->t_lst, lex->k) == CMD)
 	{
 		if (buffer[lex->i] == ' ')
@@ -42,8 +44,13 @@ void	first_wildcarded(char *buffer, t_alloc **alloc, t_lex *lex)
 			concat_to_last((t_token){WILDCARD, lex->buf},
 				&lex->t_lst, alloc, 1);
 	}
-	else
+	else if (!lex->space)
+	{
 		concat_to_last_no_space((t_token){WILDCARD, lex->buf}, &lex->t_lst,
+			alloc, 1);
+	}
+	else
+		concat_to_last((t_token){WILDCARD, lex->buf}, &lex->t_lst,
 			alloc, 1);
 }
 

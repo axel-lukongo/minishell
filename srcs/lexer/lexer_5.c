@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/24 14:09:44 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 14:50:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 {
+	printf("loul\n");
 	if (lex->enved && get_btok(lex->t_lst, lex->k) != CMD && !lex->backed)
 		concat_to_last_no_space((t_token){WILDENV,
 			lex->buf}, &lex->t_lst, alloc, 1);
@@ -26,12 +27,19 @@ void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 	else if (lex->enved && get_btok(lex->t_lst, lex->k) == CMD && lex->backed)
 		concat_to_last((t_token){WILDENVBACK, lex->buf},
 			&lex->t_lst, alloc, 1);
-	else if (get_btok(lex->t_lst, lex->k) != CMD && !lex->backed)
+	else if (get_btok(lex->t_lst, lex->k) != CMD && !lex->backed && !lex->space)
+	{
 		concat_to_last_no_space((t_token){WILDCARD,
 			lex->buf}, &lex->t_lst, alloc, 1);
-	else if (get_btok(lex->t_lst, lex->k) != CMD && lex->backed)
+		printf("test\n");
+	}
+	else if (get_btok(lex->t_lst, lex->k) != CMD && lex->backed && !lex->space)
+	{
 		concat_to_last_no_space((t_token){WILDBACK,
 			lex->buf}, &lex->t_lst, alloc, 1);
+	}
+	else if (get_btok(lex->t_lst, lex->k) >= 9 && get_btok(lex->t_lst, lex->k) <= 13)
+		add_to_list(WILDCARD, lex->buf, &lex->t_lst, alloc);
 	else if (lex->backed)
 		concat_to_last((t_token){WILDBACK, lex->buf},
 			&lex->t_lst, alloc, 1);

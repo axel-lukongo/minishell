@@ -6,11 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:50:49 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 11:09:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "includes/pipex.h"
 
 static void	creat_pipes(t_ppxb *pipex)
 {
@@ -77,6 +77,7 @@ int	main(int argc, char **argv, char *envp[])
 	init_outfile(argv[argc - 1], &pipex);
 	pipex.nbr_cmd = argc - 3 - pipex.here_doc;
 	pipex.nbr_pipe = 2 * (pipex.nbr_cmd - 1);
+	printf("-> %d\n", pipex.nbr_pipe);
 	pipex.pipe = (int *)malloc(sizeof(int) * pipex.nbr_pipe);
 	init_redir_type(&pipex);
 	if (!pipex.pipe)

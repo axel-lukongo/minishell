@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/26 18:35:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 17:37:42 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ char	*get_prompt_str(t_global *g)
 	if (g->last_return > 0)
 	{
 		pr = ft_strjoin(pr, URED, &g->alloc);
-		pr = ft_strjoin(pr, "✗ ", &g->alloc);
+		pr = ft_strjoin(pr, ft_itoa(g->last_return, g->alloc), &g->alloc);
+		pr = ft_strjoin(pr, " ", &g->alloc);
 	}
 	else
 	{
 		pr = ft_strjoin(pr, UGRN, &g->alloc);
-		pr = ft_strjoin(pr, "✓ ", &g->alloc);
+		pr = ft_strjoin(pr, ft_itoa(g->last_return, g->alloc), &g->alloc);
+		pr = ft_strjoin(pr, " ", &g->alloc);
 	}
 	pr = ft_strjoin(pr, BLUB, &g->alloc);
 	pr = ft_strjoin(pr, ft_strjoin(g->disp_pwd, " ", &g->alloc), &g->alloc);
@@ -76,7 +78,7 @@ void	exec_line(t_global *g)
 		g->lex = lexer(cmds[i], &g->alloc);
 		g->ast = parsing(g->lex, g);
 		expander(g->ast, g);
-		execute(g);
+		exec_ast(g->ast, g);
 		g->node_id = 0;
 		i++;
 	}
@@ -89,7 +91,7 @@ int	loop(t_global *g)
 	while (1)
 	{
 		signal(SIGINT, &handle_signale_ctrl_c);
-		str = get_prompt_str(g);
+		str = get_prompt_str(g); // SI ON SORT D'UNE FONCTION EN CTRL C ON REDISPLAY PAS LA LIGNE
 		g->line = readline(str);
 		if (!g->line)
 			return (0);

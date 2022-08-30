@@ -6,11 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:32 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 11:09:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "includes/pipex.h"
 
 /**
  * @brief Get the cmd object ici je cherche la commande
@@ -43,10 +43,6 @@ static void	sub_dup2(int zero, int first)
 	dup2(first, 1);
 }
 
-static void	redir_right(int zero, int first)
-{
-	
-}
 
 /**
  * @brief c'est ici que j'execute mes commande.

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/26 18:51:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 17:25:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,9 @@ typedef struct	s_lex
 
 extern t_parsing *g_p;
 
+void	exec(char *cmd, t_list *env, t_global *g);
+void    exec_ast(t_tree *ast, t_global *g);
+
 // -> LIST
 void	print_list(t_list *li);
 void	print_list_env(t_list *li);
@@ -328,6 +331,8 @@ typedef struct s_ppxb
 	int		*redir_type;
 	char	**cmds;
 	t_exec	**exec;
+	int		pipe_it;
+	int		nb_it;
 }t_ppxb;
 
 /* pipex.c */
@@ -346,7 +351,7 @@ void	init_outfile(char *argv, t_ppxb *pipex);
 
 /* here_doc.c */
 int		args_in(char *arg, t_ppxb *pipex);
-void	here_doc(char *argv, t_ppxb *pipex);
+void	here_doc(t_tree *node, t_global *g);
 
 /* error.c */
 void	msg_error(char *err);
@@ -354,6 +359,6 @@ void	msg_pipe(char *arg);
 int		msg(char *err);
 
 
-int	ft_pipex(int argc, t_exec **cmd, t_global *g);
+void	handle_signale_ctrl_c(int sig);
 
 #endif
