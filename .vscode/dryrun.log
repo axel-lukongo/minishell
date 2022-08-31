@@ -1,6 +1,385 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/denissereno/42/axelminishell'
-make: `minishell' is up to date.
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
  
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/main.c -o objs/srcs/main.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/main.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/env.c -o objs/srcs/env.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/env.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/utils.c -o objs/srcs/utils.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/utils.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/ustack.c -o objs/srcs/ustack.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/ustack.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/ustack_2.c -o objs/srcs/ustack_2.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/ustack_2.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/gnl/get_next_line.c -o objs/srcs/gnl/get_next_line.o
+ 
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/gnl/get_next_line.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/gnl/get_next_line_utils.c -o objs/srcs/gnl/get_next_line_utils.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/gnl/get_next_line_utils.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/executor.c -o objs/srcs/execute/executor.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/executor.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/pipex.c -o objs/srcs/execute/pipex.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/pipex.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/exec.c -o objs/srcs/execute/exec.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/exec.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+ 
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/exec_builtin.c -o objs/srcs/execute/exec_builtin.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/exec_builtin.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/exec_utils.c -o objs/srcs/execute/exec_utils.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/exec_utils.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/execute/error.c -o objs/srcs/execute/error.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/execute/error.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer.c -o objs/srcs/lexer/lexer.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_2.c -o objs/srcs/lexer/lexer_2.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_2.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_3.c -o objs/srcs/lexer/lexer_3.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_3.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_4.c -o objs/srcs/lexer/lexer_4.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_4.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_5.c -o objs/srcs/lexer/lexer_5.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_5.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_utils_1.c -o objs/srcs/lexer/lexer_utils_1.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_utils_1.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/lexer/lexer_utils_2.c -o objs/srcs/lexer/lexer_utils_2.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/lexer/lexer_utils_2.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/btree/print_tree.c -o objs/srcs/btree/print_tree.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/btree/print_tree.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/btree/tree.c -o objs/srcs/btree/tree.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/btree/tree.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/btree/get.c -o objs/srcs/btree/get.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/btree/get.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/parsing/parser.c -o objs/srcs/parsing/parser.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/parsing/parser.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/parsing/parser_utils.c -o objs/srcs/parsing/parser_utils.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/parsing/parser_utils.c' \e[0m"
+ 
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/expander/env.c -o objs/srcs/expander/env.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/expander/env.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/expander/env_2.c -o objs/srcs/expander/env_2.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/expander/env_2.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/expander/match.c -o objs/srcs/expander/match.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/expander/match.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+ 
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/expander/back.c -o objs/srcs/expander/back.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/expander/back.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/builtin/export.c -o objs/srcs/builtin/export.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/builtin/export.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/builtin/cd.c -o objs/srcs/builtin/cd.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/builtin/cd.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/builtin/builtin_utils.c -o objs/srcs/builtin/builtin_utils.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/builtin/builtin_utils.c' \e[0m"
+mkdir -p objs/
+mkdir -p objs/srcs
+mkdir -p objs/srcs/btree
+mkdir -p objs/srcs/expander
+mkdir -p objs/srcs/parsing
+mkdir -p objs/srcs/lexer
+mkdir -p objs/srcs/execute
+mkdir -p objs/srcs/builtin
+mkdir -p objs/srcs/gnl
+gcc -Wall -Werror -Wextra -g -fsanitize=address -c srcs/builtin/echo.c -o objs/srcs/builtin/echo.o
+printf	"\033[2K\r\033[0;34m[BUILD - minishell]\033[0m 'srcs/builtin/echo.c' \e[0m"
+ 
+make bonus -C libft
+gcc -o minishell objs/srcs/main.o objs/srcs/env.o objs/srcs/utils.o objs/srcs/ustack.o objs/srcs/ustack_2.o objs/srcs/gnl/get_next_line.o objs/srcs/gnl/get_next_line_utils.o objs/srcs/execute/executor.o objs/srcs/execute/pipex.o objs/srcs/execute/exec.o objs/srcs/execute/exec_builtin.o objs/srcs/execute/exec_utils.o objs/srcs/execute/error.o objs/srcs/lexer/lexer.o objs/srcs/lexer/lexer_2.o objs/srcs/lexer/lexer_3.o objs/srcs/lexer/lexer_4.o objs/srcs/lexer/lexer_5.o objs/srcs/lexer/lexer_utils_1.o objs/srcs/lexer/lexer_utils_2.o objs/srcs/btree/print_tree.o objs/srcs/btree/tree.o objs/srcs/btree/get.o objs/srcs/parsing/parser.o objs/srcs/parsing/parser_utils.o objs/srcs/expander/env.o objs/srcs/expander/env_2.o objs/srcs/expander/match.o objs/srcs/expander/back.o objs/srcs/builtin/export.o objs/srcs/builtin/cd.o objs/srcs/builtin/builtin_utils.o objs/srcs/builtin/echo.o -Wall -Werror -Wextra -g -fsanitize=address -I -L -Lincludes -lreadline libft/libft.a 
+printf "\033[2K\r\033[0;32m[END]\033[0m minishell\e[0m\n"
 make: Leaving directory `/Users/denissereno/42/axelminishell'
  

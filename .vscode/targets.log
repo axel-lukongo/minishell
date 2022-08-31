@@ -8,15 +8,15 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Wed Aug 24 13:21:12 2022
+# Make data base, printed on Wed Aug 31 12:36:15 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
-?F = $(notdir $?)
  
+?F = $(notdir $?)
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # makefile (from `Makefile', line 16)
@@ -37,7 +37,7 @@ VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePac
 _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from `Makefile', line 63)
+# makefile (from `Makefile', line 67)
 TFLAGS = -I -L -Lincludes -lreadline libft/libft.a 
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
@@ -46,8 +46,8 @@ INFOPATH = /opt/homebrew/share/info:
 # environment
 P9K_SSH = 0
 # environment
-VSCODE_CWD = /Users/denissereno/42/axelminishell
-# makefile (from `Makefile', line 58)
+VSCODE_CWD = /Users/denissereno/42/test_minishell/my_minishell
+# makefile (from `Makefile', line 62)
 OBJS_DIR = objs/
 # environment
 PATH = /opt/local/bin:/opt/local/sbin:/Users/denissereno/Library/Python/3.8/bin:/opt/local/bin:/opt/local/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
@@ -55,7 +55,7 @@ PATH = /opt/local/bin:/opt/local/sbin:/Users/denissereno/Library/Python/3.8/bin:
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # makefile (from `Makefile', line 17)
 END = \e[0m
-# makefile (from `Makefile', line 60)
+# makefile (from `Makefile', line 64)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 # environment
 LIBRARY_PATH = /opt/local/lib:
@@ -67,13 +67,13 @@ ELECTRON_RUN_AS_NODE = 1
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # makefile (from `Makefile', line 14)
 GRN = \033[0;32m
-# makefile (from `Makefile', line 62)
+# makefile (from `Makefile', line 66)
 CC_FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.JTT67OZERq/Listeners
 # automatic
 %F = $(notdir $%)
-# makefile (from `Makefile', line 59)
+# makefile (from `Makefile', line 63)
 OBJS = $(SRCS:.c=.o)
 # environment
 PWD = /Users/denissereno/42/axelminishell
@@ -98,9 +98,10 @@ VSCODE_CODE_CACHE_PATH = /Users/denissereno/Library/Application Support/Code/Cac
 # environment
 LOGNAME = denissereno
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /Users/denissereno/.oh-my-zsh
+ 
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -114,10 +115,10 @@ MAKE = $(MAKE_COMMAND)
 # environment
 LC_TERMINAL = iTerm2
 # makefile (from `Makefile', line 19)
-SRCS = srcs/main.c srcs/env.c srcs/utils.c srcs/ustack.c srcs/ustack_2.c srcs/execute/executor.c srcs/execute/pipex.c srcs/execute/exec_builtin.c srcs/execute/exec_utils.c srcs/lexer/lexer.c srcs/lexer/lexer_2.c srcs/lexer/lexer_3.c srcs/lexer/lexer_4.c srcs/lexer/lexer_5.c srcs/lexer/lexer_utils_1.c srcs/lexer/lexer_utils_2.c srcs/btree/print_tree.c srcs/btree/tree.c srcs/btree/get.c srcs/parsing/parser.c srcs/parsing/parser_utils.c srcs/expander/env.c srcs/expander/env_2.c srcs/expander/match.c srcs/expander/back.c srcs/builtin/export.c srcs/builtin/cd.c srcs/builtin/builtin_utils.c srcs/builtin/echo.c 
+SRCS = srcs/main.c srcs/env.c srcs/utils.c srcs/ustack.c srcs/ustack_2.c srcs/gnl/get_next_line.c srcs/gnl/get_next_line_utils.c srcs/execute/executor.c srcs/execute/pipex.c srcs/execute/exec.c srcs/execute/exec_builtin.c srcs/execute/exec_utils.c srcs/execute/error.c srcs/lexer/lexer.c srcs/lexer/lexer_2.c srcs/lexer/lexer_3.c srcs/lexer/lexer_4.c srcs/lexer/lexer_5.c srcs/lexer/lexer_utils_1.c srcs/lexer/lexer_utils_2.c srcs/btree/print_tree.c srcs/btree/tree.c srcs/btree/get.c srcs/parsing/parser.c srcs/parsing/parser_utils.c srcs/expander/env.c srcs/expander/env_2.c srcs/expander/match.c srcs/expander/back.c srcs/builtin/export.c srcs/builtin/cd.c srcs/builtin/builtin_utils.c srcs/builtin/echo.c 
 # environment
 SHLVL = 3
-# makefile (from `Makefile', line 61)
+# makefile (from `Makefile', line 65)
 CC = gcc
 # default
 MAKE_VERSION := 3.81
@@ -128,8 +129,8 @@ USER = denissereno
 # default
 MAKECMDGOALS := all
 # environment
-TERM_SESSION_ID = w0t0p0:88129759-4CF1-43E9-B42C-A8A8AD228444
-# makefile (from `Makefile', line 57)
+TERM_SESSION_ID = w0t0p0:F19E2DA8-EE5A-43F0-A97C-9C66E8523754
+# makefile (from `Makefile', line 61)
 NAME = minishell
 # environment
 LESS = -R
@@ -160,7 +161,7 @@ MFLAGS = -Rrqp
 # environment
 TERM_PROGRAM_VERSION = 3.4.16
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.4154462.4154468.0B7379AF-98EE-40B8-B079-24553BA91377
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.4154462.4154468.BBDFB2A9-8D05-4E06-AD71-2AACD4C5EADD
 # environment
 LC_TERMINAL_VERSION = 3.4.16
 # environment
@@ -170,7 +171,7 @@ HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t0p0:88129759-4CF1-43E9-B42C-A8A8AD228444
+ITERM_SESSION_ID = w0t0p0:F19E2DA8-EE5A-43F0-A97C-9C66E8523754
 # environment
 HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
@@ -205,9 +206,9 @@ TERM = xterm-256color
 # environment
 _P9K_TTY = /dev/ttys000
 # environment
-VSCODE_PID = 70265
+VSCODE_PID = 73384
 # variable set hash-table stats:
-# Load=96/1024=9%, Rehash=0, Collisions=11/126=9%
+# Load=96/1024=9%, Rehash=0, Collisions=20/143=14%
 
 # Pattern-specific Variable Values
 
@@ -215,22 +216,16 @@ VSCODE_PID = 70265
 
 # Directories
 
-# srcs/execute (device 16777234, inode 2832192): 6 files, no impossibilities so far.
-# srcs/expander (device 16777234, inode 2832196): 6 files, no impossibilities so far.
-# . (device 16777234, inode 2832048): 12 files, no impossibilities.
+# . (device 16777234, inode 2832048): 10 files, no impossibilities.
 # includes (device 16777234, inode 2832118): 3 files, no impossibilities so far.
-# srcs/btree (device 16777234, inode 2832182): 5 files, no impossibilities so far.
-# srcs/builtin (device 16777234, inode 2832186): 6 files, no impossibilities so far.
-# srcs (device 16777234, inode 2832181): 14 files, no impossibilities so far.
-# srcs/lexer (device 16777234, inode 2832200): 9 files, no impossibilities so far.
-# srcs/parsing (device 16777234, inode 2832210): 4 files, no impossibilities so far.
+# srcs (device 16777234, inode 2832181): 10 files, no impossibilities so far.
 
-# 65 files, no impossibilities in 9 directories.
+# 23 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
 objs/%.o: %.c includes/minishell.h
-#  commands to execute (from `Makefile', line 66):
+#  commands to execute (from `Makefile', line 70):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)srcs
 	@mkdir -p $(OBJS_DIR)srcs/btree
@@ -239,6 +234,7 @@ objs/%.o: %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
 	@mkdir -p $(OBJS_DIR)srcs/builtin
+	@mkdir -p $(OBJS_DIR)srcs/gnl
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 	
@@ -247,83 +243,23 @@ objs/%.o: %.c includes/minishell.h
 
 # Files
 
-objs/srcs/lexer/lexer_3.o: srcs/lexer/lexer_3.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_3'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/lexer/lexer_3.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/builtin/echo.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-14 11:26:52
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/ustack.o: srcs/ustack.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/ustack'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/ustack.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/builtin/export.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-22 17:13:31
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/lexer/lexer_5.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:11:32
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/ustack_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 14:52:39
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/gnl/get_next_line_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 all: minishell
 #  Phony target (prerequisite of .PHONY).
@@ -331,153 +267,38 @@ all: minishell
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/lexer/lexer.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:12:15
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/lexer/lexer_utils_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:06:05
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/btree/get.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 15:23:05
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/17=0%
 
 .PHONY: all clean fclean re
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-objs/srcs/parsing/parser.o: srcs/parsing/parser.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/parsing/parser'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/env.o: srcs/env.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/env'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/builtin/cd.o: srcs/builtin/cd.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/builtin/cd'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/parsing/parser.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/expander/env.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 18:25:54
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
- 
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/lexer/lexer_utils_1.o: srcs/lexer/lexer_utils_1.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_utils_1'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/env.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/expander/match.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 18:47:43
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/builtin/cd.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/execute/exec_builtin.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 15:55:28
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/lexer/lexer_utils_1.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .SUFFIXES:
@@ -485,61 +306,22 @@ srcs/execute/exec_builtin.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-objs/srcs/execute/executor.o: srcs/execute/executor.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/execute/executor'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/execute/executor.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/execute/pipex.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 18:47:30
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/expander/back.o: srcs/expander/back.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/expander/back'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/expander/back.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 13:20:58
+#  Last modified 2022-08-30 19:09:22
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -548,343 +330,146 @@ Makefile:
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-22 17:11:01
+#  Last modified 2022-08-30 17:37:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/builtin/echo.o: srcs/builtin/echo.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/builtin/echo'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
 
 # Not a target:
-srcs/btree/print_tree.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 15:27:27
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/builtin/export.o: srcs/builtin/export.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/builtin/export'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/lexer/lexer_5.o: srcs/lexer/lexer_5.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_5'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-# Not a target:
-srcs/btree/tree.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 15:28:03
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/ustack_2.o: srcs/ustack_2.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/ustack_2'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/lexer/lexer.o: srcs/lexer/lexer.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
- 
-	
-
-# Not a target:
-srcs/builtin/builtin_utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-14 11:26:52
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/lexer/lexer_utils_2.o: srcs/lexer/lexer_utils_2.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_utils_2'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/btree/get.o: srcs/btree/get.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/btree/get'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-minishell: objs/srcs/main.o objs/srcs/env.o objs/srcs/utils.o objs/srcs/ustack.o objs/srcs/ustack_2.o objs/srcs/execute/executor.o objs/srcs/execute/pipex.o objs/srcs/execute/exec_builtin.o objs/srcs/execute/exec_utils.o objs/srcs/lexer/lexer.o objs/srcs/lexer/lexer_2.o objs/srcs/lexer/lexer_3.o objs/srcs/lexer/lexer_4.o objs/srcs/lexer/lexer_5.o objs/srcs/lexer/lexer_utils_1.o objs/srcs/lexer/lexer_utils_2.o objs/srcs/btree/print_tree.o objs/srcs/btree/tree.o objs/srcs/btree/get.o objs/srcs/parsing/parser.o objs/srcs/parsing/parser_utils.o objs/srcs/expander/env.o objs/srcs/expander/env_2.o objs/srcs/expander/match.o objs/srcs/expander/back.o objs/srcs/builtin/export.o objs/srcs/builtin/cd.o objs/srcs/builtin/builtin_utils.o objs/srcs/builtin/echo.o
+objs/srcs/builtin/echo.o:
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-24 13:21:02
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/builtin/export.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/lexer/lexer_5.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/ustack_2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/lexer/lexer.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/gnl/get_next_line.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/lexer/lexer_utils_2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/btree/get.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+minishell: objs/srcs/main.o objs/srcs/env.o objs/srcs/utils.o objs/srcs/ustack.o objs/srcs/ustack_2.o objs/srcs/gnl/get_next_line.o objs/srcs/gnl/get_next_line_utils.o objs/srcs/execute/executor.o objs/srcs/execute/pipex.o objs/srcs/execute/exec.o objs/srcs/execute/exec_builtin.o objs/srcs/execute/exec_utils.o objs/srcs/execute/error.o objs/srcs/lexer/lexer.o objs/srcs/lexer/lexer_2.o objs/srcs/lexer/lexer_3.o objs/srcs/lexer/lexer_4.o objs/srcs/lexer/lexer_5.o objs/srcs/lexer/lexer_utils_1.o objs/srcs/lexer/lexer_utils_2.o objs/srcs/btree/print_tree.o objs/srcs/btree/tree.o objs/srcs/btree/get.o objs/srcs/parsing/parser.o objs/srcs/parsing/parser_utils.o objs/srcs/expander/env.o objs/srcs/expander/env_2.o objs/srcs/expander/match.o objs/srcs/expander/back.o objs/srcs/builtin/export.o objs/srcs/builtin/cd.o objs/srcs/builtin/builtin_utils.o objs/srcs/builtin/echo.o
+#  Implicit rule search has not been done.
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 78):
+# Load=0/32=0%, Rehash=0, Collisions=0/17=0%
+#  commands to execute (from `Makefile', line 83):
 	make bonus -C libft
 	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) $(TFLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 	
 
-objs/srcs/builtin/builtin_utils.o: srcs/builtin/builtin_utils.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/builtin/builtin_utils'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/builtin/builtin_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 90):
+#  commands to execute (from `Makefile', line 95):
 	make fclean -C libft
 	@rm -f $(NAME)
 	@echo "${GRN}[FCLEAN]${RST} done"
 	
 
 # Not a target:
-srcs/lexer/lexer_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:06:42
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/expander/env.o: srcs/expander/env.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/expander/env'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/expander/env.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/parsing/parser_utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:33:52
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/execute/error.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-objs/srcs/expander/match.o: srcs/expander/match.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/expander/match'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/expander/match.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-objs/srcs/execute/exec_builtin.o: srcs/execute/exec_builtin.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/execute/exec_builtin'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/execute/exec_builtin.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-objs/srcs/execute/pipex.o: srcs/execute/pipex.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/execute/pipex'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/execute/pipex.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 objs/srcs/main.o: srcs/main.c includes/minishell.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `srcs/main'
-#  Last modified 2022-08-24 13:20:59
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := objs/srcs/main.o
+# automatic
+# % := 
+# automatic
+# * := srcs/main
+# automatic
+# + := srcs/main.c includes/minishell.h
+# automatic
+# | := 
+# automatic
+# < := srcs/main.c
+# automatic
+# ^ := srcs/main.c includes/minishell.h
+# automatic
+# ? := srcs/main.c includes/minishell.h
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
+# Load=8/32=25%, Rehash=0, Collisions=1/28=4%
+ 
+#  commands to execute (from `Makefile', line 70):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)srcs
 	@mkdir -p $(OBJS_DIR)srcs/btree
@@ -893,28 +478,10 @@ objs/srcs/main.o: srcs/main.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
 	@mkdir -p $(OBJS_DIR)srcs/builtin
+	@mkdir -p $(OBJS_DIR)srcs/gnl
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 	
-
-# Not a target:
-srcs/expander/env_2.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 18:26:14
- 
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/lexer/lexer_4.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:07:39
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 .DEFAULT:
@@ -922,47 +489,17 @@ srcs/lexer/lexer_4.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-objs/srcs/btree/print_tree.o: srcs/btree/print_tree.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/btree/print_tree'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/btree/print_tree.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-objs/srcs/btree/tree.o: srcs/btree/tree.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/btree/tree'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+# Not a target:
+objs/srcs/btree/tree.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -970,245 +507,70 @@ re: fclean all
 #  File does not exist.
 #  File has not been updated.
 
-# Not a target:
-srcs/execute/exec_utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 17:23:13
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 85):
+#  commands to execute (from `Makefile', line 90):
 	make clean -C libft
 	@rm -rf $(OBJS_DIR)
 	@echo "${GRN}[CLEAN]${RST} done"
 	
 
 # Not a target:
-srcs/utils.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-22 16:16:36
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/execute/exec_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/ustack.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 14:52:20
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/execute/exec_utils.o: srcs/execute/exec_utils.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/execute/exec_utils'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/lexer/lexer_2.o: srcs/lexer/lexer_2.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_2'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/parsing/parser_utils.o: srcs/parsing/parser_utils.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/parsing/parser_utils'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/lexer/lexer_2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/lexer/lexer_3.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:07:12
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/expander/env_2.o: srcs/expander/env_2.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/expander/env_2'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-objs/srcs/lexer/lexer_4.o: srcs/lexer/lexer_4.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/lexer/lexer_4'
-#  Last modified 2022-08-24 13:21:00
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
+objs/srcs/parsing/parser_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/parsing/parser.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:31:40
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/expander/env_2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+objs/srcs/lexer/lexer_4.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 includes/minishell.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-22 16:50:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
- 
-
-# Not a target:
-srcs/env.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-22 16:52:03
+#  Last modified 2022-08-30 17:25:28
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-srcs/builtin/cd.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-14 11:26:52
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/execute/exec.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-srcs/lexer/lexer_utils_1.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-17 16:12:22
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-srcs/execute/executor.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-18 17:24:10
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-objs/srcs/utils.o: srcs/utils.c includes/minishell.h
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `srcs/utils'
-#  Last modified 2022-08-24 13:20:59
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 66):
-	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)srcs/btree
-	@mkdir -p $(OBJS_DIR)srcs/expander
-	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/lexer
-	@mkdir -p $(OBJS_DIR)srcs/execute
-	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
-	
-
-# Not a target:
-srcs/expander/back.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-08-19 15:19:45
-#  File has been updated.
-#  Successfully updated.
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+objs/srcs/utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=68/1024=7%, Rehash=0, Collisions=12/263=5%
+# Load=44/1024=4%, Rehash=0, Collisions=8/103=8%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -1220,6 +582,6 @@ srcs/expander/back.c:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Aug 24 13:21:12 2022
+# Finished Make data base on Wed Aug 31 12:36:15 2022
 
  

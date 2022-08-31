@@ -5,6 +5,11 @@
         "lexer_3.C": "cpp",
         "readline.h": "c",
         "__config": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "ansi.h": "c",
+        "pipex.h": "c",
+        "get_next_line.h": "c",
+        "wait.h": "c",
+        "string.h": "c"
     }
 }
