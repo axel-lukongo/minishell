@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/08/24 17:54:50 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:17:09 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strstr(const char *haystack, const char *needle);
 char	**ft_split_export(char const *s, char c, t_alloc *alloc);
-char	**ft_split(char const *s, char c, t_alloc *alloc);
+char	**ft_split(char const *s, char c, t_alloc **alloc);
 char	**ft_split_quote(char const *s, char c, t_alloc *alloc);
 char	*ft_strncpy(char *dest, char const *src, size_t n);
 int		ft_strncmp(char const *s1, char const *s2, size_t n);

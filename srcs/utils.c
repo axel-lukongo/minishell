@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:56:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/22 16:16:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:25:25 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	copy_str(char dest[1024], char *src)
 	dest[i] = 0;
 }
 
-t_list	*init_env(char **env, t_alloc *alloc, int i)
+t_list	*init_env(char **env, t_alloc **alloc, int i)
 {
 	char	**strs;
 	char	*str;
@@ -91,13 +91,13 @@ t_list	*init_env(char **env, t_alloc *alloc, int i)
 	list_env = 0;
 	while (env[i])
 	{
-		str = ft_strdup(env[i], alloc);
+		str = ft_strdup(env[i], *alloc);
 		if (!str)
 			return (0);
 		strs = ft_split(str, '=', alloc);
-		node = ft_malloc(sizeof(*node), &alloc);
+		node = ft_malloc(sizeof(*node), alloc);
 		*node = (t_env){strs[0], strs[1]};
-		new_node = ft_lstnew((void *){node}, alloc);
+		new_node = ft_lstnew((void *){node}, *alloc);
 		if (!new_node)
 			return (0);
 		ft_lstadd_back(&list_env, new_node);

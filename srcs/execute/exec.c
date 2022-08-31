@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:00:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 18:41:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:18:04 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void				redirections(t_tree *root, t_global *g)
 	int				i;
 
 	redirection = 1;
-	tab = ft_split(root->right->value, ' ', g->alloc);
+	tab = ft_split(root->right->value, ' ', &g->alloc);
 	node = root;
 	if (node->type == LESS)
 		redirection = 0;
@@ -159,7 +159,7 @@ void				redirections(t_tree *root, t_global *g)
 static void			exec_cmd(t_tree *node, t_global *g)
 {
     if (is_builtin(node->value))
-        execute_builtin(g, ft_split(node->value, ' ', g->alloc));
+        execute_builtin(g, ft_split(node->value, ' ', &g->alloc));
 	else
         exec(node->value, g->env, g);
 }
@@ -278,13 +278,13 @@ void	here_doc(t_tree *node, t_global *g)
 		waitpid(-1, NULL, 0);
 }
 
-void    exec_ast(t_tree *ast, t_global *g)
+void	exec_ast(t_tree *ast, t_global *g)
 {
-    t_tree *node;
+	t_tree *node;
 
-    node = ast;
-    if (!ast)
-        return ;
+	node = ast;
+	if (ast == 0)
+		return ;
 	if (node->type == AND)
 		exec_and(node, g);
 	else if (node->type == OR)

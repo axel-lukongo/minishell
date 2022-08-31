@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 17:37:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/30 19:23:22 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	exec_line(t_global *g)
 	int		i;
 
 	i = 0;
-	cmds = ft_split(g->line, ';', g->alloc);
+	cmds = ft_split(g->line, ';', &g->alloc);
 	while (cmds[i])
 	{
 		g->lex = lexer(cmds[i], &g->alloc);
@@ -108,7 +108,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	g.alloc = NULL;
 	g.last_return = 0;
-	g.env = init_env(env, g.alloc, 0);
+	g.env = init_env(env, &g.alloc, 0);
 	g.sh_pid = getpid();
 	g.ast = NULL;
 	g.lex = NULL;
@@ -116,7 +116,7 @@ int	main(int argc, char **argv, char **env)
 	g.char_env = env;
 	g.node_id = 0;
 	g.writed = 0;
-	g.export = init_env(env, g.alloc, 0);
+	g.export = init_env(env, &g.alloc, 0);
 	g.dir_stack = init_ustack(99, &g);
 	push_ustack(g.dir_stack, get_value_by_name(g.env, "PWD"));
 	loop(&g);
