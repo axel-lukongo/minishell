@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:41:14 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 16:03:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:23:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	cd_dash_or_nothing(t_global *g, char **cmd)
 void	my_cd(t_global *g, char **cmd)
 {
 	int	cd;
+
 	if	(cmd[1] && !dir_change_stack(cmd[1]))
 	{
 		change_value_by_name(g, "OLDPWD", get_node_by_name(g->env, "PWD")->value);

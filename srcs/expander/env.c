@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:42:28 by darian            #+#    #+#             */
-/*   Updated: 2022/09/04 14:09:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:20:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ void	dollar_number(char **result, t_global *g, t_vector2D *it, char *str)
 	it->y += 2;
 }
 
+int	cd_specific_case(char *str, t_global *g)
+{
+	char	**tmp;
+
+	tmp = ft_split_quote(str, ' ', g->alloc);
+	if (!ft_strcmp(tmp[0], "cd") && tmp[1] && !ft_strcmp(tmp[1], "$HOME")
+	&& !get_value_by_name(g->env, "HOME") && !get_value_by_name(g->export, "HOME"))
+		return (1);
+	return (0);
+}
+
 void	dollar_var(char *str, t_vector2D *it, t_global *g, char **result)
 {
 	char	*var;
@@ -40,6 +51,8 @@ void	dollar_var(char *str, t_vector2D *it, t_global *g, char **result)
 		*result = ft_strjoin(*result, " ", &g->alloc);
 	else
 	{
+		if (cd_specific_case(str, g))
+			g_p->error_cd = 1;
 		tmp = get_value_by_name(g->env, var);
 		if (!tmp && !is_backed(str, it->y - 1))
 			it->y += ft_strlen(var) + 1;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/04 12:25:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:18:48 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 	while (str[n] == c)
 		n++;
 	i = ft_strlen(str) - 1;
-	while (str[i] == c)
+	while (i >= 0 && str[i] == c)
 	{
 		i--;
 		n++;

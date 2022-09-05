@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 19:35:37 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/04 12:55:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 18:44:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ static	int		nb_args(char **args)
 	return (size);
 }
 
+int	is_only_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != c)
+			return (0);
+		i++;
+	}
+	if (!str[0])
+		return (0);
+	return (1);
+}
+
 void	ft_echo(char **args)
 {
 	int		i;
@@ -31,7 +47,7 @@ void	ft_echo(char **args)
 	n_option = 0;
 	if (nb_args(args) > 1)
 	{
-		while (args[i] && ft_strcmp(args[i], "-n") == 0)
+		while (args[i] && args[i][0] == '-' && is_only_char(args[i] + 1, 'n'))
 		{
 			n_option = 1;
 			i++;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/05 14:41:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:12:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct	s_parsing
 {
 	t_token	*next_token;
 	t_list	*li;
-	char	*cmd;
+	int		error_cd;
 }	t_parsing;
 
 typedef struct	s_env

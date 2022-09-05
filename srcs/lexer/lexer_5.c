@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/04 17:00:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 18:28:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	end_other_option(t_alloc **alloc, t_lex *lex)
 
 void	end_add_last(t_alloc **alloc, t_lex *lex)
 {
-	if (lex->less_only == 2)
+	if (lex->less_only == 2 && !(get_btok(lex->t_lst, lex->k) >= LESS 
+		&& get_btok(lex->t_lst, lex->k)  <= DGREAT))
 	{
 		add_to_list_index(lex->k - 2, (t_token){FILE, lex->buf}, &lex->t_lst
 			, alloc);

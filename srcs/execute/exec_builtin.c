@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 14:32:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:23:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,10 @@ void ft_cd(t_global *g, char **cmd)
 {
 	if (!get_node_by_name(g->env, "PWD"))
 		return ;
+	if (!ft_strcmp(cmd[0], "cd") && !cmd[1]
+		&& !get_value_by_name(g->env, "HOME")
+		&& !get_value_by_name(g->export, "HOME"))
+		error_msg("cd", "HOME not set");
 	if (!cmd[1] && get_node_by_name(g->env, "HOME"))
 		my_cd2(g);
 	else if	(cmd[1] && !dir_change_stack(cmd[1]))

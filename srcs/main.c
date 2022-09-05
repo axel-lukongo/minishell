@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/05 15:10:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:14:08 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,11 @@ char	*get_prompt_str(t_global *g)
 	pr = NULL;
 	getcwd(g->pwd, 512);
 	convert_pwd_display(g->disp_pwd, g->pwd, g->env);
-	if (g->last_return > 0)
-	{
-		pr = ft_strjoin(pr, URED, &g->alloc);
-		pr = ft_strjoin(pr, ft_itoa(g->last_return, g->alloc), &g->alloc);
-		pr = ft_strjoin(pr, " ", &g->alloc);
-	}
-	else
-	{
-		pr = ft_strjoin(pr, UGRN, &g->alloc);
-		pr = ft_strjoin(pr, ft_itoa(g->last_return, g->alloc), &g->alloc);
-		pr = ft_strjoin(pr, " ", &g->alloc);
-	}
+	pr = ft_strjoin(pr, "🍆 ", &g->alloc);
 	pr = ft_strjoin(pr, BLUB, &g->alloc);
 	pr = ft_strjoin(pr, ft_strjoin(g->disp_pwd, " ", &g->alloc), &g->alloc);
 	pr = ft_strjoin(pr, YEL, &g->alloc);
+	pr = ft_strjoin(pr, " 🍆", &g->alloc);
 	pr = ft_strjoin(pr, ft_strjoin("❯", reset, &g->alloc), &g->alloc);
 	pr = ft_strjoin(pr, " ", &g->alloc);
 	return (pr);
@@ -79,6 +69,12 @@ void	exec_line(t_global *g)
 		g->ast = parsing(g->lex, g);
 		printTree(g->ast, NULL, 0);
 		expander(g->ast, g);
+		if (g_p->error_cd == 1)
+		{
+			error_msg("cd", "HOME not set");
+			g->ast = NULL;
+			g_p->error_cd = 0;
+		}
 		g->last_return = 0;
 		exec_ast(g->ast, g, NULL);
 		add_history(cmds[i]);

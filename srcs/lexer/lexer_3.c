@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:53 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/04 17:09:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 18:10:09 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	add_redir(char *s, t_alloc **alloc, t_lex *lex, int type)
 {
 	char	*r[4] = {"<", "<<", ">", ">>"};
 
-	print_list(lex->t_lst);
 	if (!lex->buf[0])
 		printf("vide, %d\n", get_btok(lex->t_lst, lex->k));
 	if (get_btok(lex->t_lst, lex->k) >= LESS && get_btok(lex->t_lst, lex->k)

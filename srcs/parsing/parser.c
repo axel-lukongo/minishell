@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:23:32 by darian            #+#    #+#             */
-/*   Updated: 2022/09/04 17:07:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:12:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ t_tree	*parsing(t_list *li, t_global *g)
 	g_p->li = g_p->li->next;
 	tr = parse_op(g);
 	g->writed = 0;
+	g_p->error_cd = 0;
 	if (g_p->next_token->type != END)
 		return (NULL);
 	return (tr);

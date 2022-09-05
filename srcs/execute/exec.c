@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:00:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 17:58:13 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 18:58:13 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,10 +414,13 @@ static void			exec_cmd(t_tree *node, t_global *g, char *cmd)
 	}
 	else
 	{
-		if (is_builtin(ft_split_quote(node->value, ' ', g->alloc)[0]))
+		if (node->value && is_builtin(ft_split_quote(node->value, ' ', g->alloc)[0]))
 			execute_builtin(g, ft_split_quote(node->value, ' ', g->alloc));
-		else
+		else if (node->value)
+		{
+			
 			exec(ft_split_quote(node->value, ' ', g->alloc), g->env, g);
+		}
 	}
 }
 
@@ -438,7 +441,7 @@ void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
 			dup2(backup_fd, 0);
 		if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
 		{
-		close(fd[0]);
+			close(fd[0]);
 			dup2(fd[1], 1);
 		}
 		if (count)
@@ -450,7 +453,6 @@ void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
 	if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
 		close(fd[1]);
 	pipeline(root->right, count - 1, fd[0], g, cmd);
-	printf("%d\n", count);
 	waitpid(-1, NULL, 0);
 }
 
@@ -471,7 +473,6 @@ void	exec_or(t_tree *node, t_global *g, char *cmd)
 void	exit_sig(int sig)
 {
 	(void)sig;
-
 	exit(errno % 256);
 }
 

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/09/05 17:59:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 19:22:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	exec (char **args, t_list *env, t_global *g)
 	if (pid == 0)
 	{
 		signal(SIGQUIT, handle_signale_ctrl_c);
+		signal(SIGINT, exit_sig);
 		if (!args || !args[0])
 			exit(1);
 		path = ft_get_path(args, env, g);
@@ -203,7 +204,9 @@ void	exec (char **args, t_list *env, t_global *g)
 		{
 			g->last_return = 128 + WTERMSIG(status);
 			if (WTERMSIG(status) != 3)
+			{
 				g->sig_exited = 1;
+			}
 		}
 		else
 			g->last_return = WEXITSTATUS(status);
