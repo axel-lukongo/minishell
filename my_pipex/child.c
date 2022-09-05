@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:32 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/30 11:09:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/31 16:10:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	child(t_ppxb p, char **argv, char **envp)
 	if (!p.pid)
 	{
 		// ls > test.txt > pipe.c | ls [0, 1, 2, 3, 4]; 0 -> >, 1 > >>; 2 <<; 3 < ; 4 |
-		// if (p.idx == 0)
-		// 	sub_dup2(p.infile, p.pipe[1]);
+		if (p.idx == 0)
+			sub_dup2(p.infile, p.pipe[1]);
 		// else if (p.idx == p.nbr_cmd - 1)
 		// 	sub_dup2(p.pipe[2 * p.idx - 2], p.outfile);
 		// else

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:23:32 by darian            #+#    #+#             */
-/*   Updated: 2022/08/17 16:31:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 17:07:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_tree	*parse_redir(t_global *g)
 			{
 				if (ch == PIPE && !g->writed)
 					printf("bash: syntax error near unexpected token `|'\n");
-				else if (!g->writed)
-					printf("bash: syntax error near unexpected token `|'\n");
+				else if (ch >= LESS && ch < PIPE && !g->writed)
+					printf("bash: syntax error near unexpected token `newline'\n");
 				g->writed = 1;
 				return (NULL);
 			}
@@ -48,6 +48,8 @@ int	parse_binop(t_global *g, t_token type, t_tree **a, t_tree **b)
 	g_p->next_token = (t_token *)g_p->li->content;
 	g_p->li = g_p->li->next;
 	*b = parse_redir(g);
+	if (!(*b) || !(*a))
+		return (0);
 	if (!(*b) && !g->writed)
 	{
 		printf("bash: syntax error near unexpected token `%s'\n", type.str);
@@ -120,7 +122,7 @@ t_tree	*parsing(t_list *li, t_global *g)
 
 	if (!li)
 		return (NULL);
-	g_p = malloc(sizeof(*g_p));
+	g_p = ft_malloc(sizeof(*g_p), &g->alloc);
 	g_p->li = li;
 	g_p->next_token = (t_token *)li->content;
 	g_p->li = g_p->li->next;

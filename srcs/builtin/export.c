@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 12:00:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 12:25:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 
 void print_err(t_global *g, char **s, int i)
 {
-	printf("bash: export: `%s': not a valid identifier\n", s[i]);
+	printf("minishell: export: `%s': not a valid identifier\n", s[i]);
 	g->last_return = 1;
 }
 
@@ -115,7 +115,7 @@ char    **ft_split_first(char *str, char c, t_alloc **alloc)
         if (!str[i])
         {
                 new = ft_malloc(sizeof(char *) * 2, alloc);
-                new[0] = ft_strdup(str, *alloc);
+                new[0] = ft_strdup(str, alloc);
                 new[1] = NULL;
                 return (new);
         }
@@ -131,7 +131,7 @@ void	add_value_export(char **split, t_global *g)
 	node->name = split[0];
 	node->value = NULL;
 	if (!is_var_env_exist(g->export, split[0]))
-		ft_lstadd_back(&g->export, ft_lstnew((void *){node}, g->alloc));
+		ft_lstadd_back(&g->export, ft_lstnew((void *){node}, &g->alloc));
 	g->last_return = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:47:51 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 16:55:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 14:12:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	execute(t_global *g)
 	t_tree		*tr;
 	char		**cmd;
 
-	printTree(g->ast, NULL, 0);
+	// printTree(g->ast, NULL, 0);
 	tr = get_first_exec_node(g->ast);
 	while (count_executable_nodes(g->ast))
 	{

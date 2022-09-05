@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/08/30 19:17:09 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:40:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
-char	*ft_strdup(const char *s, t_alloc *alloc);
+char	*ft_strdup(const char *s, t_alloc **alloc);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2, t_alloc **alloc);
 char	*ft_strjoin_char(char const *s1, char const s2, t_alloc **alloc);
@@ -83,8 +83,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len,
 			t_alloc *alloc);
 void	ft_intset(int *tab, int size, int nb);
 
-t_list	*ft_lstnew(void *content, t_alloc *alloc);
+t_list	*ft_lstnew(void *content, t_alloc **alloc);
 void	ft_lstadd_front(t_list **alst, t_list *new);
+void	ft_lstadd_index(t_list **alst, t_list *new, int index);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **alst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 20:07:36 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/24 16:06:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 13:44:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	is_builtin(char *str)
 	if	(!ft_strcmp(str, "echo") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
 		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
 		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
-		{
-			//printf("is builtin\n");
 			return (1);
-		}
 	return (0);
 }
 

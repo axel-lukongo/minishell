@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 19:10:01 by darian            #+#    #+#             */
-/*   Updated: 2022/08/19 15:23:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/31 13:31:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_exec	**create_exec_tab(t_global *g, t_tree *tr)
 		else
 		{
 			exec[i] = ft_malloc(sizeof(*exec[i]), &g->alloc);
-			exec[i]->cmd = ft_strdup(sub->value, g->alloc);
+			exec[i]->cmd = ft_strdup(sub->value, &g->alloc);
 			if (sub->parent)
 				exec[i]->redirect_last = sub->parent->type;
 			else

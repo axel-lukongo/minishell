@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 14:50:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 17:00:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 {
-	printf("loul\n");
 	if (lex->enved && get_btok(lex->t_lst, lex->k) != CMD && !lex->backed)
 		concat_to_last_no_space((t_token){WILDENV,
 			lex->buf}, &lex->t_lst, alloc, 1);
@@ -31,7 +30,6 @@ void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 	{
 		concat_to_last_no_space((t_token){WILDCARD,
 			lex->buf}, &lex->t_lst, alloc, 1);
-		printf("test\n");
 	}
 	else if (get_btok(lex->t_lst, lex->k) != CMD && lex->backed && !lex->space)
 	{
@@ -50,7 +48,6 @@ void	end_add_wildcarded_not_start(t_alloc **alloc, t_lex *lex)
 
 void	end_if_enved(t_alloc **alloc, t_lex *lex)
 {
-	printf("la\n");
 	if (get_btok(lex->t_lst, lex->k) == WILDCARD && !lex->backed)
 		concat_to_last_no_space((t_token){WILDENV,
 			lex->buf}, &lex->t_lst, alloc, 1);
@@ -95,7 +92,16 @@ void	end_other_option(t_alloc **alloc, t_lex *lex)
 
 void	end_add_last(t_alloc **alloc, t_lex *lex)
 {
-	if (lex->wildcarded == 1 && lex->start == 1)
+	if (lex->less_only == 2)
+	{
+		add_to_list_index(lex->k - 2, (t_token){FILE, lex->buf}, &lex->t_lst
+			, alloc);
+		lex->less_only = 0;
+		lex->c = 0;
+		lex->buf[0] = 0;
+		lex->k++;
+	}
+	else if (lex->wildcarded == 1 && lex->start == 1)
 		end_add_wildcarded_not_start(alloc, lex);
 	else if (get_btok(lex->t_lst, lex->k) == GREAT || get_btok
 		(lex->t_lst, lex->k) == DGREAT || get_btok(lex->t_lst, lex->k) == DLESS
@@ -117,7 +123,11 @@ void	end_add_last(t_alloc **alloc, t_lex *lex)
 int	add_not_quoted_2(char *b, t_alloc **alloc, t_lex *lex)
 {
 	if (b[lex->i] == '<' && b[lex->i + 1] == '<' && !lex->q.x && !lex->q.y)
+	{
 		add_redir("<<", alloc, lex, DLESS);
+		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
+			lex->less_only = 1;
+	}
 	else if (b[lex->i] == '&' && b[lex->i + 1] == '&' && !lex->q.x && !lex->q.y)
 		add_binop("&&", alloc, lex, AND);
 	else if (b[lex->i] == '&' && b[lex->i + 1] != '&' && !lex->q.x && !lex->q.y)

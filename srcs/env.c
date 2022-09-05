@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/08/24 15:54:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/08/31 13:33:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	change_value_or_add_it(t_global *g, t_list **env, char *name
 	new = ft_malloc(sizeof(*new), &g->alloc);
 	new->name = name;
 	new->value = value;
-	ft_lstadd_back(env, ft_lstnew((void *)new, g->alloc));
+	ft_lstadd_back(env, ft_lstnew((void *)new, &g->alloc));
 }
 
 void	destroy_env_var(t_list	**lst, char *name)

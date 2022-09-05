@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:07:29 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/17 16:07:39 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 14:08:55 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	end_squote(char *buffer, t_alloc **alloc, t_lex *lex)
 
 void	add_simple_quote(char *buffer, t_alloc **alloc, t_lex *lex)
 {
-	printf("single\n");
 	if (lex->q.y == 1)
 		end_squote(buffer, alloc, lex);
 	else
@@ -53,6 +52,21 @@ void	add_simple_quote(char *buffer, t_alloc **alloc, t_lex *lex)
 
 void	add_parent(t_alloc **alloc, t_lex *lex, char *s, int type)
 {
+	if (type == RBRACE && get_btok(lex->t_lst, lex->k) == LBRACE)
+	{
+		error_msg("syntax error near unexpected token", "`)'");
+		lex->error = 1;
+	}
+	if (type == LBRACE && ((get_btok(lex->t_lst, lex->k) >= 0
+		&& get_btok(lex->t_lst, lex->k) <= 3) || (get_btok(lex->t_lst, lex->k)
+			>= 20 && get_btok(lex->t_lst, lex->k) <= 24)))
+	{
+		error_msg("syntax error near unexpected token", "`('");
+		lex->error = 1;
+	}
+	// si avant type FILE alors error near '('
+	
+	// si avant type CMD OU AUTRE CMD alors error near '{cmd}'
 	add_to_list(type, s, &lex->t_lst, alloc);
 	if (type == LBRACE)
 		lex->parent++;

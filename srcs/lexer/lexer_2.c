@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 14:36:02 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 17:00:53 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,30 @@ void	concat_other(char *buffer, t_alloc **alloc, t_lex *lex)
 		concat_to_last((t_token){0, lex->buf}, &lex->t_lst, alloc, 0);
 }
 
+
+
 void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex)
 {
-	if (!(lex->i != 0 && (buffer[lex->i] == '"' || buffer[lex->i] == '\'')
+	if (lex->less_only == 1)
+	{
+		add_to_list(FILE, lex->buf, &lex->t_lst
+			, alloc);
+		lex->less_only = 2;
+		lex->c = 0;
+		lex->buf[0] = 0;
+		lex->k++;
+	}
+	else if (lex->less_only == 2)
+	{
+		add_to_list_index(lex->k - 2, (t_token){CMD, lex->buf}, &lex->t_lst
+			, alloc);
+		lex->less_only = 0;
+		lex->c = 0;
+		lex->buf[0] = 0;
+		lex->k++;
+		lex->lessed = 1;
+	}
+	else if (!(lex->i != 0 && (buffer[lex->i] == '"' || buffer[lex->i] == '\'')
 			&& buffer[lex->i - 1] != '"' && buffer[lex->i - 1] != '\'')
 		&& buffer[lex->i] != '*' && buffer[lex->i] != '\\')
 	{
@@ -107,5 +128,6 @@ void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex)
 			lex->space = 1;
 		lex->c = 0;
 		lex->start = 1;
+		lex->lessed = 0;
 	}
 }

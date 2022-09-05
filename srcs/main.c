@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 19:23:22 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:10:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,66 @@ void	exec_line(t_global *g)
 	{
 		g->lex = lexer(cmds[i], &g->alloc);
 		g->ast = parsing(g->lex, g);
+		printTree(g->ast, NULL, 0);
 		expander(g->ast, g);
-		exec_ast(g->ast, g);
+		g->last_return = 0;
+		exec_ast(g->ast, g, NULL);
+		add_history(cmds[i]);
 		g->node_id = 0;
 		i++;
 	}
 }
 
-int	loop(t_global *g)
+/*
+
+=> "> bonjour echo > test lol > oui"
+
+      .——— (oui)
+ ——— (>)
+    |      .——— (test lol)
+    `——— (>)
+       |      .——— (bonjour)
+       `——— (>)
+          `——— (echo)
+
+Si redirection en cours, prend le deuxieme argument de > si ya
+et les ajouter a gauche de la redir dans l'arbre.
+
+Exemple:
+	"echo > test lol > oui"
+	
+          .——— (test)
+    `——— (>)
+		`——— (lol)	
+       |      .——— (bonjour)
+       `——— (>)
+          `——— (echo)
+
+Pendant le parsing de l'arbre pour l'execution, il faut concatanerer
+toutes les partie a gauche d'un '>' et l'executer a la fin pour le rediriger
+dans le dernier fichier.
+
+*/
+
+int	loop(t_global *g, char **env)
 {
 	char		*str;
 
+	g->env = init_env(env, &g->alloc, 0);
+	g->export = init_env(env, &g->alloc, 0);
+	push_ustack(g->dir_stack, get_value_by_name(g->env, "PWD"));
+	signal(SIGINT, &handle_signale_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, &handle_signale_ctrl_c);
-		str = get_prompt_str(g); // SI ON SORT D'UNE FONCTION EN CTRL C ON REDISPLAY PAS LA LIGNE
-		g->line = readline(str);
+		str = get_prompt_str(g);
+		if (!g->sig_exited)
+			g->line = readline(str);
+		else
+		{
+			g->line = readline(NULL);
+			g->sig_exited = 0;
+		}
 		if (!g->line)
 			return (0);
 		exec_line(g);
@@ -108,7 +152,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	g.alloc = NULL;
 	g.last_return = 0;
-	g.env = init_env(env, &g.alloc, 0);
 	g.sh_pid = getpid();
 	g.ast = NULL;
 	g.lex = NULL;
@@ -116,8 +159,10 @@ int	main(int argc, char **argv, char **env)
 	g.char_env = env;
 	g.node_id = 0;
 	g.writed = 0;
-	g.export = init_env(env, &g.alloc, 0);
+	g.sig_exited = 0;
+	g.error = 0;
 	g.dir_stack = init_ustack(99, &g);
-	push_ustack(g.dir_stack, get_value_by_name(g.env, "PWD"));
-	loop(&g);
+	loop(&g, env);
+	ft_malloc_clear(&g.alloc);
+	clear_history();
 }

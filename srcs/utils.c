@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:56:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 19:25:25 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:29:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,26 @@ t_list	*init_env(char **env, t_alloc **alloc, int i)
 	list_env = 0;
 	while (env[i])
 	{
-		str = ft_strdup(env[i], *alloc);
+		str = ft_strdup(env[i], alloc);
 		if (!str)
 			return (0);
 		strs = ft_split(str, '=', alloc);
 		node = ft_malloc(sizeof(*node), alloc);
 		*node = (t_env){strs[0], strs[1]};
-		new_node = ft_lstnew((void *){node}, *alloc);
+		new_node = ft_lstnew((void *){node}, alloc);
 		if (!new_node)
 			return (0);
 		ft_lstadd_back(&list_env, new_node);
 		i++;
 	}
 	return (list_env);
+}
+
+void	error_msg(char	*arg, char *message)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
 }

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 18:44:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/05 14:32:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ static void error_msg(char *path)
 
 void	my_exit(t_global *g, char **cmd)
 {
+	int	tmp;
+
 	if	(cmd[1])
 		{ // A FINIR AVEC LA LIMIT 64 
 			if	(ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
@@ -115,16 +117,28 @@ void	my_exit(t_global *g, char **cmd)
 					g->last_return = 1;
 				}
 				else
-					exit(ft_atoi(cmd[1]) % 256);
+				{
+					clear_history();
+					tmp = ft_atoi(cmd[1]) % 256;
+					ft_malloc_clear(&g->alloc);
+					// printf("%s\n", cmd[0]);
+					exit(tmp);
+				}
 			}
 			else
 			{
 				printf("bash: exit: exit: numeric argument required\n");
+				ft_malloc_clear(&g->alloc);
+				clear_history();
 				exit(255);
 			}
 		}
 		else
+		{
+			ft_malloc_clear(&g->alloc);
+			clear_history();
 			exit(0);
+		}
 }
 
 
@@ -176,7 +190,6 @@ void	execute_builtin(t_global *g, char **cmd)
 		ft_cd(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "export"))
 		my_export(g, cmd);
-		// my_export(g, cmd);
 	else if	(!ft_strcmp(cmd[0], "dirs"))
 	{
 		print_ustack(g->dir_stack);
@@ -185,13 +198,20 @@ void	execute_builtin(t_global *g, char **cmd)
 	else if	(!ft_strcmp(cmd[0], "pwd"))
 	{
 		if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
+		{
 			printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
+			g->last_return = 1;
+		}
 		else
+		{
 			printf("%s\n", getcwd(NULL, 0));
+			g->last_return = 0;
+		}
 	}
 	else if (!ft_strcmp(cmd[0], "echo"))
 	{
 		ft_echo(cmd);
+		g->last_return = 0;
 	}
 }
 

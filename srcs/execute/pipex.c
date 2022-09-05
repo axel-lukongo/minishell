@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/08/30 19:32:25 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:59:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ char *ft_get_path(char **args, t_list *env, t_global *g)
 {
 	char *path;
 
+	path = NULL;
 	if (!is_char(args[0], '/'))
 		path = valid_path(args[0], env, g);
 	else if (!(ft_strncmp(args[0], "./", 2)) || (!(ft_strncmp(args[0], "../", 3))))
@@ -165,68 +166,58 @@ char *ft_get_path(char **args, t_list *env, t_global *g)
 	}
 	else
 	{
+		if (is_directory(args[0]))
+		{
+			error_msg(args[0], "is a directory");
+			return (NULL);
+		}
 		path = delete_path(args[0], &g->alloc);
 		path = valid_path(path, env, g);
 	}
 	return(path);
 }
 
-void	exec (char *cmd, t_list *env, t_global *g)
+void	exec (char **args, t_list *env, t_global *g)
 {
-	char	**args;
 	char	*path;
+	int		status;
 	int		pid;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		if (!cmd)
+		signal(SIGQUIT, handle_signale_ctrl_c);
+		if (!args || !args[0])
 			exit(1);
-		args = ft_split_quote(cmd, ' ', g->alloc);
 		path = ft_get_path(args, env, g);
 		execve(path, args, g->char_env);
 		write(STDERR, "sh: ", 4);
 		write(STDERR, args[0], ft_strlen(args[0]));
 		write(STDERR, ": command not found\n", 20);
-		exit(27);
-	}
-	else
-		waitpid(pid, &g->last_return, 0);
-}
-
-void	redir(t_exec *cmd, t_list *env, int fdin, t_global *g)
-{
-	pid_t		pid;
-	int		fd[2];
-
-	pipe(fd);
-	pid = fork();
-	if (pid)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN);
-		// waitpid(pid, NULL, 0);
+		exit(127);
 	}
 	else
 	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT);
-		if (fdin == STDIN)
-			exit(1);
+		waitpid(-1, &status, 0);
+		if ((WIFSIGNALED(status)))
+		{
+			g->last_return = 128 + WTERMSIG(status);
+			if (WTERMSIG(status) != 3)
+				g->sig_exited = 1;
+		}
 		else
-			exec(cmd->cmd, env, g);
+			g->last_return = WEXITSTATUS(status);
 	}
-	close(fd[0]);
-	close(fd[1]);
 }
 
 void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
 {
-	// il faut recoder pipex car elle execute pas les commandes en même temps.
 	int	i;
 	int	k;
 	int	fd;
 	int	pid;
+	(void)g;
+	(void)env;
 
 	pid = 0;
 	i = 0;
@@ -256,16 +247,16 @@ void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
 			{
 				waitpid(pid, NULL, 0);
 			}
-			else
-				exec(ft_strjoin("cat ", cmd[i + 1]->cmd, &g->alloc), env, g);
+			// else
+				// exec(ft_strjoin("cat ", cmd[i + 1]->cmd, &g->alloc), env, g);
 		}
 		else
 			fd = dup2(STDOUT, STDOUT);
 		// printf("%d\n", i);
-		redir(cmd[i++], env, fd, g);
+		// redir(cmd[i++], env, fd, g);
 		k++;
 	}
-	exec(cmd[k]->cmd, env, g);
+	// exec(cmd[k]->cmd, env, g);
 	close(fd);
 }
 

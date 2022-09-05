@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:24:47 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 14:37:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 17:09:16 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,25 @@ int	add_not_quoted(char *b, t_alloc **alloc, t_lex *lex)
 	else if (b[lex->i] == '|' && b[lex->i + 1] == '|' && !lex->q.x && !lex->q.y)
 		add_binop("||", alloc, lex, OR);
 	else if (b[lex->i] == '>' && b[lex->i + 1] != '>' && !lex->q.x && !lex->q.y)
+	{
 		add_redir(">", alloc, lex, GREAT);
+		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
+			lex->less_only = 1;
+		// if (lex->lessed)
+		// 	lex->less_only = 2;
+	}
 	else if (b[lex->i] == '>' && b[lex->i + 1] == '>' && !lex->q.x && !lex->q.y)
+	{
 		add_redir(">>", alloc, lex, DGREAT);
+		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
+			lex->less_only = 1;
+	}
 	else if (b[lex->i] == '<' && b[lex->i + 1] != '<' && !lex->q.x && !lex->q.y)
+	{
 		add_redir("<", alloc, lex, LESS);
+		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
+			lex->less_only = 1;
+	}
 	else
 	{
 		if (!add_not_quoted_2(b, alloc, lex))
@@ -97,7 +111,7 @@ t_list	*lexer(char *buffer, t_alloc **alloc)
 
 	lex = ft_malloc(sizeof(*lex), alloc);
 	*lex = (t_lex){NULL, NULL, 10, 0, 0, 0, 0, (t_vector2D){0, 0},
-		(t_vector2D){0, 0}, 0, 0, 0, 0, 0, 0};
+		(t_vector2D){0, 0}, 0, 0, 0, 0, 0, 0, 0, 0};
 	if (!buffer)
 		return (NULL);
 	lex->buf = ft_malloc(sizeof(char) * 10, alloc);

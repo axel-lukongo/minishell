@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/08/30 19:23:01 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:41:00 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_parsing
 {
 	t_token	*next_token;
 	t_list	*li;
+	char	*cmd;
 }	t_parsing;
 
 typedef struct	s_env
@@ -150,6 +151,9 @@ typedef struct	s_global
 	t_ustack	*dir_stack;
 	int			writed;
 	t_list		*export;
+	char		*command;
+	int			error;
+	int			sig_exited;
 }	t_global;
 
 typedef struct	s_lex
@@ -169,12 +173,14 @@ typedef struct	s_lex
 	int			enved;
 	int			space;
 	int			error;
+	int			less_only;
+	int			lessed;
 }	t_lex;
 
 extern t_parsing *g_p;
 
-void	exec(char *cmd, t_list *env, t_global *g);
-void    exec_ast(t_tree *ast, t_global *g);
+void	exec(char **args, t_list *env, t_global *g);
+void    exec_ast(t_tree *ast, t_global *g, char *cmd);
 
 // -> LIST
 void	print_list(t_list *li);
@@ -192,6 +198,8 @@ int		count_tree_nodes(t_tree *tr);
 // -> UTILS
 int		ft_cmptomax(char *s1, char *s2);
 void	copy_str(char dest[1024], char *src);
+void	rev_tab(void **tab);
+void	error_msg(char	*arg, char *message);
 //
 // // <====== MINISHELL ======>
 //
@@ -224,6 +232,7 @@ void	add_type(int type, t_lex *lex, t_alloc **alloc);
 void	concat_other(char *buffer, t_alloc **alloc, t_lex *lex);
 void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex);
 void	add_double_quote(char *buffer, t_alloc **alloc, t_lex *lex);
+void	add_to_list_index(int index, t_token token, t_list **li, t_alloc **alloc);
 //
 // PARSER
 //
@@ -276,6 +285,7 @@ t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size);
 int		cmp(void *content, void *content_ref);
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
 void	my_export(t_global *g, char **cmd);
+char    **ft_split_first(char *str, char c, t_alloc **alloc);
 void	my_unset(t_global *g, char **cmd);
 int		count_char(char *str, int ch);
 char	*del_last_path(t_global *g, char *path);
@@ -351,7 +361,7 @@ void	init_outfile(char *argv, t_ppxb *pipex);
 
 /* here_doc.c */
 int		args_in(char *arg, t_ppxb *pipex);
-void	here_doc(t_tree *node, t_global *g);
+void	here_doc(t_tree *node, t_global *g, char *cmd);
 
 /* error.c */
 void	msg_error(char *err);
@@ -360,5 +370,6 @@ int		msg(char *err);
 
 
 void	handle_signale_ctrl_c(int sig);
+void	exit_sig(int sig);
 
 #endif

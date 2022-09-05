@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:53 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/30 14:32:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/04 17:09:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,24 @@
 void	buffer_writing(char *buffer, t_alloc **alloc, t_lex *lex)
 {
 	if (buffer[lex->i] == '\\')
+	{
+		if (buffer[lex->i + 1] == 0 && (lex->i == 0 || buffer[lex->i - 1] != '\\'))
+		{
+			error_msg("\\", "backslash error");
+			lex->error = 1;
+			return ;
+		}
 		lex->backed = 1;
+	}
 	if (((buffer[lex->i] == '$' && lex->quoted.x) || (buffer[lex->i] == '$'
 				&& !lex->quoted.x) || (buffer[lex->i] == '$'
 				&& !lex->quoted.y)))
 		lex->enved = 1;
-	if ((!ft_istoken(buffer[lex->i]) || ((lex->quoted.x && buffer[lex->i] != '"'
+	if (((!ft_istoken(buffer[lex->i]) || ((lex->quoted.x && buffer[lex->i] != '"'
 					&& buffer[lex->i] != '\\') || (lex->quoted.y
-					&& buffer[lex->i] != '\'' && buffer[lex->i] != '\\'))))
+					&& buffer[lex->i] != '\'' && buffer[lex->i] != '\\')))
+					&& !(buffer[lex->i] == ' ' && lex->less_only == 1))
+					|| (lex->less_only == 2 && !ft_istoken(buffer[lex->i + 1])))
 		write_char(buffer, alloc, lex);
 	else if ((ft_istoken(buffer[lex->i]) && lex->c != 0) && (!lex->quoted.y
 			&& (!lex->quoted.x || (lex->quoted.x && lex->enved))))
@@ -31,25 +41,15 @@ void	buffer_writing(char *buffer, t_alloc **alloc, t_lex *lex)
 
 void	add_redir(char *s, t_alloc **alloc, t_lex *lex, int type)
 {
-	printf("%d\n", get_btok(lex->t_lst, lex->k));
-	if (get_btok(lex->t_lst, lex->k) == DGREAT) // A CORRIGER
+	char	*r[4] = {"<", "<<", ">", ">>"};
+
+	print_list(lex->t_lst);
+	if (!lex->buf[0])
+		printf("vide, %d\n", get_btok(lex->t_lst, lex->k));
+	if (get_btok(lex->t_lst, lex->k) >= LESS && get_btok(lex->t_lst, lex->k)
+		<= DGREAT && type >= LESS && type <= DGREAT && !lex->buf[0]) 
 	{
-		printf("bash: syntax error near unexpected token `>>'\n");
-		lex->error = 1;
-	}
-	if (get_btok(lex->t_lst, lex->k) == DLESS)
-	{
-		printf("bash: syntax error near unexpected token `<<'\n");
-		lex->error = 1;
-	}
-	if (get_btok(lex->t_lst, lex->k) == LESS)
-	{
-		printf("bash: syntax error near unexpected token `<'\n");
-		lex->error = 1;
-	}
-	if (get_btok(lex->t_lst, lex->k) == GREAT)
-	{
-		printf("bash: syntax error near unexpected token `>'\n");
+		printf("bash: syntax error near unexpected token `%s'\n", r[type - LESS]);
 		lex->error = 1;
 	}
 	add_to_list(type, s, &lex->t_lst, alloc);
@@ -91,7 +91,6 @@ static void	end_dquote(char *buffer, t_alloc **alloc, t_lex *lex)
 
 void	add_double_quote(char *buffer, t_alloc **alloc, t_lex *lex)
 {
-	printf("double\n");
 	if (lex->q.x == 1 && !is_backed(buffer, lex->i - 1))
 		end_dquote(buffer, alloc, lex);
 	else

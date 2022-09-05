@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darian <darian@student.42.fr>              +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 13:52:50 by darian            #+#    #+#             */
-/*   Updated: 2022/06/28 13:42:57 by darian           ###   ########.fr       */
+/*   Updated: 2022/08/31 15:26:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+//ft_lstclear
 void	ft_malloc_clear(t_alloc **lst)
 {
 	t_alloc	*tmp;
@@ -29,6 +30,7 @@ void	ft_malloc_clear(t_alloc **lst)
 	}
 }
 
+//ft_lst_addback
 void	malloc_add(t_alloc **alst, t_alloc *new)
 {
 	t_alloc	*tmp;
@@ -44,6 +46,7 @@ void	malloc_add(t_alloc **alst, t_alloc *new)
 	tmp->next = new;
 }
 
+//ft_lstnew
 t_alloc	*malloc_new(void *content)
 {
 	t_alloc	*li;
