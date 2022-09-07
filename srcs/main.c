@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/06 16:46:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:36:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,53 @@ void	handle_signale_ctrl_c(int sig)
 	(void)sig;
 }
 
+# define CMD 0
+# define ARG 1
+# define FILE 2
+# define ENV 3
+# define WILDCARD 14
+# define WILDENV 20
+# define BACKSLASH 21
+# define WILDBACK 22
+# define BACKENV 23
+# define WILDENVBACK 24
+
+void	exec_tree(t_global *g)
+{
+	int	pid;
+	int	status;
+
+	if (g->ast && ((g->ast->type >= 0 && g->ast->type <= 3) || (g->ast->type == 14)
+	|| (g->ast->type >= 20 && g->ast->type <= 24)))
+	{
+		if (g->ast->value && is_builtin(ft_split_quote(g->ast->value, ' ', g->alloc)[0]))
+			execute_builtin(g, ft_split_quote(g->ast->value, ' ', g->alloc));
+		else if (g->ast->value)
+		{
+			pid = fork();
+			if (pid == 0)
+				exec(ft_split_quote(g->ast->value, ' ', g->alloc), g->env, g);
+			else
+			{
+				waitpid(-1, &status, 0);
+				if ((WIFSIGNALED(status)))
+				{
+					g->last_return = 128 + WTERMSIG(status);
+					if (WTERMSIG(status) != 3)
+					{
+						g->sig_exited = 1;
+					}
+				}
+				else
+					g->last_return = WEXITSTATUS(status);
+			}
+
+		}
+	}
+	else
+		exec_ast(g->ast, g, NULL);
+}
+
 void	exec_line(t_global *g)
 {
 	char	**cmds;
@@ -76,7 +123,7 @@ void	exec_line(t_global *g)
 			g_p->error_cd = 0;
 		}
 		g->last_return = 0;
-		exec_ast(g->ast, g, NULL);
+		exec_tree(g);
 		add_history(cmds[i]);
 		g->node_id = 0;
 		i++;

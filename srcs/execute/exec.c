@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:00:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/07 17:11:23 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:38:13 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,9 +401,10 @@ void	rev_tab(void **tab)
 	}
 }
 
-static void			exec_cmd(t_tree *node, t_global *g, char *cmd)
+void			exec_cmd(t_tree *node, t_global *g, char *cmd)
 {
 	char	**args;
+
 	if (cmd)
 	{
 		args = ft_split_quote(cmd, ' ', g->alloc);
@@ -417,12 +418,42 @@ static void			exec_cmd(t_tree *node, t_global *g, char *cmd)
 		if (node->value && is_builtin(ft_split_quote(node->value, ' ', g->alloc)[0]))
 			execute_builtin(g, ft_split_quote(node->value, ' ', g->alloc));
 		else if (node->value)
-		{
-			
 			exec(ft_split_quote(node->value, ' ', g->alloc), g->env, g);
-		}
 	}
 }
+
+// void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
+// {
+// 	int				fd[2];
+// 	int				pid;
+
+// 	if (!root)
+// 		return ;
+// 	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 		pipe(fd);
+// 	if ((pid = fork()) == 0)
+// 	{
+// 		if (count)
+// 			dup2(fd[0], 0);
+// 		else
+// 			dup2(backup_fd, 0);
+// 		// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 		// {
+// 			// close(fd[0]);
+// 			dup2(fd[1], 1);
+// 		// }
+// 		if (count)
+// 			exec_ast(root->left, g, cmd);
+// 		else
+// 			exec_ast(root, g, cmd);
+// 		// exit(g->last_return);
+// 	}
+// 	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 		close(fd[1]);
+// 	pipeline(root->right, count - 1, fd[0], g, cmd);
+// 	// waitpid(-1, NULL, 0);
+// 	pid = wait(NULL);
+// }
 
 void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
 {
@@ -431,29 +462,26 @@ void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
 
 	if (!root)
 		return ;
-	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
-		pipe(fd);
+	pipe(fd);
 	if ((pid = fork()) == 0)
 	{
+		dup2(backup_fd, 0);
 		if (count)
-			dup2(fd[0], 0);
-		else
-			dup2(backup_fd, 0);
-		// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
-		// {
-			// close(fd[0]);
 			dup2(fd[1], 1);
-		// }
+		close(fd[1]);
+		close(fd[0]);
 		if (count)
 			exec_ast(root->left, g, cmd);
 		else
 			exec_ast(root, g, cmd);
-		// exit(g->last_return);
+		exit(g->last_return);
 	}
-	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+	else
+	{
 		close(fd[1]);
+		close(fd[0]);
+	}
 	pipeline(root->right, count - 1, fd[0], g, cmd);
-	// waitpid(-1, NULL, 0);
 	pid = wait(NULL);
 }
 
@@ -579,7 +607,6 @@ char	*read_file(int fd, t_alloc **alloc)
 void	here_doc(t_tree *node, t_global *g, char *cmd)
 {
 	int		file;
-	int		fd[2];
 	int		pid;
 
 	pid = fork();
@@ -593,10 +620,7 @@ void	here_doc(t_tree *node, t_global *g, char *cmd)
 		close(file);
 		file = open(".heredoc_tmp", O_RDONLY);
 		dup2(file, 0);
-		dup2(fd[1], 1);
 		exec_cmd(node->left, g, cmd);
-		close(fd[1]);
-		close(fd[0]);
 		close(file);
 	}
 	else
