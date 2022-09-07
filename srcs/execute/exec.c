@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:00:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 18:58:13 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:11:23 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,30 +431,89 @@ void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
 
 	if (!root)
 		return ;
-	if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
 		pipe(fd);
 	if ((pid = fork()) == 0)
 	{
 		if (count)
 			dup2(fd[0], 0);
-		if (count != 1)
+		else
 			dup2(backup_fd, 0);
-		if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
-		{
-			close(fd[0]);
+		// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+		// {
+			// close(fd[0]);
 			dup2(fd[1], 1);
-		}
+		// }
 		if (count)
 			exec_ast(root->left, g, cmd);
 		else
 			exec_ast(root, g, cmd);
-		exit(g->last_return);
+		// exit(g->last_return);
 	}
-	if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+	// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
 		close(fd[1]);
 	pipeline(root->right, count - 1, fd[0], g, cmd);
-	waitpid(-1, NULL, 0);
+	// waitpid(-1, NULL, 0);
+	pid = wait(NULL);
 }
+
+// void				pipeline(t_tree *root, int count, int backup_fd, t_global *g, char *cmd)
+// {
+// 	int				fd[2];
+// 	int				pid;
+// 	int				i;
+
+// 	i = 0;
+// 	if (!root)
+// 		return ;
+// 	backup_fd = 0;
+// 	while (1)
+// 	{
+// 		if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 			pipe(fd);
+// 		if ((pid = fork()) == 0)
+// 		{
+// 			dup2(backup_fd, 0);
+// 			if (backup_fd != 0)
+// 				close(backup_fd);
+// 			if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 				dup2(fd[1], 1);
+// 			if (count)
+// 				exec_ast(root->left, g, cmd);
+// 			else
+// 				exec_ast(root, g, cmd);
+// 			close(fd[1]);
+// 			close(fd[0]);
+// 			// exit(g->last_return);	
+// 		}
+// 		else
+// 		{
+// 			if (backup_fd != 0)
+// 				close(backup_fd);
+// 			// if ((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE)
+// 			// if (!((root->parent && root->parent->left && root->parent->left->type == PIPE) || root->type == PIPE))
+// 			// 	break ;
+// 			i++;
+// 			// printf("=> back = %d, fd0 = %d\n", backup_fd, fd[0]);
+// 			backup_fd = dup2(backup_fd, fd[0]);
+// 			// printf("=> back = %d, fd0 = %d\n", backup_fd, fd[0]);
+// 			// backup_fd = fd[0];
+// 			close(fd[1]);
+// 			close(fd[0]);
+// 		}
+// 		if (!root->right)
+// 			break;
+// 		root = root->right;
+// 		count--;
+// 	}
+// 	// pipeline(root->right, count - 1, fd[0], g, cmd);
+// 	while (i)
+// 	{
+// 		waitpid(-1, NULL, 0);
+// 		i--;
+// 	}
+// 	// pid = wait(NULL);
+// }
 
 void	exec_and(t_tree *node, t_global *g, char *cmd)
 {
