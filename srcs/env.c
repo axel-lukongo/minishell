@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/08/31 13:33:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 16:47:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	is_var_env_exist(t_list	*env, char *name)
 	return (0);
 }
 
-void	change_value_by_name(t_global *g, char *name, char *value)
+void	change_value_by_name(t_list *env, char *name, char *value)
 {
 	t_env	*node;
-	t_list	*env;
 
-	env = g->env;
+	if (!name || !env)
+		return ;
 	while (env)
 	{
 		node = (t_env *)env->content;
@@ -91,27 +91,4 @@ void	change_value_or_add_it(t_global *g, t_list **env, char *name
 	new->name = name;
 	new->value = value;
 	ft_lstadd_back(env, ft_lstnew((void *)new, &g->alloc));
-}
-
-void	destroy_env_var(t_list	**lst, char *name)
-{
-	t_env	*node;
-	t_list	*li;
-	t_list	*prev;
-
-	li = *lst;
-	prev = NULL;
-	while (li)
-	{
-		node = (t_env *)li->content;
-		if (!ft_strcmp(node->name, name))
-		{
-			if (prev == NULL)
-				*lst = li;
-			else
-				prev->next = li->next;
-		}
-		prev = li;
-		li = li->next;
-	}
 }

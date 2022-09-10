@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   match.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 14:40:06 by darian            #+#    #+#             */
-/*   Updated: 2022/08/30 19:20:25 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:45:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int	is_matching_between(char *str, char *start, char *end)
 		i++;
 	}
 	i = 0;
-	// M a k e f i l e
 	while (str[j])
 	{
 		i = 0;

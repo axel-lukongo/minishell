@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:25:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 15:10:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:40:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_nb(int nb)
 	return (i);
 }
 
-char	*get_var_name(char *str, int i)
+char	*get_var_name(char *str, int i, t_global *g)
 {
 	char	*res;
 	int		len;
@@ -40,7 +40,7 @@ char	*get_var_name(char *str, int i)
 		i++;
 		len++;
 	}
-	res = malloc(sizeof(char) * (len + 1));
+	res = ft_malloc(sizeof(char) * (len + 1), &g->alloc);
 	len = 0;
 	while (is_shell_char_var_allowed(str[k]) && str[k])
 	{

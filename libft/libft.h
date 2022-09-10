@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/09/01 15:40:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:47:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		ft_isprint(int c);
 int		ft_isascii(int c);
 size_t	ft_strlcpy(char *dst, const char *src,
 			size_t dstsize);
-t_list	*ft_lstnew2(void *content, void *result);
 char	**my_split(char const *s, char c);
 char	*my_strdup(const char *src);
 char	*my_strjoin(char const *s1, char const*s2);

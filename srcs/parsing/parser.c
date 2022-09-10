@@ -6,42 +6,13 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:23:32 by darian            #+#    #+#             */
-/*   Updated: 2022/09/05 19:12:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:34:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 t_parsing	*g_p;
-
-t_tree	*parse_redir(t_global *g)
-{
-	t_tree	*a;
-	char	**str;
-	int		ch;
-
-	str = (char *[]){"<", "<<", ">", ">>", "|"};
-	a = parse_word(g);
-	while (1)
-	{
-		if (g_p->next_token->type >= LESS && g_p->next_token->type <= PIPE)
-		{
-			ch = g_p->next_token->type;
-			if (!create_exp_token_node(g_p->next_token->type,
-					str[g_p->next_token->type - LESS], &a, g))
-			{
-				if (ch == PIPE && !g->writed)
-					printf("bash: syntax error near unexpected token `|'\n");
-				else if (ch >= LESS && ch < PIPE && !g->writed)
-					printf("bash: syntax error near unexpected token `newline'\n");
-				g->writed = 1;
-				return (NULL);
-			}
-		}
-		else
-			return (a);
-	}
-}
 
 int	parse_binop(t_global *g, t_token type, t_tree **a, t_tree **b)
 {
@@ -76,17 +47,32 @@ t_tree	*parse_op(t_global *g)
 	{
 		if (g_p->next_token->type == OR)
 		{
+			check_if_heredoc();
 			if (!parse_binop(g, (t_token){OR, "||"}, &a, &b))
 				return (NULL);
 		}
 		else if (g_p->next_token->type == AND)
 		{
+			check_if_heredoc();
 			if (!parse_binop(g, (t_token){AND, "&&"}, &a, &b))
 				return (NULL);
 		}
 		else
 			return (a);
 	}
+}
+
+t_tree	*parse_word_2(t_global *g)
+{
+	if (g_p->next_token->type == WILDENVBACK)
+		return (create_token_node(WILDENVBACK, g));
+	else if (g_p->next_token->type == ENV)
+		return (create_token_node(ENV, g));
+	else if (g_p->next_token->type == FILE)
+		return (create_token_node(FILE, g));
+	else if (g_p->next_token->type == LBRACE)
+		return (left_brace(NULL, g));
+	return (NULL);
 }
 
 t_tree	*parse_word(t_global *g)
@@ -105,15 +91,8 @@ t_tree	*parse_word(t_global *g)
 		return (create_token_node(BACKENV, g));
 	else if (g_p->next_token->type == BACKSLASH)
 		return (create_token_node(BACKSLASH, g));
-	else if (g_p->next_token->type == WILDENVBACK)
-		return (create_token_node(WILDENVBACK, g));
-	else if (g_p->next_token->type == ENV)
-		return (create_token_node(ENV, g));
-	else if (g_p->next_token->type == FILE)
-		return (create_token_node(FILE, g));
-	else if (g_p->next_token->type == LBRACE)
-		return (left_brace(NULL, g));
-	return (NULL);
+	else
+		return (parse_word_2(g));
 }
 
 t_tree	*parsing(t_list *li, t_global *g)
@@ -122,13 +101,14 @@ t_tree	*parsing(t_list *li, t_global *g)
 
 	if (!li)
 		return (NULL);
-	g_p = ft_malloc(sizeof(*g_p), &g->alloc);
 	g_p->li = li;
 	g_p->next_token = (t_token *)li->content;
 	g_p->li = g_p->li->next;
-	tr = parse_op(g);
-	g->writed = 0;
+	g_p->tmpfile = 0;
+	g_p->hered = 0;
 	g_p->error_cd = 0;
+	g->writed = 0;
+	tr = parse_op(g);
 	if (g_p->next_token->type != END)
 		return (NULL);
 	return (tr);

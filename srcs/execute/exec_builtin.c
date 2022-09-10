@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 19:23:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/08 15:46:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	my_exit(t_global *g, char **cmd)
 					clear_history();
 					tmp = ft_atoi(cmd[1]) % 256;
 					ft_malloc_clear(&g->alloc);
-					// printf("%s\n", cmd[0]);
 					exit(tmp);
 				}
 			}
@@ -182,6 +181,24 @@ void ft_cd(t_global *g, char **cmd)
 		cd_dash_or_nothing(g, cmd);
 }
 
+void	my_pwd(t_global *g, char **cmd)
+{
+	char	*pwd;
+
+	if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
+	{
+		printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
+		g->last_return = 1;
+	}
+	else
+	{
+		pwd =  getcwd(NULL, 0);
+		printf("%s\n", pwd);
+		free(pwd);
+		g->last_return = 0;
+	}
+}
+
 void	execute_builtin(t_global *g, char **cmd)
 {
 	if	(!ft_strcmp(cmd[0], "exit"))
@@ -201,16 +218,7 @@ void	execute_builtin(t_global *g, char **cmd)
 	}
 	else if	(!ft_strcmp(cmd[0], "pwd"))
 	{
-		if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
-		{
-			printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
-			g->last_return = 1;
-		}
-		else
-		{
-			printf("%s\n", getcwd(NULL, 0));
-			g->last_return = 0;
-		}
+
 	}
 	else if (!ft_strcmp(cmd[0], "echo"))
 	{

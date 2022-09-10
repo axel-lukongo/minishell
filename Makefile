@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/09/06 16:54:18 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/10 17:45:40 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,10 @@ END			= \e[0m
 SRCS		= 	srcs/main.c \
 				srcs/env.c \
 				srcs/utils.c \
+				srcs/utils_2.c \
+				srcs/utils_3.c \
 				srcs/ustack.c \
 				srcs/ustack_2.c \
-\
-				srcs/gnl/get_next_line.c \
-				srcs/gnl/get_next_line_utils.c \
 \
 				srcs/execute/executor.c \
 				srcs/execute/pipex.c \
@@ -37,18 +36,22 @@ SRCS		= 	srcs/main.c \
 				srcs/lexer/lexer_3.c \
 				srcs/lexer/lexer_4.c \
 				srcs/lexer/lexer_5.c \
+				srcs/lexer/lexer_6.c \
 				srcs/lexer/lexer_utils_1.c \
 				srcs/lexer/lexer_utils_2.c \
+				srcs/lexer/lexer_utils_3.c \
 \
 				srcs/btree/print_tree.c \
 				srcs/btree/tree.c \
 				srcs/btree/get.c \
 \
 				srcs/parsing/parser.c \
+				srcs/parsing/parser_2.c \
 				srcs/parsing/parser_utils.c \
 \
 				srcs/expander/env.c \
 				srcs/expander/env_2.c \
+				srcs/expander/env_3.c \
 				srcs/expander/match.c \
 				srcs/expander/back.c \
 \
@@ -75,7 +78,6 @@ $(OBJS_DIR)%.o : %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
 	@mkdir -p $(OBJS_DIR)srcs/builtin
-	@mkdir -p $(OBJS_DIR)srcs/gnl
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:05:49 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/01 15:41:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:39:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	add_to_list(int type, char *str, t_list **li, t_alloc **alloc)
 	ft_lstadd_back(li, ft_lstnew((void *)tk, alloc));
 }
 
-void	add_to_list_index(int index, t_token token, t_list **li, t_alloc **alloc)
+void	add_to_list_index(int index, t_token token, t_list **li,
+	t_alloc **alloc)
 {
 	t_token	*tk;
 
@@ -31,7 +32,6 @@ void	add_to_list_index(int index, t_token token, t_list **li, t_alloc **alloc)
 	tk->type = token.type;
 	ft_lstadd_index(li, ft_lstnew((void *)tk, alloc), index);
 }
-
 
 void	add_to_list_front(int type, char *str, t_list **li, t_alloc **alloc)
 {
@@ -58,4 +58,11 @@ void	concat_to_last(t_token	tok, t_list **lst,
 	if (change_type)
 		tk->type = tok.type;
 	li = (void *)tk;
+}
+
+void	redir_add(t_alloc **alloc, t_lex *lex, int type, char *c)
+{
+	add_redir(c, alloc, lex, type);
+	if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
+		lex->less_only = 1;
 }

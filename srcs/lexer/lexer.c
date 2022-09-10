@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:24:47 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/04 17:09:16 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:07:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,11 @@ int	add_not_quoted(char *b, t_alloc **alloc, t_lex *lex)
 	else if (b[lex->i] == '|' && b[lex->i + 1] == '|' && !lex->q.x && !lex->q.y)
 		add_binop("||", alloc, lex, OR);
 	else if (b[lex->i] == '>' && b[lex->i + 1] != '>' && !lex->q.x && !lex->q.y)
-	{
-		add_redir(">", alloc, lex, GREAT);
-		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
-			lex->less_only = 1;
-		// if (lex->lessed)
-		// 	lex->less_only = 2;
-	}
+		redir_add(alloc, lex, GREAT, ">");
 	else if (b[lex->i] == '>' && b[lex->i + 1] == '>' && !lex->q.x && !lex->q.y)
-	{
-		add_redir(">>", alloc, lex, DGREAT);
-		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
-			lex->less_only = 1;
-	}
+		redir_add(alloc, lex, DGREAT, ">>");
 	else if (b[lex->i] == '<' && b[lex->i + 1] != '<' && !lex->q.x && !lex->q.y)
-	{
-		add_redir("<", alloc, lex, LESS);
-		if (lex->start == 0 && lex->lessed == 0 && !lex->less_only)
-			lex->less_only = 1;
-	}
+		redir_add(alloc, lex, LESS, "<");
 	else
 	{
 		if (!add_not_quoted_2(b, alloc, lex))
@@ -92,7 +78,6 @@ int	check_error_lexer(t_lex *lex)
 			printf("bash: syntax error near unexpected token `)'\n");
 		return (0);
 	}
-	print_list(lex->t_lst);
 	if (!lex->t_lst)
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:31:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/01 16:01:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 16:59:13 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ t_tree	*create_exp_token_node(int type, char *str, t_tree **a, t_global *g)
 		return (NULL);
 	*a = join_tree(*a, b, (t_token){type, str}, g);
 	return (*a);
+}
+
+void	print_syntax_error(t_global *g, int ch)
+{
+	if (ch == PIPE && !g->writed)
+		printf("bash: syntax error near unexpected token `|'\n");
+	else if (ch >= LESS && ch < PIPE && !g->writed)
+		printf("bash: syntax error near unexpected token `newline'\n");
+	g->writed = 1;
 }

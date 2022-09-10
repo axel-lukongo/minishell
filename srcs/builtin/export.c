@@ -6,20 +6,22 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/05 19:18:48 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/07 17:52:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	my_aff_export(t_list *env)
+void	my_aff_export(t_list *env, t_global *g)
 {
 	t_list	*cpy_env;
 	int		size;
 	
 	size = ft_lstsize(env);
+	if (!size)
+		return ;
 	cpy_env = NULL;
-	cpy_env = ft_cpy_env(cpy_env, env, size);
+	cpy_env = ft_cpy_env(cpy_env, env, size, g);
 	ft_list_sort(&cpy_env, cmp);
 	print_list_export(cpy_env);
 }
@@ -173,7 +175,7 @@ void	my_export(t_global *g, char **cmd)
 	i = 1;
 	if	(!cmd[1])
 	{
-		my_aff_export(g->export);
+		my_aff_export(g->export, g);
 		g->last_return = 0;
 	}
 	while (cmd[i])
@@ -208,11 +210,11 @@ void	my_unset(t_global *g, char **cmd)
 	}
 }
 
-t_list	*ft_lstnew2(void *content, void *result)
+t_list	*ft_lstnew2(void *content, void *result, t_alloc **alloc)
 {
 	t_list	*ptr;
 
-	ptr = malloc(sizeof(t_list));
+	ptr = ft_malloc(sizeof(t_list), alloc);
 	if (!ptr)
 		return (0);
 	ptr->next = 0;
@@ -221,7 +223,7 @@ t_list	*ft_lstnew2(void *content, void *result)
 	return (ptr);
 }
 
-t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size)
+t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size, t_global *g)
 {
 	t_list *list1;
 	t_list *list2;
@@ -230,7 +232,7 @@ t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size)
 	list2 = src;
 	while (src_size)
 	{
-		list1 = ft_lstnew2(list2->content, list2->result);
+		list1 = ft_lstnew2(list2->content, list2->result, &g->alloc);
 		if (!list1)
 			return(0);
 		ft_lstadd_back(&dest, list1);

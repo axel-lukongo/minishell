@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/05 18:27:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:34:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,64 +81,4 @@ void	concat_other(char *buffer, t_alloc **alloc, t_lex *lex)
 	}
 	else
 		concat_to_last((t_token){0, lex->buf}, &lex->t_lst, alloc, 0);
-}
-
-
-
-void	buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex)
-{
-	if (lex->less_only == 1)
-	{
-		print_list(lex->t_lst);
-		printf("%s, %d\n", lex->buf, get_btok(lex->t_lst, lex->k));
-		add_to_list(FILE, lex->buf, &lex->t_lst
-			, alloc);
-		print_list(lex->t_lst);
-		lex->less_only = 2;
-		lex->c = 0;
-		lex->buf[0] = 0;
-		lex->k++;
-	}
-	else if (lex->less_only == 2)
-	{
-		if (get_btok(lex->t_lst, lex->k) >= LESS && get_btok(lex->t_lst, lex->k)  <= DGREAT)
-		{
-			lex->less_only = 0;
-			lex->lessed = 1;
-		}
-		else
-		{
-			add_to_list_index(lex->k - 2, (t_token){CMD, lex->buf}, &lex->t_lst
-				, alloc);
-			lex->less_only = 0;
-			lex->c = 0;
-			lex->buf[0] = 0;
-			lex->k++;
-			lex->lessed = 1;
-		}
-	}
-	else if (!(lex->i != 0 && (buffer[lex->i] == '"' || buffer[lex->i] == '\'')
-			&& buffer[lex->i - 1] != '"' && buffer[lex->i - 1] != '\'')
-		&& buffer[lex->i] != '*' && buffer[lex->i] != '\\')
-	{
-		if (lex->wildcarded == 1 && lex->start == 1)
-			first_wildcarded(buffer, alloc, lex);
-		else if (get_btok(lex->t_lst, lex->k) == GREAT || get_btok(lex->t_lst,
-				lex->k) == DGREAT || get_btok(lex->t_lst, lex->k) == DLESS
-			|| get_btok(lex->t_lst, lex->k) == LESS)
-			add_type(FILE, lex, alloc);
-		else if (lex->start == 0 && lex->enved)
-			add_type(ENV, lex, alloc);
-		else if (lex->start == 0)
-			add_type(CMD, lex, alloc);
-		else
-			concat_other(buffer, alloc, lex);
-		if (buffer[lex->i] != ' ')
-			lex->space = 0;
-		else
-			lex->space = 1;
-		lex->c = 0;
-		lex->start = 1;
-		lex->lessed = 0;
-	}
 }

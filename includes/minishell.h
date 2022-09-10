@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/05 19:12:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:08:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct	s_parsing
 	t_token	*next_token;
 	t_list	*li;
 	int		error_cd;
+	int		tmpfile;
+	int		hered;
 }	t_parsing;
 
 typedef struct	s_env
@@ -154,6 +156,8 @@ typedef struct	s_global
 	char		*command;
 	int			error;
 	int			sig_exited;
+	int			hered;
+	int			tmpfile;
 }	t_global;
 
 typedef struct	s_lex
@@ -204,6 +208,7 @@ void	error_msg(char	*arg, char *message);
 // // <====== MINISHELL ======>
 //
 // LEXER
+void	redir_add(t_alloc **alloc, t_lex *lex, int type, char *c);
 t_list	*lexer(char *buffer, t_alloc **alloc);
 void	add_to_list(int type, char *str, t_list **li, t_alloc **alloc);
 void	add_to_list_front(int type, char *str, t_list **li, t_alloc **alloc);
@@ -243,16 +248,24 @@ t_tree	*parsing(t_list *tli, t_global *g);
 t_tree	*create_token_node(int type, t_global *g);
 t_tree	*left_brace(t_tree *tr, t_global *g);
 t_tree	*create_exp_token_node(int type, char *str, t_tree **a, t_global *g);
+void	print_syntax_error(t_global *g, int ch);
+int		parsing_call_heredoc(int ch, t_global *g);
+t_tree	*parse_redir(t_global *g);
+void	check_if_heredoc();
 //
 // ENV
 int		is_shell_char_var_allowed(char c);
 t_list	*init_env(char **env, t_alloc **alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
 char	*get_value_by_name(t_list *env, char *name);
-void	change_value_by_name(t_global *g, char *name, char *value);
+void	change_value_by_name(t_list *env, char *name, char *value);
 void	change_value_or_add_it(t_global *g, t_list **env, char *name
 	, char *value);
 int		is_var_env_exist(t_list	*env, char *name);
+void	sig(int sig);
+char	*extract_env_var_call(char *str, t_global *g);
+void	exec_cmd(t_tree *node, t_global *g, char *cmd);
+void	here_doc_parser(char *delim, t_global *g, int tmpfile);
 //
 // EXPANDER
 void	expander(t_tree *ast, t_global *g);
@@ -262,7 +275,7 @@ int		when_is_char(char *str, char c);
 int		count_char(char *str, int ch);
 void	print_tree_command_line(t_tree	*tr);
 char	*backslash(char *str, t_global *g);
-char	*get_var_name(char *str, int i);
+char	*get_var_name(char *str, int i, t_global *g);
 void	double_dollar(char **result, t_global *g, t_vector2D *it, char *str);
 void	dollar_question(char **result, t_global *g, t_vector2D *it, char *str);
 //
@@ -281,7 +294,7 @@ void	my_cd(t_global *g, char **cmd);
 void	cd_dash_or_nothing(t_global *g, char **cmd);
 void	my_cd2(t_global *g);
 void	cd_error_msg(t_global *g, char **cmd);
-t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size);
+t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size, t_global *g);
 int		cmp(void *content, void *content_ref);
 void	ft_list_sort(t_list **begin_list, int (*cmp)());
 void	my_export(t_global *g, char **cmd);
@@ -314,6 +327,14 @@ t_exec_con	*get_exec_container(t_global *g, t_tree *tr);
 void	delete_tree(t_tree* node, int id, t_tree **root);
 t_tree	*get_first_exec_node(t_tree *tr);
 int		count_executable_nodes(t_tree	*tr);
+void	ft_waitpid(t_global *g);
+void	change_shlvl(t_global *g);
+char	**env_to_tab(t_list *env, t_alloc **alloc);
+void	convert_pwd_display(char dest[1024], char *pwd, t_list *env);
+char	*get_prompt_str(t_global *g);
+void	handle_signale_ctrl_c(int sig);
+void	sig(int sig);
+void	ft_waitpid(t_global *g);
 
 
 # define ERR_INFILE "Infile"

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:42:28 by darian            #+#    #+#             */
-/*   Updated: 2022/09/05 19:20:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/10 17:45:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,15 @@ int	cd_specific_case(char *str, t_global *g)
 
 	tmp = ft_split_quote(str, ' ', g->alloc);
 	if (!ft_strcmp(tmp[0], "cd") && tmp[1] && !ft_strcmp(tmp[1], "$HOME")
-	&& !get_value_by_name(g->env, "HOME") && !get_value_by_name(g->export, "HOME"))
+		&& !get_value_by_name(g->env, "HOME")
+		&& !get_value_by_name(g->export, "HOME"))
 		return (1);
 	return (0);
 }
 
-void	dollar_var(char *str, t_vector2D *it, t_global *g, char **result)
-{
-	char	*var;
-	char	*tmp;
-
-	var = get_var_name(str, it->y);
-	if (!var)
-		*result = ft_strjoin(*result, " ", &g->alloc);
-	else
-	{
-		if (cd_specific_case(str, g))
-			g_p->error_cd = 1;
-		tmp = get_value_by_name(g->env, var);
-		if (!tmp && !is_backed(str, it->y - 1))
-			it->y += ft_strlen(var) + 1;
-		else if (is_backed(str, it->y - 1))
-		{
-			*result = ft_strjoin(*result, ft_strjoin("$", var, &g->alloc),
-					&g->alloc);
-			it->y += ft_strlen(var) + 1;
-			it->x += ft_strlen(var) + 1;
-		}
-		else
-		{
-			*result = ft_strjoin(*result, tmp, &g->alloc);
-			it->x = ft_strlen(*result);
-			it->y += ft_strlen(var) + 1;
-		}
-	}
-}
-
 void	loop_env(char *str, t_vector2D *it, char **result, t_global *g)
 {
-	static t_vector2D	quoted = (t_vector2D){0, 0}; // si pas autorisé trouver autre soluce 
+	static t_vector2D	quoted = (t_vector2D){0, 0};
 
 	if (str[it->y] == '"' && !quoted.x)
 		quoted.y = (quoted.y + 1) % 2;
@@ -109,7 +79,7 @@ char	*extract_env_var_call(char *str, t_global *g)
 	it.y = 0;
 	result = ft_malloc(sizeof(char) * (ft_strlen(str) * 10 + 1), &g->alloc);
 	result = NULL;
-	while (str[it.y])
+	while (str && str[it.y])
 		loop_env(str, &it, &result, g);
 	return (result);
 }

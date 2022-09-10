@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/09/07 17:10:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/09 17:04:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,37 +180,17 @@ char *ft_get_path(char **args, t_list *env, t_global *g)
 void	exec (char **args, t_list *env, t_global *g)
 {
 	char	*path;
-	// int		status;
-	// int		pid;
 
-	// pid = fork();
-	// if (pid == 0)
-	// {
-		signal(SIGQUIT, handle_signale_ctrl_c);
-		signal(SIGINT, exit_sig);
-		if (!args || !args[0])
-			exit(1);
-		path = ft_get_path(args, env, g);
-		execve(path, args, g->char_env);
-		write(STDERR, "sh: ", 4);
-		write(STDERR, args[0], ft_strlen(args[0]));
-		write(STDERR, ": command not found\n", 20);
-		exit(127);
-	// }
-	// else
-	// {
-	// 	waitpid(-1, &status, 0);
-	// 	if ((WIFSIGNALED(status)))
-	// 	{
-	// 		g->last_return = 128 + WTERMSIG(status);
-	// 		if (WTERMSIG(status) != 3)
-	// 		{
-	// 			g->sig_exited = 1;
-	// 		}
-	// 	}
-	// 	else
-	// 		g->last_return = WEXITSTATUS(status);
-	// }
+	// signal(SIGQUIT, handle_signale_ctrl_c);
+	// signal(SIGINT, exit_sig);
+	if (!args || !args[0])
+		exit(1);
+	path = ft_get_path(args, env, g);
+	execve(path, args, g->char_env);
+	write(STDERR, "sh: ", 4);
+	write(STDERR, args[0], ft_strlen(args[0]));
+	write(STDERR, ": command not found\n", 20);
+	exit(127);
 }
 
 void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
@@ -247,9 +227,7 @@ void	pipex(int n, t_exec **cmd, t_list *env, t_global *g)
 			dup2(open("test.txt", O_RDONLY), STDIN);
 			pid = fork();
 			if (pid)
-			{
 				waitpid(pid, NULL, 0);
-			}
 			// else
 				// exec(ft_strjoin("cat ", cmd[i + 1]->cmd, &g->alloc), env, g);
 		}
