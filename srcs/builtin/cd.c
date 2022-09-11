@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:41:14 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 18:42:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:11:34 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,6 @@ void	my_cd(t_global *g, char **cmd)
 		if	(!cd)
 		{
 			cd_utils(g, cmd);
-			// if (!ft_strcmp(cmd[1], ".."))
-			// {
-			// 	push_ustack(g->dir_stack, del_last_path(g, get_node_by_name(g->env, "PWD")->value));
-			// 	pwd = getcwd((char *)NULL, 0);
-			// 	change_value_by_name(g->env, "PWD", pwd);
-			// 	free(pwd);
-			// }
-			// else
-			// {
-			// 	pwd = getcwd((char *)NULL, 0);
-			// 	push_ustack(g->dir_stack, ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
-			// 	change_value_by_name(g->env, "PWD", pwd);
-			// 	free(pwd);
-			// }
 			g->last_return = 0;
 		}
 		else
