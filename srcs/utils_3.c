@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:51:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 16:52:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 13:15:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	sig(int sig)
 	(void)sig;
 }
 
-void	ft_waitpid(t_global *g)
+void	ft_waitpid(t_global *g, int pid)
 {
 	int	status;
 
-	waitpid(-1, &status, 0);
+	waitpid(pid, &status, 0);
 	if ((WIFSIGNALED(status)))
 	{
 		g->last_return = 128 + WTERMSIG(status);

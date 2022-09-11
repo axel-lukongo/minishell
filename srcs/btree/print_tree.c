@@ -6,17 +6,17 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:47:22 by darian            #+#    #+#             */
-/*   Updated: 2022/09/03 15:18:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 15:53:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	showTrunks(Trunk *p)
+void	show_trunks(Trunk *p)
 {
 	if (p == NULL)
 		return ;
-	showTrunks(p->prev);
+	show_trunks(p->prev);
 	printf(" %s", p->str);
 }
 
@@ -46,7 +46,7 @@ void	printTree(t_tree *root, Trunk *prev, int isLeft)
 		trunk->str = "`———";
 		prev->str = prev_str;
 	}
-	showTrunks(trunk);
+	show_trunks(trunk);
 	printf(" (%s)\n", root->value);
 	if (prev)
 		prev->str = prev_str;

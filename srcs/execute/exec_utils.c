@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 17:22:56 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/18 17:23:13 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 11:40:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**convert_tree_to_cmd(t_tree	*tr, t_global *g)
 
 int	is_directory(char *str)
 {
-	if (!opendir(str))
+	if (!opendir(str) && !access(str, 0))
 		return (0);
 	return (1);
 }

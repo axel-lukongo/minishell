@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/10 17:34:18 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 15:59:51 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_tree(t_global *g)
 				exec(ft_split_quote(g->ast->value, ' ', g->alloc), g->env, g);
 			}
 			else
-				ft_waitpid(g);
+				ft_waitpid(g, pid);
 		}
 	}
 	else

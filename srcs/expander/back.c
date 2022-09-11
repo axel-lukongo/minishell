@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 16:44:29 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/19 15:19:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 11:52:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	backslash_2(t_vector2D *it, char *str, char *result, t_vector2D quoted)
 {
 	if (it->y > 0 && str[it->y + 1] == 0 && str[it->y - 1] != '\\')
 	{
-		printf("backslash error\n");
+		error_msg("\\", "syntax error");
 		return (0);
 	}
 	else if (str[it->y + 1] != '$')

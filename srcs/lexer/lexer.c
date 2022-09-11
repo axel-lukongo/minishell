@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:24:47 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/10 17:07:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 17:55:40 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,17 @@ int	check_error_lexer(t_lex *lex)
 {
 	if (lex->q.y != 0 || lex->q.x != 0)
 	{
-		printf("quote error\n");
+		error_msg("quote", "syntax error");
 		return (0);
 	}
 	if (lex->parent)
 	{
 		if (lex->parent > 0)
-			printf("bash: syntax error near unexpected token `('\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token `('\n",
+				2);
 		else
-			printf("bash: syntax error near unexpected token `)'\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token `)'\n",
+				2);
 		return (0);
 	}
 	if (!lex->t_lst)
@@ -96,7 +98,7 @@ t_list	*lexer(char *buffer, t_alloc **alloc)
 
 	lex = ft_malloc(sizeof(*lex), alloc);
 	*lex = (t_lex){NULL, NULL, 10, 0, 0, 0, 0, (t_vector2D){0, 0},
-		(t_vector2D){0, 0}, 0, 0, 0, 0, 0, 0, 0, 0};
+		(t_vector2D){0, 0}, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	if (!buffer)
 		return (NULL);
 	lex->buf = ft_malloc(sizeof(char) * 10, alloc);

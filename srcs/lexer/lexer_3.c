@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:53 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 17:35:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 13:26:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	buffer_writing(char *buffer, t_alloc **alloc, t_lex *lex)
 		if (buffer[lex->i + 1] == 0 && (lex->i == 0 || buffer[lex->i - 1]
 				!= '\\'))
 		{
-			error_msg("\\", "backslash error");
+			error_msg("\\", "syntax error");
 			lex->error = 1;
 			return ;
 		}
@@ -51,8 +51,9 @@ void	add_redir(char *s, t_alloc **alloc, t_lex *lex, int type)
 	if (get_btok(lex->t_lst, lex->k) >= LESS && get_btok(lex->t_lst, lex->k)
 		<= DGREAT && type >= LESS && type <= DGREAT && lex->buf[0] <= 0)
 	{
-		printf("bash: syntax error near unexpected token `%s'\n",
-			r[type - LESS]);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(r[type - LESS], 2);
+		ft_putstr_fd("'\n", 2);
 		lex->error = 1;
 	}
 	add_to_list(type, s, &lex->t_lst, alloc);
@@ -76,12 +77,7 @@ void	add_binop(char *s, t_alloc **alloc, t_lex *lex, int type)
 static void	end_dquote(char *buffer, t_alloc **alloc, t_lex *lex)
 {
 	lex->buf[lex->c++] = '"';
-	if (lex->c >= lex->buf_size)
-	{
-		lex->buf = ft_realloc(lex->buf,
-				lex->buf_size, lex->buf_size * 2, alloc);
-		lex->buf_size *= 2;
-	}
+	expand_buf(&lex->buf_size, &lex->buf, lex->c, alloc);
 	lex->buf[lex->c] = 0;
 	if (buffer[lex->i + 1] != '\'' && buffer[lex->i + 1] != '"')
 		lex->quoted = (t_vector2D){0, 0};
@@ -104,12 +100,7 @@ void	add_double_quote(char *buffer, t_alloc **alloc, t_lex *lex)
 			lex->q.x++;
 		}
 		lex->buf[lex->c++] = '"';
-		if (lex->c >= lex->buf_size)
-		{
-			lex->buf = ft_realloc(lex->buf, lex->buf_size,
-					lex->buf_size * 2, alloc);
-			lex->buf_size *= 2;
-		}
+		expand_buf(&lex->buf_size, &lex->buf, lex->c, alloc);
 		lex->buf[lex->c] = 0;
 	}
 }

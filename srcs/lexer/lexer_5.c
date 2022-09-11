@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:11:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 17:38:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 15:14:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,19 @@ void	end_add_wildcarded_not_start_2(t_alloc **alloc, t_lex *lex)
 	else if (lex->backed)
 		concat_to_last((t_token){WILDBACK, lex->buf},
 			&lex->t_lst, alloc, 1);
+	else if (lex->w_space)
+		concat_to_last((t_token){WILDCARD, lex->buf}, &lex->t_lst, alloc, 1);
+	else if (lex->space && !lex->w_space)
+	{
+		if (get_btok(lex->t_lst, lex->k) != WILDCARD)
+			concat_to_last((t_token){WILDCARD, lex->buf}, &lex->t_lst, alloc,
+				1);
+		else
+			concat_to_last_no_space((t_token){WILDCARD, lex->buf}, &lex->t_lst,
+				alloc, 1);
+	}
 	else
-		concat_to_last((t_token){WILDCARD, lex->buf},
+		concat_to_last_no_space((t_token){WILDCARD, lex->buf},
 			&lex->t_lst, alloc, 1);
 }
 
@@ -109,7 +120,7 @@ int	add_not_quoted_2(char *b, t_alloc **alloc, t_lex *lex)
 		add_binop("&&", alloc, lex, AND);
 	else if (b[lex->i] == '&' && b[lex->i + 1] != '&' && !lex->q.x && !lex->q.y)
 	{
-		printf("bash: syntax error near unexpected token `&'\n");
+		ft_putstr_fd("minishell: syntax error near unexpected token `&'\n", 2);
 		return (0);
 	}
 	else if (b[lex->i] == '(' && !lex->q.x && !lex->q.y)

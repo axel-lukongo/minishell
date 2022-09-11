@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:23:32 by darian            #+#    #+#             */
-/*   Updated: 2022/09/10 17:34:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 12:01:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,24 @@ int	parse_binop(t_global *g, t_token type, t_tree **a, t_tree **b)
 	g_p->next_token = (t_token *)g_p->li->content;
 	g_p->li = g_p->li->next;
 	*b = parse_redir(g);
-	if (!(*b) || !(*a))
-		return (0);
 	if (!(*b) && !g->writed)
 	{
-		printf("bash: syntax error near unexpected token `%s'\n", type.str);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(type.str, 2);
+		ft_putstr_fd("'\n", 2);
 		g->writed = 1;
 		return (0);
 	}
 	else if (!(*a) && !g->writed)
 	{
-		printf("bash: syntax error near unexpected token `%s'\n", type.str);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		ft_putstr_fd(type.str, 2);
+		ft_putstr_fd("'\n", 2);
 		g->writed = 1;
 		return (0);
 	}
+	if (!(*b) || !(*a))
+		return (0);
 	*a = join_tree(*a, *b, type, g);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/07 17:52:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 12:05:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 
 void print_err(t_global *g, char **s, int i)
 {
-	printf("minishell: export: `%s': not a valid identifier\n", s[i]);
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(s[i], 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 	g->last_return = 1;
 }
 
@@ -156,8 +158,10 @@ void	export_utils(int i, char **cmd, t_global *g)
 	split = ft_split_first(cmd[i], '=', &g->alloc);
 	if (split[0] && split[0][0] == '-')
 	{
-		printf("bash: export: %c%c: invalid option\n", split[0][0]
-			, split[0][1]);
+		ft_putstr_fd("minishell: export: ", 2);
+		ft_putchar_fd(split[0][0], 2);
+		ft_putchar_fd(split[0][1], 2);
+		ft_putstr_fd(": invalid option\n", 2);
 		g->last_return = 2;
 	}
 	else if (split[0] && !split[1] && is_valid_identifier(split[0]))
@@ -191,8 +195,10 @@ void	my_unset(t_global *g, char **cmd)
 	{
 		if (cmd[i] && cmd[i][0] == '-')
 		{
-			printf("bash: unset: %c%c: invalid option\n", cmd[i][0]
-				, cmd[i][1]);
+			ft_putstr_fd("minishell: unset: ", 2);
+			ft_putchar_fd(cmd[i][0], 2);
+			ft_putchar_fd(cmd[i][1], 2);
+			ft_putstr_fd(": invalid option\n", 2);
 			g->last_return = 2;
 		}
 		else if (cmd[i] && is_valid_identifier(cmd[i]) && !is_char(cmd[i], '='))
@@ -203,7 +209,9 @@ void	my_unset(t_global *g, char **cmd)
 		}
 		else 
 		{
-			printf("bash: unset: `%s': not a valid identifier\n", cmd[i]);
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(cmd[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			g->last_return = 1;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:06:33 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 17:34:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 13:26:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ void	write_char(char *buffer, t_alloc **alloc, t_lex *lex)
 			|| lex->q.y != 1) && buffer[lex->i])
 	{
 		lex->buf[lex->c++] = buffer[lex->i];
-		if (lex->c >= lex->buf_size)
-		{
-			lex->buf = ft_realloc(lex->buf, lex->buf_size, lex->buf_size * 2,
-					alloc);
-			lex->buf_size *= 2;
-		}
+		expand_buf(&lex->buf_size, &lex->buf, lex->c, alloc);
 		lex->buf[lex->c] = 0;
 	}
 }

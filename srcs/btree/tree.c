@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:54:32 by darian            #+#    #+#             */
-/*   Updated: 2022/08/19 15:28:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 15:53:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,46 +61,6 @@ t_tree	*join_tree(t_tree *left, t_tree *right, t_token tok, t_global *g)
 	if (right != NULL)
 		right->parent = tr;
 	return (tr);
-}
-
-void	print_tree_prefix(t_tree *tr, int *space)
-{
-	if (tr == NULL)
-	{
-		printf("tree empty\n");
-		return ;
-	}
-	if (tr->parent != NULL)
-	{
-		for (int i = 0; i < *space * 4; i++)
-			printf(" ");
-		printf("(%d, %s) -> (%d, %s)\n", tr->parent->type, tr->parent->value, tr->type, tr->value);
-	}
-	else
-	{
-		for (int i = 0; i < *space * 4; i++)
-			printf(" ");
-		printf("(%d, %s)\n", tr->type, tr->value);
-	}
-	if (tr->right)
-	{
-		*space += 1;
-		print_tree_prefix(tr->right, space);
-	}
-	if (tr->left)
-	{
-		*space += 1;
-		print_tree_prefix(tr->left, space);
-	}
-	*space -= 1;
-}
-
-void	print_tree(t_tree *tr)
-{
-	int	space;
-
-	space = 0;
-	print_tree_prefix(tr, &space);
 }
 
 int	count_tree_nodes(t_tree *tr)

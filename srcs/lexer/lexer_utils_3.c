@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 17:38:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 17:38:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 15:14:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,21 @@ void	end_add_last(t_alloc **alloc, t_lex *lex)
 	else
 		end_other_option(alloc, lex);
 	lex->k++;
+}
+
+void	expand_buf(int *buf_size, char **buf, int n, t_alloc **alloc)
+{
+	if (n >= *buf_size)
+	{
+		*buf = ft_realloc(*buf, *buf_size, *buf_size * 2, alloc);
+		*buf_size = *buf_size * 2;
+	}
+}
+
+void	change_wspace(t_lex *lex, char *buffer)
+{
+	if (lex->i - 1 && buffer[lex->i - 1] == ' ')
+		lex->w_space = 1;
+	else
+		lex->w_space = 0;
 }

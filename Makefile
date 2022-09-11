@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/09/10 17:45:40 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/11 18:02:10 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,20 @@ SRCS		= 	srcs/main.c \
 				srcs/utils.c \
 				srcs/utils_2.c \
 				srcs/utils_3.c \
+				srcs/utils_4.c \
 				srcs/ustack.c \
 				srcs/ustack_2.c \
 \
-				srcs/execute/executor.c \
 				srcs/execute/pipex.c \
+				srcs/execute/binary_op.c \
 				srcs/execute/exec.c \
 				srcs/execute/exec_builtin.c \
 				srcs/execute/exec_utils.c \
 				srcs/execute/error.c \
+				srcs/execute/pipe.c \
+				srcs/execute/redirection/redir1.c \
+				srcs/execute/redirection/redir2.c \
+				srcs/execute/redirection/redir3.c \
 \
 				srcs/lexer/lexer.c \
 				srcs/lexer/lexer_2.c \
@@ -43,9 +48,9 @@ SRCS		= 	srcs/main.c \
 \
 				srcs/btree/print_tree.c \
 				srcs/btree/tree.c \
-				srcs/btree/get.c \
 \
 				srcs/parsing/parser.c \
+				srcs/parsing/here_doc.c \
 				srcs/parsing/parser_2.c \
 				srcs/parsing/parser_utils.c \
 \
@@ -78,6 +83,7 @@ $(OBJS_DIR)%.o : %.c includes/minishell.h
 	@mkdir -p $(OBJS_DIR)srcs/lexer
 	@mkdir -p $(OBJS_DIR)srcs/execute
 	@mkdir -p $(OBJS_DIR)srcs/builtin
+	@mkdir -p $(OBJS_DIR)srcs/execute/redirection
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

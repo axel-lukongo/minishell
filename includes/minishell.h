@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/10 17:08:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 18:02:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@
 # define WILDBACK 22
 # define BACKENV 23
 # define WILDENVBACK 24
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
+# define INFILE 0
+# define OUTFILE 1
 
 # define DEFAULT "\001\033[0;39m\002"
 # define GRAY "\001\033[1;90m\002"
@@ -114,6 +121,13 @@ typedef struct	s_vector2D
 	int	x;
 	int	y;
 }	t_vector2D;
+
+typedef struct	s_vector3D
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_vector3D;
 
 typedef struct	s_exec
 {
@@ -179,6 +193,7 @@ typedef struct	s_lex
 	int			error;
 	int			less_only;
 	int			lessed;
+	int			w_space;
 }	t_lex;
 
 extern t_parsing *g_p;
@@ -204,10 +219,13 @@ int		ft_cmptomax(char *s1, char *s2);
 void	copy_str(char dest[1024], char *src);
 void	rev_tab(void **tab);
 void	error_msg(char	*arg, char *message);
+void	error_msg_double(char	*arg1, char *arg2,char *message);
 //
 // // <====== MINISHELL ======>
 //
 // LEXER
+void	expand_buf(int *buf_size, char **buf, int n, t_alloc **alloc);
+void	change_wspace(t_lex *lex, char *buffer);
 void	redir_add(t_alloc **alloc, t_lex *lex, int type, char *c);
 t_list	*lexer(char *buffer, t_alloc **alloc);
 void	add_to_list(int type, char *str, t_list **li, t_alloc **alloc);
@@ -254,6 +272,8 @@ t_tree	*parse_redir(t_global *g);
 void	check_if_heredoc();
 //
 // ENV
+void	dollar_var(char *str, t_vector2D *it, t_global *g, char **result);
+int		cd_specific_case(char *str, t_global *g);
 int		is_shell_char_var_allowed(char c);
 t_list	*init_env(char **env, t_alloc **alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
@@ -280,15 +300,25 @@ void	double_dollar(char **result, t_global *g, t_vector2D *it, char *str);
 void	dollar_question(char **result, t_global *g, t_vector2D *it, char *str);
 //
 // EXEC
-void	pipex(int n, t_exec **cmd, t_list *env, t_global *g);
+void	pipeline(t_tree *root, t_vector2D cback, t_global *g, char *cmd);
 void	execute(t_global *g);
+void	exec_and(t_tree *node, t_global *g, char *cmd);
+void	exec_or(t_tree *node, t_global *g, char *cmd);
 int 	is_builtin(char *str);
 void    execute_builtin(t_global *g, char **cmd);
 char	*delete_quote(char *str, t_alloc **alloc);
 char	**convert_tree_to_cmd(t_tree	*tr, t_global *g);
 int		is_directory(char *str);
+int		is_command(char *cmd, t_global *g);
+int		redirections(t_tree *root, t_global *g, char *cmd);
+int		open_file(int type, t_token **tab, t_global *g);
+void	open_file_good_fd(t_tree *root, t_global *g);
+char	*get_cmd_tree(t_tree *r, int type1, int type2, t_alloc **alloc);
+t_token	**get_last_redir(t_tree *root, int type1, int type2, t_alloc **alloc);
+t_token	**get_last_redir_here(t_tree *root, t_vector3D tp, t_alloc **alloc);
 
 //BUILTIN
+void	print_tab(char **tab);
 int		is_builtin(char *str);
 void	my_cd(t_global *g, char **cmd);
 void	cd_dash_or_nothing(t_global *g, char **cmd);
@@ -327,14 +357,14 @@ t_exec_con	*get_exec_container(t_global *g, t_tree *tr);
 void	delete_tree(t_tree* node, int id, t_tree **root);
 t_tree	*get_first_exec_node(t_tree *tr);
 int		count_executable_nodes(t_tree	*tr);
-void	ft_waitpid(t_global *g);
+void	ft_waitpid(t_global *g, int pid);
 void	change_shlvl(t_global *g);
 char	**env_to_tab(t_list *env, t_alloc **alloc);
 void	convert_pwd_display(char dest[1024], char *pwd, t_list *env);
 char	*get_prompt_str(t_global *g);
 void	handle_signale_ctrl_c(int sig);
+void	expand_buf(int *buf_size, char **buf, int n, t_alloc **alloc);
 void	sig(int sig);
-void	ft_waitpid(t_global *g);
 
 
 # define ERR_INFILE "Infile"

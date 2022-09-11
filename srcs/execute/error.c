@@ -6,16 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 13:40:39 by alukongo          #+#    #+#             */
-/*   Updated: 2022/08/26 18:29:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 17:48:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-int	msg(char *err)
-{
-	write(2, err, ft_strlen(err));
-	return (1);
-}
 
 void	msg_pipe(char *arg)
 {

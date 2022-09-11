@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/08 15:46:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 12:07:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	my_exit(t_global *g, char **cmd)
 			{
 				if	(cmd[2] != NULL)
 				{
-					printf("bash: exit: too many arguments\n");
+					error_msg("exit", "too many arguments");
 					g->last_return = 1;
 				}
 				else
@@ -126,7 +126,7 @@ void	my_exit(t_global *g, char **cmd)
 			}
 			else
 			{
-				printf("bash: exit: exit: numeric argument required\n");
+				error_msg("exit", "numeric argument required");
 				ft_malloc_clear(&g->alloc);
 				clear_history();
 				exit(255);
@@ -187,7 +187,10 @@ void	my_pwd(t_global *g, char **cmd)
 
 	if	(cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0) // Parsing pas bon (pwd -- p marche);
 	{
-		printf("bash: pwd: %c%c: invalid option\npwd: usage: pwd [-LP]\n", cmd[1][0], cmd[1][1]);
+		ft_putstr_fd("minishell: pwd: ", 2);
+		ft_putchar_fd(cmd[1][0], 2);
+		ft_putchar_fd(cmd[1][1], 2);
+		ft_putstr_fd(": invalid option\npwd: usage: pwd [-LP]\n", 2);
 		g->last_return = 1;
 	}
 	else
@@ -217,9 +220,7 @@ void	execute_builtin(t_global *g, char **cmd)
 		g->last_return = 0;
 	}
 	else if	(!ft_strcmp(cmd[0], "pwd"))
-	{
-
-	}
+		my_pwd(g, cmd);
 	else if (!ft_strcmp(cmd[0], "echo"))
 	{
 		ft_echo(cmd);
