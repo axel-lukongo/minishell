@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
+#    By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by darian            #+#    #+#              #
-#    Updated: 2022/09/11 18:02:10 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/11 18:53:32 by alukongo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,9 @@ SRCS		= 	srcs/main.c \
 				srcs/builtin/cd.c\
 				srcs/builtin/builtin_utils.c\
 				srcs/builtin/echo.c\
+				srcs/builtin/builtin_utils2.c\
+				srcs/builtin/builtin_utils3.c\
+				srcs/builtin/ft_unset.c\
 
 
 NAME		= minishell

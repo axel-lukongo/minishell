@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/11 18:02:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/11 18:54:39 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,16 @@ char	*del_last_path(t_global *g, char *path);
 int		dir_change_stack(char *str);
 int		is_allowed_var(char *var);
 void	ft_echo(char **args);
+char	**split_two(char **new, char *str, char c, t_alloc **alloc);
+void	print_err(t_global *g, char **s, int i);
+int		is_valid_identifier(char *str);
+char	*del_start_end_char(char *str, char c, t_alloc **alloc);
+t_list	*ft_lstnew2(void *content, void *result, t_alloc **alloc);
+void	ft_list_sort(t_list **begin_list, int (*cmp)());
+int		cmp(void *content, void *content_ref);
+void	my_unset(t_global *g, char **cmd);
+t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size, t_global *g);
+void	add_value_env(char **split, t_global *g);
 
 //
 // USTACK
