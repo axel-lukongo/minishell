@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/12 11:44:59 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:19:46 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,20 +348,20 @@ void	add_value_env(char **split, t_global *g);
 
 //
 // USTACK
-void		print_ustack(t_ustack *stack);
-int			is_in_ustack(t_ustack *stack, char *value);
-void		pop_ustack(t_ustack *stack, char *value, int index, int type);
-void		push_ustack(t_ustack *stack, char *value);
-void		clear_ustack(t_ustack *stack);
+void	print_ustack(t_ustack *stack);
+int		is_in_ustack(t_ustack *stack, char *value);
+void	pop_ustack(t_ustack *stack, char *value, int index, int type);
+void	push_ustack(t_ustack *stack, char *value);
+void	clear_ustack(t_ustack *stack);
 t_ustack	*init_ustack(int size, t_global *g);
-char		*get_value_ustack(t_ustack *st, int index);
+char	*get_value_ustack(t_ustack *st, int index);
 
 typedef struct Trunk
 {
     struct Trunk *prev;
     char *str;
 }	Trunk;
-void printTree(t_tree* root, Trunk *prev, int isLeft);
+// void printTree(t_tree* root, Trunk *prev, int isLeft);
 
 t_exec_con	*get_exec_container(t_global *g, t_tree *tr);
 void	delete_tree(t_tree* node, int id, t_tree **root);

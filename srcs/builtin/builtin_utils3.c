@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:42:07 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 18:54:34 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:57:57 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_list	*ft_lstnew2(void *content, void *result, t_alloc **alloc)
 
 int	cmp(void *content, void *content_ref)
 {
-	size_t i;
-	char *str;
-	char *str2;
+	size_t	i;
+	char	*str;
+	char	*str2;
 
 	str2 = ((t_env *)content_ref)->name;
 	str = ((t_env *)content)->name;
@@ -47,8 +47,9 @@ int	cmp(void *content, void *content_ref)
 
 void	ft_list_sort(t_list **begin_list, int (*cmp)())
 {
-	t_list *current;
-	void *next_list_content;
+	t_list	*current;
+	void	*next_list_content;
+
 	current = *begin_list;
 	while (current->next)
 	{
@@ -57,7 +58,7 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)())
 			next_list_content = current->content;
 			current->content = current->next->content;
 			current->next->content = next_list_content;
-			current = *begin_list; 
+			current = *begin_list;
 		}
 		else
 			current = current->next;
@@ -66,16 +67,16 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)())
 
 t_list	*ft_cpy_env(t_list *dest, t_list *src, int src_size, t_global *g)
 {
-	t_list *list1;
-	t_list *list2;
-	
+	t_list	*list1;
+	t_list	*list2;
+
 	list1 = dest;
 	list2 = src;
 	while (src_size)
 	{
 		list1 = ft_lstnew2(list2->content, list2->result, &g->alloc);
 		if (!list1)
-			return(0);
+			return (0);
 		ft_lstadd_back(&dest, list1);
 		list2 = list2->next;
 		src_size--;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:47:22 by darian            #+#    #+#             */
-/*   Updated: 2022/09/11 15:53:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 12:17:42 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	show_trunks(Trunk *p)
 	show_trunks(p->prev);
 	printf(" %s", p->str);
 }
-
+/*
 void	printTree(t_tree *root, Trunk *prev, int isLeft)
 {
 	Trunk	*trunk;
@@ -53,7 +53,7 @@ void	printTree(t_tree *root, Trunk *prev, int isLeft)
 	trunk->str = "   |";
 	printTree(root->left, trunk, 0);
 }
-
+*/
 void	printtr(t_tree	*tr)
 {
 	if (!tr)

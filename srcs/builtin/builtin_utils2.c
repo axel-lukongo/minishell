@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:32:29 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 20:12:16 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:57:10 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 	return (new);
 }
 
-void print_err(t_global *g, char **s, int i)
+void	print_err(t_global *g, char **s, int i)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(s[i], 2);
@@ -79,7 +79,7 @@ char	**ft_split_first(char *str, char c, t_alloc **alloc)
 	char	**new;
 	int		i;
 
-	i= 0;
+	i = 0;
 	new = NULL;
 	while (str[i] != c && str[i])
 		i++;
@@ -91,7 +91,7 @@ char	**ft_split_first(char *str, char c, t_alloc **alloc)
 		return (new);
 	}
 	else
-		return(split_two(new, str, c, alloc));
+		return (split_two(new, str, c, alloc));
 }
 
 int	is_valid_identifier(char *str)

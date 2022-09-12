@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 19:00:16 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:58:42 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_aff_export(t_list *env, t_global *g)
 {
 	t_list	*cpy_env;
 	int		size;
-	
+
 	size = ft_lstsize(env);
 	if (!size)
 		return ;
@@ -55,7 +55,7 @@ void	export_utils(int i, char **cmd, t_global *g)
 		add_value_export(split, g);
 	else if (split[0] && split[1] && is_valid_identifier(split[0]))
 		add_value_env(split, g);
-	else 
+	else
 		print_err(g, cmd, i);
 }
 
@@ -64,7 +64,7 @@ void	my_export(t_global *g, char **cmd)
 	int		i;
 
 	i = 1;
-	if	(!cmd[1])
+	if (!cmd[1])
 	{
 		my_aff_export(g->export, g);
 		g->last_return = 0;

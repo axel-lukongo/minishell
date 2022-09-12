@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 11:44:44 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:11:58 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	is_var_env_exist(t_list	*env, char *name)
 	return (0);
 }
 
-void	change_value_by_name(t_list *env, char *name, char *value, t_alloc *alloc)
+void	change_value_by_name(t_list *env, char *name,
+char *value, t_alloc *alloc)
 {
 	t_env	*node;
 

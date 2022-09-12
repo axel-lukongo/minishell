@@ -6,13 +6,13 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 19:35:37 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 18:46:14 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:58:23 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static	int		nb_args(char **args)
+static int	nb_args(char **args)
 {
 	int		size;
 

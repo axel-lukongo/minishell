@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 20:07:36 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/04 13:44:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 11:56:51 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	is_builtin(char *str)
 {
-	if	(!ft_strcmp(str, "echo") || !ft_strcmp(str, "export") || !ft_strcmp(str, "cd")
-		|| !ft_strcmp(str, "unset") || !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
+	if (!ft_strcmp(str, "echo") || !ft_strcmp(str, "export")
+		|| !ft_strcmp(str, "cd") || !ft_strcmp(str, "unset")
+		|| !ft_strcmp(str, "env") || !ft_strcmp(str, "exit")
 		|| !ft_strcmp(str, "dirs") || !ft_strcmp(str, "pwd"))
-			return (1);
+	{
+		return (1);
+	}
 	return (0);
 }
 
@@ -28,9 +31,9 @@ int	count_char(char *str, int ch)
 
 	i = 0;
 	n = 0;
-	while	(str[i])
+	while (str[i])
 	{
-		if	(str[i] == ch)
+		if (str[i] == ch)
 			n++;
 		i++;
 	}
@@ -46,11 +49,11 @@ char	*del_last_path(t_global *g, char *path)
 	sl = count_char(path, '/');
 	i = 0;
 	new = ft_malloc(sizeof(char) * ft_strlen(path) + 1, &g->alloc);
-	while	(path[i] && sl != 0)
+	while (path[i] && sl != 0)
 	{
-		if	(path[i] == '/')
+		if (path[i] == '/')
 			sl--;
-		if	(sl == 0 && path[i] == '/')
+		if (sl == 0 && path[i] == '/')
 			break ;
 		new[i] = path[i];
 		i++;
@@ -82,11 +85,11 @@ int	is_allowed_var(char *var)
 	int	i;
 
 	i = 0;
-	while	(var[i])
+	while (var[i])
 	{
-		if	(!is_shell_char_var_allowed(var[i]))
+		if (!is_shell_char_var_allowed(var[i]))
 			return (0);
 		i++;
 	}
-	return	(-1);
+	return (-1);
 }
