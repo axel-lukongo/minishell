@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_index.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:38:22 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/01 15:45:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 13:12:35 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_lstadd_index(t_list **alst, t_list *new, int index)
 {
 	t_list	*tmp;
-    t_list  *prev;
-    int     i;
+	t_list	*prev;
+	int		i;
 
 	tmp = *alst;
 	i = 0;
@@ -36,12 +36,12 @@ void	ft_lstadd_index(t_list **alst, t_list *new, int index)
 		return ;
 	}
 	while (i != index - 1)
-    {
+	{
 		tmp = tmp->next;
-        i++;
-    }
-    prev = tmp->next;
-    tmp->next = new;
-    new->next = prev;
+		i++;
+	}
+	prev = tmp->next;
+	tmp->next = new;
+	new->next = prev;
 	tmp->next = new;
 }

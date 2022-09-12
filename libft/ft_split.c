@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:47:05 by darian            #+#    #+#             */
-/*   Updated: 2022/08/30 19:16:31 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 13:13:39 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static char	*ft_strncpy_split(char const *src, size_t n, t_alloc **alloc)
 	return (dest);
 }
 
-static char	**ft_split_body(char const *s, char c, char **split, t_alloc **alloc)
+static char	**ft_split_body(char const *s, char c,
+char **split, t_alloc **alloc)
 {
 	int	j;
 	int	k;

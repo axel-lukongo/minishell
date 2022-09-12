@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_backed.c                                        :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/16 20:41:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 13:17:40 by alukongo         ###   ########.fr       */
+/*   Created: 2022/08/24 13:41:13 by alukongo          #+#    #+#             */
+/*   Updated: 2022/09/12 13:26:36 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+# ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
-int	is_backed(char *str, int i)
-{
-	int	backed;
+/* to write, read, close, access, pipe, dup, dup2, execve, fork */
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <stdio.h>
 
-	backed = 0;
-	while (i >= 0)
-	{
-		if (str[i] == '\\')
-			backed++;
-		else
-			break ;
-		i--;
-		if (i == -1)
-			break ;
-	}
-	return (backed % 2);
-}
+#endif

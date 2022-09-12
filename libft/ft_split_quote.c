@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:47:05 by darian            #+#    #+#             */
-/*   Updated: 2022/08/19 15:08:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 13:23:21 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,19 @@ static int	count_words_quote(char const *s, char c)
 	d_quoted = 0;
 	while (s[i])
 	{
-		if (s[i] == '"'  && !is_backed((char *)s, i - 1) && !s_quoted)
+		if (s[i] == '"' && !is_backed((char *)s, i - 1) && !s_quoted)
 			d_quoted = (d_quoted + 1) % 2;
 		if (s[i] == '\'' && !d_quoted)
 			s_quoted = (s_quoted + 1) % 2;
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0) && (!s_quoted && !d_quoted))
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0)
+			&& (!s_quoted && !d_quoted))
 			w++;
 		i++;
 	}
 	return (w);
 }
 
-typedef struct	s_vector2D
+typedef struct s_vector2D
 {
 	int	x;
 	int	y;
@@ -45,9 +46,9 @@ typedef struct	s_vector2D
 
 static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 {
-	size_t	i;
-	size_t	j;
-	char	*dest;
+	size_t		i;
+	size_t		j;
+	char		*dest;
 	t_vector2D	quote;
 	t_vector2D	last_q;
 
@@ -76,17 +77,20 @@ static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 		}
 		else if (src[i] == '\\')
 		{
-			if ((quote.y && src[i + 1] != '\\' && src[i + 1] != '"') || quote.x)
+			if ((quote.y && src[i + 1] != '\\'
+					&& src[i + 1] != '"') || quote.x)
 				dest[j++] = src[i];
 			else
 			{
 				dest[j++] = src[i + 1];
-				i+= 1;
+				i += 1;
 			}
 		}
 		else if (src[i] == '"' && is_backed((char *)src, i - 1))
 			dest[j++] = src[i];
-		else if ((!(src[i] == '"' && (quote.y || last_q.y)) && !(src[i] == '\'' && (quote.x || last_q.x))) || (src[i] == '"' && quote.x) || (src[i] == '\'' && quote.y))
+		else if ((!(src[i] == '"' && (quote.y || last_q.y))
+				&& !(src[i] == '\'' && (quote.x || last_q.x)))
+			|| (src[i] == '"' && quote.x) || (src[i] == '\'' && quote.y))
 			dest[j++] = src[i];
 		i++;
 	}
@@ -94,7 +98,8 @@ static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 	return (dest);
 }
 
-static char	**ft_split_body_quote(char const *s, char c, char **split, t_alloc *alloc)
+static char	**ft_split_body_quote(char const *s, char c,
+char **split, t_alloc *alloc)
 {
 	int	j;
 	int	k;
@@ -111,7 +116,8 @@ static char	**ft_split_body_quote(char const *s, char c, char **split, t_alloc *
 	{
 		while (s[i + j])
 		{
-			if (s[i + j] == '"' && !is_backed((char *)s, i + j - 1) && !s_quoted)
+			if (s[i + j] == '"' && !is_backed((char *)s, i + j - 1)
+				&& !s_quoted)
 				d_quoted = (d_quoted + 1) % 2;
 			if (s[i + j] == '\'' && !d_quoted)
 				s_quoted = (s_quoted + 1) % 2;
