@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_3.C                                          :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:51:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 13:15:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 17:38:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_prompt_str(t_global *g)
 	pr = ft_strjoin(pr, ft_strjoin(g->disp_pwd, " ", &g->alloc), &g->alloc);
 	pr = ft_strjoin(pr, YEL, &g->alloc);
 	pr = ft_strjoin(pr, " 🍆", &g->alloc);
-	pr = ft_strjoin(pr, ft_strjoin("❯", reset, &g->alloc), &g->alloc);
+	pr = ft_strjoin(pr, ft_strjoin("❯", RESET, &g->alloc), &g->alloc);
 	pr = ft_strjoin(pr, " ", &g->alloc);
 	return (pr);
 }

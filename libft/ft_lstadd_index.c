@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_index.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:38:22 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 13:12:35 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:39:26 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+void	add_index(int i, int index, t_list *tmp, t_list *new)
+{
+	t_list	*prev;
+
+	while (i != index - 1)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	prev = tmp->next;
+	tmp->next = new;
+	new->next = prev;
+	tmp->next = new;
+}
+
 void	ft_lstadd_index(t_list **alst, t_list *new, int index)
 {
 	t_list	*tmp;
-	t_list	*prev;
 	int		i;
 
 	tmp = *alst;
@@ -35,13 +49,5 @@ void	ft_lstadd_index(t_list **alst, t_list *new, int index)
 		*alst = new;
 		return ;
 	}
-	while (i != index - 1)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	prev = tmp->next;
-	tmp->next = new;
-	new->next = prev;
-	tmp->next = new;
+	add_index(i, index, tmp, new);
 }

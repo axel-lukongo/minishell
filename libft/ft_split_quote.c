@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:47:05 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 13:23:21 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:28:31 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,104 +38,67 @@ static int	count_words_quote(char const *s, char c)
 	return (w);
 }
 
-typedef struct s_vector2D
-{
-	int	x;
-	int	y;
-}	t_vector2D;
-
 static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 {
-	size_t		i;
-	size_t		j;
 	char		*dest;
 	t_vector2D	quote;
 	t_vector2D	last_q;
+	t_vector2D	it;
 
-	i = 0;
-	j = 0;
+	it = (t_vector2D){0, 0};
 	quote = (t_vector2D){0, 0};
 	last_q = (t_vector2D){0, 0};
-	dest = ft_malloc(sizeof(char) * n, &alloc);
+	dest = ft_malloc(sizeof(char) * (n + 1), &alloc);
 	if (!dest)
 		return (NULL);
-	while (i < n - 1 && src[i] != '\0')
+	while (it.x < (int)n - 1 && src[it.x] != '\0')
 	{
-		if (src[i] == '"' && !is_backed((char *)src, i - 1) && !quote.x)
-		{
-			quote.y = (quote.y + 1) % 2;
-			last_q.y = 0;
-			if (quote.y == 0)
-				last_q.y = 1;
-		}
-		else if (src[i] == '\'' && !quote.y)
-		{
-			quote.x = (quote.x + 1) % 2;
-			last_q.x = 0;
-			if (quote.x == 0)
-				last_q.x = 1;
-		}
-		else if (src[i] == '\\')
-		{
-			if ((quote.y && src[i + 1] != '\\'
-					&& src[i + 1] != '"') || quote.x)
-				dest[j++] = src[i];
-			else
-			{
-				dest[j++] = src[i + 1];
-				i += 1;
-			}
-		}
-		else if (src[i] == '"' && is_backed((char *)src, i - 1))
-			dest[j++] = src[i];
-		else if ((!(src[i] == '"' && (quote.y || last_q.y))
-				&& !(src[i] == '\'' && (quote.x || last_q.x)))
-			|| (src[i] == '"' && quote.x) || (src[i] == '\'' && quote.y))
-			dest[j++] = src[i];
-		i++;
+		dest = ft_lol((char *[2]){(char *)src, dest}, &quote, &last_q, &it);
+		it.x++;
 	}
-	dest[j] = '\0';
+	dest[it.y] = '\0';
 	return (dest);
+}
+
+int	ft_body(char *s, t_vector2D *quoted, t_vector3D *it, char c)
+{
+	if (s[it->x + it->y] == '"' && !is_backed((char *)s, it->x + it->y - 1)
+		&& !quoted->y)
+		quoted->x = (quoted->x + 1) % 2;
+	if (s[it->x + it->y] == '\'' && !quoted->x)
+		quoted->y = (quoted->y + 1) % 2;
+	if (s[it->x + it->y] == c && (!quoted->y && !quoted->x))
+		return (0);
+	it->y++;
+	return (1);
 }
 
 static char	**ft_split_body_quote(char const *s, char c,
 char **split, t_alloc *alloc)
 {
-	int	j;
-	int	k;
-	int	i;
-	int	d_quoted;
-	int	s_quoted;
+	t_vector3D	it;
+	t_vector2D	quoted;
 
-	i = 0;
-	d_quoted = 0;
-	s_quoted = 0;
-	j = 0;
-	k = 0;
-	while (s[i])
+	it = (t_vector3D){0, 0, 0};
+	quoted = (t_vector2D){0, 0};
+	while (s[it.x])
 	{
-		while (s[i + j])
+		while (s[it.x + it.y])
 		{
-			if (s[i + j] == '"' && !is_backed((char *)s, i + j - 1)
-				&& !s_quoted)
-				d_quoted = (d_quoted + 1) % 2;
-			if (s[i + j] == '\'' && !d_quoted)
-				s_quoted = (s_quoted + 1) % 2;
-			if (s[i + j] == c && (!s_quoted && !d_quoted))
+			if (!ft_body((char *)s, &quoted, &it, c))
 				break ;
-			j++;
 		}
-		if (j != 0)
+		if (it.y != 0)
 		{
-			split[k] = ft_strncpy_split_quote(s + i, j + 1, alloc);
-			if (!split[k++])
+			split[it.z] = ft_strncpy_split_quote(s + it.x, it.y + 1, alloc);
+			if (!split[it.z++])
 				return (NULL);
-			i += j - 1;
-			j = 0;
+			it.x += it.y - 1;
+			it.y = 0;
 		}
-		i++;
+		it.x++;
 	}
-	split[k] = 0;
+	split[it.z] = 0;
 	return (split);
 }
 

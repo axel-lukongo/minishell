@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:05:49 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/10 17:39:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 17:32:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	add_to_list_index(int index, t_token token, t_list **li,
 	tk = ft_malloc(sizeof(*tk), alloc);
 	tk->str = ft_strdup(token.str, alloc);
 	tk->type = token.type;
+	printf("la\n");
+	print_list(*li);
 	ft_lstadd_index(li, ft_lstnew((void *)tk, alloc), index);
+	print_list(*li);
 }
 
 void	add_to_list_front(int type, char *str, t_list **li, t_alloc **alloc)

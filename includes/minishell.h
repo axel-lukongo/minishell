@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/12 12:57:19 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:38:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,16 @@
 # define INFILE 0
 # define OUTFILE 1
 
-# define DEFAULT "\001\033[0;39m\002"
-# define GRAY "\001\033[1;90m\002"
-// # define RED "\001\033[1;91m\002"
-# define GREEN "\001\033[1;92m\002"
-# define YELLOW "\001\033[1;93m\002"
-# define BLUE "\001\033[1;94m\002"
-# define MAGENTA "\001\033[1;95m\002"
-# define CYAN "\001\033[1;96m\002"
-# define WHITE "\001\033[0;97m\002"
-# define BOLD "\033[1m"
-# define RESET "\033[0m"
+// # define DEFAULT "\001\033[0;39m\002"
+// # define GRAY "\001\033[1;90m\002"
+// // # define RED "\001\033[1;91m\002"
+// # define GREEN "\001\033[1;92m\002"
+// # define YELLOW "\001\033[1;93m\002"
+// # define BLUE "\001\033[1;94m\002"
+// # define MAGENTA "\001\033[1;95m\002"
+// # define CYAN "\001\033[1;96m\002"
+// # define WHITE "\001\033[0;97m\002"
+// # define BOLD "\033[1m"
 
 typedef struct s_token {
 	int				type;
@@ -115,19 +114,6 @@ typedef struct s_env
 	char	*name;
 	char	*value;
 }	t_env;
-
-typedef struct s_vector2D
-{
-	int	x;
-	int	y;
-}	t_vector2D;
-
-typedef struct s_vector3D
-{
-	int	x;
-	int	y;
-	int	z;
-}	t_vector3D;
 
 typedef struct s_exec
 {

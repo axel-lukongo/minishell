@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 13:22:03 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:39:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+
+typedef struct s_vector2D
+{
+	int	x;
+	int	y;
+}	t_vector2D;
+
+typedef struct s_vector3D
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_vector3D;
 
 typedef struct s_list
 {
@@ -98,5 +111,7 @@ int			ft_strcmp(char const *s1, char const *s2);
 int			is_backed(char *str, int i);
 int			ft_strisdigit(char *str);
 u_int64_t	ft_atoi_u64(char *nptr);
+char		*ft_lol(char *str[2], t_vector2D *quote, t_vector2D *last_q,
+				t_vector2D *it);
 
 #endif
