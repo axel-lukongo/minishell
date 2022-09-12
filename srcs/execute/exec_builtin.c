@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 12:06:37 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:50:07 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,11 @@
 
 void	my_exit(t_global *g, char **cmd)
 {
-	int	tmp;
-
 	if (cmd[1])
-	{// A FINIR AVEC LA LIMIT 64 
+	{
 		if (ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
 		{
-			if (cmd[2] != NULL)
-			{
-				error_msg("exit", "too many arguments");
-				g->last_return = 1;
-			}
-			else
-			{
-				clear_history();
-				tmp = ft_atoi(cmd[1]) % 256;
-				ft_malloc_clear(&g->alloc);
-				exit(tmp);
-			}
+			exit_utils(g, cmd);
 		}
 		else
 		{

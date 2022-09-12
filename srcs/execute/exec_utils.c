@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 17:22:56 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 11:40:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 12:50:18 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	exit_utils(t_global *g, char **cmd)
+{
+	int	tmp;
+
+	if (cmd[2] != NULL)
+	{
+		error_msg("exit", "too many arguments");
+		g->last_return = 1;
+	}
+	else
+	{
+		clear_history();
+		tmp = ft_atoi(cmd[1]) % 256;
+		ft_malloc_clear(&g->alloc);
+		exit(tmp);
+	}
+}
 
 char	**convert_tree_to_cmd(t_tree	*tr, t_global *g)
 {
