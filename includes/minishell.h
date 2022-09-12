@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/11 18:54:39 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:44:59 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,7 @@ int		is_shell_char_var_allowed(char c);
 t_list	*init_env(char **env, t_alloc **alloc, int i);
 t_env	*get_node_by_name(t_list *env, char *name);
 char	*get_value_by_name(t_list *env, char *name);
-void	change_value_by_name(t_list *env, char *name, char *value);
+void	change_value_by_name(t_list *env, char *name, char *value, t_alloc *alloc);
 void	change_value_or_add_it(t_global *g, t_list **env, char *name
 	, char *value);
 int		is_var_env_exist(t_list	*env, char *name);

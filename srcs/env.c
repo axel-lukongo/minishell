@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/09/10 16:47:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 11:44:44 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_var_env_exist(t_list	*env, char *name)
 	return (0);
 }
 
-void	change_value_by_name(t_list *env, char *name, char *value)
+void	change_value_by_name(t_list *env, char *name, char *value, t_alloc *alloc)
 {
 	t_env	*node;
 
@@ -64,7 +64,7 @@ void	change_value_by_name(t_list *env, char *name, char *value)
 	{
 		node = (t_env *)env->content;
 		if (ft_strncmp(name, node->name, 32767) == 0)
-			node->value = value;
+			node->value = ft_strdup(value, &alloc);
 		env = env->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:41:14 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/11 20:11:34 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:40:04 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	my_cd2(t_global *g)
 {
 	char	*pwd;
 
-	change_value_by_name(g->env, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
+	change_value_by_name(g->env, "OLDPWD", get_node_by_name(g->env, "PWD")->value, g->alloc);
 	chdir(get_node_by_name(g->env, "HOME")->value);
 	pwd = getcwd((char *)NULL, 0);
 	push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
-	change_value_by_name(g->env, "PWD", pwd);
+	change_value_by_name(g->env, "PWD", pwd, g->alloc);
 	free(pwd);
 }
 
@@ -53,7 +53,7 @@ void	cd_dash_or_nothing(t_global *g, char **cmd)
 			chdir(value);
 			push_ustack(g->dir_stack, value);
 			pwd = getcwd((char *)NULL, 0);
-			change_value_by_name(g->env, "PWD", pwd);
+			change_value_by_name(g->env, "PWD", pwd, g->alloc);
 			free(pwd);
 		}
 		return ;
@@ -70,14 +70,14 @@ void cd_utils(t_global *g, char **cmd)
 	{
 		push_ustack(g->dir_stack, del_last_path(g, get_node_by_name(g->env, "PWD")->value));
 		pwd = getcwd((char *)NULL, 0);
-		change_value_by_name(g->env, "PWD", pwd);
+		change_value_by_name(g->env, "PWD", pwd, g->alloc);
 		free(pwd);
 	}
 	else
 	{
 		pwd = getcwd((char *)NULL, 0);
 		push_ustack(g->dir_stack, ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
-		change_value_by_name(g->env, "PWD", pwd);
+		change_value_by_name(g->env, "PWD", pwd, g->alloc);
 		free(pwd);
 	}
 }
@@ -88,7 +88,7 @@ void	my_cd(t_global *g, char **cmd)
 
 	if	(cmd[1] && !dir_change_stack(cmd[1]))
 	{
-		change_value_by_name(g->env, "OLDPWD", get_node_by_name(g->env, "PWD")->value);
+		change_value_by_name(g->env, "OLDPWD", get_node_by_name(g->env, "PWD")->value, g->alloc);
 		if	(cmd[1][0] != '/')
 			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value, ft_strjoin("/", cmd[1], &g->alloc), &g->alloc)) ;
 		else

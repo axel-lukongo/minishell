@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:46:39 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 15:11:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 11:45:53 by alukongo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	change_shlvl(t_global *g)
 	var = get_value_by_name(g->env, "SHLVL");
 	if (!var)
 		return ;
-	change_value_by_name(g->env, "SHLVL", ft_itoa(ft_atoi(var) + 1, g->alloc));
+	change_value_by_name(g->env, "SHLVL", ft_itoa(ft_atoi(var) + 1, g->alloc), g->alloc);
 	change_value_by_name(g->export, "SHLVL", ft_itoa(ft_atoi(var) + 1,
-			g->alloc));
+			g->alloc), g->alloc);
 	return ;
 }
 
