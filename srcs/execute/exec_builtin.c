@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 12:50:07 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:36:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ void	my_pwd(t_global *g, char **cmd)
 	else
 	{
 		pwd = getcwd(NULL, 0);
+		if (!pwd)
+		{
+			message_pwd();
+			g->last_return = 1;
+			free(pwd);
+			return ;
+		}
 		printf("%s\n", pwd);
 		free(pwd);
 		g->last_return = 0;

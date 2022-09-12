@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:51:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 17:38:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 18:47:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,8 @@ char	*get_prompt_str(t_global *g)
 	pr = NULL;
 	getcwd(g->pwd, 512);
 	convert_pwd_display(g->disp_pwd, g->pwd, g->env);
-	pr = ft_strjoin(pr, "🍆 ", &g->alloc);
-	pr = ft_strjoin(pr, BLUB, &g->alloc);
 	pr = ft_strjoin(pr, ft_strjoin(g->disp_pwd, " ", &g->alloc), &g->alloc);
-	pr = ft_strjoin(pr, YEL, &g->alloc);
-	pr = ft_strjoin(pr, " 🍆", &g->alloc);
-	pr = ft_strjoin(pr, ft_strjoin("❯", RESET, &g->alloc), &g->alloc);
-	pr = ft_strjoin(pr, " ", &g->alloc);
+	pr = ft_strjoin(pr, "> ", &g->alloc);
 	return (pr);
 }
 

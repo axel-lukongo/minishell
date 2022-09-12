@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/09/11 16:02:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 18:44:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,14 @@ char	*ft_get_path(char **args, t_list *env, t_global *g, int *err)
 
 	path = NULL;
 	if (!is_char(args[0], '/'))
+	{
 		path = valid_path(args[0], env, g);
+	}
 	else if (!(ft_strncmp(args[0], "./", 2)) || (!(ft_strncmp(args[0], "../",
 					3))))
+	{
 		path = ft_get_path_2(err, args, env, g);
+	}
 	else
 	{
 		if (is_directory(args[0]))
@@ -100,8 +104,7 @@ char	*ft_get_path(char **args, t_list *env, t_global *g, int *err)
 			*err = 1;
 			return (NULL);
 		}
-		path = delete_path(args[0], &g->alloc);
-		path = valid_path(path, env, g);
+		path = args[0];
 	}
 	return (path);
 }

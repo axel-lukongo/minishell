@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/11 15:59:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 18:37:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	g.alloc = NULL;
 	g.last_return = 0;
-	g.sh_pid = getpid();
+	g.sh_pid = 3423;
 	g.ast = NULL;
 	g.lex = NULL;
 	g.line = NULL;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/12 17:38:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 18:35:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,6 +369,7 @@ char		*get_prompt_str(t_global *g);
 void		handle_signale_ctrl_c(int sig);
 void		expand_buf(int *buf_size, char **buf, int n, t_alloc **alloc);
 void		sig(int sig);
+void		message_pwd(void);
 
 # define ERR_INFILE "Infile"
 # define ERR_OUTFILE "Outfile"

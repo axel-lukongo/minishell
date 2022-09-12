@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 13:52:50 by darian            #+#    #+#             */
-/*   Updated: 2022/08/31 15:26:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 18:30:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ void	*ft_malloc(int size, t_alloc	**lst)
 
 	alloc = malloc(size);
 	if (!alloc)
+	{
+		ft_malloc_clear(lst);
+		ft_putstr_fd("minishell: malloc: memory error\n", 2);
+		exit (1);
 		return (NULL);
+	}
 	malloc_add(lst, malloc_new(alloc));
 	return (alloc);
 }
