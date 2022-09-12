@@ -1,5 +1,1 @@
-ctrl D dans heredoc /
-exit ft_malloc /
-getpid /
-/bin/ls marche meme si $PATH existe pas pck on envoie le path direct fdp /
-appuyer sur entrer pas changer last return value /
+/dev/urandom marche pas bien

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:58:01 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 18:00:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 19:06:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	fd_great_redir(char **tab, t_global *g)
 			g->last_return = 1;
 			return (-1);
 		}
+		if (tab[i + 1] != NULL)
+			close (fd);
 		i++;
 	}
 	return (fd);
@@ -47,6 +49,8 @@ static int	fd_dgreat_redir(char **tab, t_global *g)
 			g->last_return = 1;
 			return (-1);
 		}
+		if (tab[i + 1] != NULL)
+			close (fd);
 		i++;
 	}
 	return (fd);
@@ -67,6 +71,8 @@ static int	fd_less_redir(char **tab, t_global *g)
 			g->last_return = 1;
 			return (-1);
 		}
+		if (tab[i + 1] != NULL)
+			close (fd);
 		i++;
 	}
 	return (fd);

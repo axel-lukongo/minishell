@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:52:34 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 17:54:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 19:04:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exec_pipe(t_vector3D cbackp, t_global *g, t_tree *root, char *cmd)
 		signal(SIGQUIT, handle_signale_ctrl_c);
 		signal(SIGINT, exit_sig);
 		dup2(cbackp.y, 0);
-		close(cbackp.y);
+		close(cbackp.y); // a enlever pour corriger
 		if (cbackp.x)
 			dup2(fd[1], 1);
 		close(fd[1]);

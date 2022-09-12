@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:49:48 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 17:50:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 19:05:55 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ void	here_doc_parser(char *delim, t_global *g, int tmpfile)
 	}
 	else
 		ft_waitpid_heredoc(g, tmp, file, pid);
+	close(file);
 	open_file_heredoc(stop);
 }
