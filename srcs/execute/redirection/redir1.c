@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:56:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 18:04:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@ void	parent_redir(t_global *g, t_tree *root, char *cmd, t_vector2D fdred)
 		tmp = ft_strjoin(".heredoc_tmp", ft_itoa(g->tmpfile, g->alloc),
 				&g->alloc);
 		file = open(tmp, O_RDONLY);
-		dup2(file, 0);
-		exec_ast(root->left, g, cmd);
-		dup2(fdred.x, fdred.y);
-		close(fdred.x);
+		if (!root->left)
+			write_buffer(file);
+		else
+		{
+			dup2(file, 0);
+			exec_ast(root->left, g, cmd);
+			dup2(fdred.x, fdred.y);
+			close(fdred.x);
+		}
 	}
 	else
 	{
@@ -33,7 +38,7 @@ void	parent_redir(t_global *g, t_tree *root, char *cmd, t_vector2D fdred)
 		close(fdred.x);
 		exec_ast(root->left, g, cmd);
 	}
-	exit(g->last_return);
+	exit(g_p->last_return);
 }
 
 static void	exec_redirection(t_tree *root, t_vector2D fdred, t_global *g,
@@ -57,7 +62,7 @@ static void	exec_redirection(t_tree *root, t_vector2D fdred, t_global *g,
 	else
 	{
 		wait(&child_status);
-		g->last_return = WEXITSTATUS(child_status);
+		g_p->last_return = WEXITSTATUS(child_status);
 	}
 }
 

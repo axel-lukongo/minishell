@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:49:14 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 18:44:02 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/12 22:29:53 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ char	*ft_get_path(char **args, t_list *env, t_global *g, int *err)
 	}
 	else if (!(ft_strncmp(args[0], "./", 2)) || (!(ft_strncmp(args[0], "../",
 					3))))
-	{
 		path = ft_get_path_2(err, args, env, g);
-	}
 	else
 	{
 		if (is_directory(args[0]))

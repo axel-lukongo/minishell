@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:51:40 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/11 17:52:13 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_and(t_tree *node, t_global *g, char *cmd)
 		g->tmpfile++;
 		g->hered = 0;
 	}
-	if (g->last_return == 0)
+	if (g_p->last_return == 0)
 		choose_exec_type(node->right, g, cmd);
 	if (g->hered)
 	{
@@ -90,7 +90,7 @@ void	exec_or(t_tree *node, t_global *g, char *cmd)
 		g->tmpfile++;
 		g->hered = 0;
 	}
-	if (g->last_return != 0)
+	if (g_p->last_return != 0)
 		choose_exec_type(node->right, g, cmd);
 	else
 	{

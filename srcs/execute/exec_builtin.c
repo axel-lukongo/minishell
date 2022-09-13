@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 12:50:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 18:36:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	my_exit(t_global *g, char **cmd)
 {
+	int	last;
+
 	if (cmd[1])
 	{
 		if (ft_strisdigit(cmd[1]) && ft_atoi_u64(cmd[1]) < 9223372036854775807)
@@ -24,15 +26,18 @@ void	my_exit(t_global *g, char **cmd)
 		{
 			error_msg("exit", "numeric argument required");
 			ft_malloc_clear(&g->alloc);
+			ft_malloc_clear(&g->alloc2);
 			clear_history();
 			exit(255);
 		}
 	}
 	else
 	{
+		last = g_p->last_return;
 		ft_malloc_clear(&g->alloc);
+		ft_malloc_clear(&g->alloc2);
 		clear_history();
-		exit(0);
+		exit(last);
 	}
 }
 
@@ -43,7 +48,7 @@ void	my_env(t_global *g, char **cmd)
 	if (!cmd[1])
 	{
 		print_list_env(g->env);
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 	else
 	{
@@ -53,10 +58,10 @@ void	my_env(t_global *g, char **cmd)
 			write(2, "env: ", 5);
 			write(2, cmd[1], ft_strlen(cmd[1]));
 			write(2, ": No such file or directory\n", 28);
-			g->last_return = 127;
+			g_p->last_return = 127;
 			return ;
 		}
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 }
 
@@ -80,13 +85,14 @@ void	my_pwd(t_global *g, char **cmd)
 {
 	char	*pwd;
 
+	(void)g;
 	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] != 0)
 	{
 		ft_putstr_fd("minishell: pwd: ", 2);
 		ft_putchar_fd(cmd[1][0], 2);
 		ft_putchar_fd(cmd[1][1], 2);
 		ft_putstr_fd(": invalid option\npwd: usage: pwd [-LP]\n", 2);
-		g->last_return = 1;
+		g_p->last_return = 1;
 	}
 	else
 	{
@@ -94,13 +100,13 @@ void	my_pwd(t_global *g, char **cmd)
 		if (!pwd)
 		{
 			message_pwd();
-			g->last_return = 1;
+			g_p->last_return = 1;
 			free(pwd);
 			return ;
 		}
 		printf("%s\n", pwd);
 		free(pwd);
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 }
 
@@ -119,14 +125,14 @@ void	execute_builtin(t_global *g, char **cmd)
 	else if (!ft_strcmp(cmd[0], "dirs"))
 	{
 		print_ustack(g->dir_stack);
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		my_pwd(g, cmd);
 	else if (!ft_strcmp(cmd[0], "echo"))
 	{
 		ft_echo(cmd);
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 }
 

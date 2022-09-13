@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:58:01 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 19:06:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:19:14 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ static int	fd_great_redir(char **tab, t_global *g)
 	int				fd;
 
 	i = 0;
+	(void)g;
 	while (tab[i])
 	{
 		fd = open(tab[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if (fd == -1)
 		{
 			error_msg(tab[0], "No such file or directory");
-			g->last_return = 1;
+			g_p->last_return = 1;
 			return (-1);
 		}
 		if (tab[i + 1] != NULL)
@@ -40,13 +41,14 @@ static int	fd_dgreat_redir(char **tab, t_global *g)
 	int				fd;
 
 	i = 0;
+	(void)g;
 	while (tab[i])
 	{
 		fd = open(tab[i], O_CREAT | O_RDWR | O_APPEND, 0644);
 		if (fd == -1)
 		{
 			error_msg(tab[i], "No such file or directory");
-			g->last_return = 1;
+			g_p->last_return = 1;
 			return (-1);
 		}
 		if (tab[i + 1] != NULL)
@@ -61,6 +63,7 @@ static int	fd_less_redir(char **tab, t_global *g)
 	int				i;
 	int				fd;
 
+	(void)g;
 	i = 0;
 	while (tab[i])
 	{
@@ -68,7 +71,7 @@ static int	fd_less_redir(char **tab, t_global *g)
 		if (fd == -1)
 		{
 			error_msg(tab[i], "No such file or directory");
-			g->last_return = 1;
+			g_p->last_return = 1;
 			return (-1);
 		}
 		if (tab[i + 1] != NULL)

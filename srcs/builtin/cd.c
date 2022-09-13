@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:41:14 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/12 11:53:40 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:19:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 void	cd_error_msg(t_global *g, char **cmd)
 {
+	(void)g;
 	if (!is_directory(cmd[1]))
 	{
 		error_msg_double("cd", cmd[1], "Not a directory");
-		g->last_return = 1;
+		g_p->last_return = 1;
 	}
 	else
 	{
 		error_msg_double("cd", cmd[1], "No such file or directory");
-		g->last_return = 1;
+		g_p->last_return = 1;
 	}
 }
 
@@ -31,11 +32,11 @@ void	my_cd2(t_global *g)
 	char	*pwd;
 
 	change_value_by_name(g->env, "OLDPWD",
-		get_node_by_name(g->env, "PWD")->value, g->alloc);
+		get_node_by_name(g->env, "PWD")->value, g->alloc2);
 	chdir(get_node_by_name(g->env, "HOME")->value);
 	pwd = getcwd((char *) NULL, 0);
 	push_ustack(g->dir_stack, get_node_by_name(g->env, "HOME")->value);
-	change_value_by_name(g->env, "PWD", pwd, g->alloc);
+	change_value_by_name(g->env, "PWD", pwd, g->alloc2);
 	free(pwd);
 }
 
@@ -54,7 +55,7 @@ void	cd_dash_or_nothing(t_global *g, char **cmd)
 			chdir(value);
 			push_ustack(g->dir_stack, value);
 			pwd = getcwd((char *) NULL, 0);
-			change_value_by_name(g->env, "PWD", pwd, g->alloc);
+			change_value_by_name(g->env, "PWD", pwd, g->alloc2);
 			free(pwd);
 		}
 		return ;
@@ -72,7 +73,7 @@ void	cd_utils(t_global *g, char **cmd)
 		push_ustack(g->dir_stack,
 			del_last_path(g, get_node_by_name(g->env, "PWD")->value));
 		pwd = getcwd((char *) NULL, 0);
-		change_value_by_name(g->env, "PWD", pwd, g->alloc);
+		change_value_by_name(g->env, "PWD", pwd, g->alloc2);
 		free(pwd);
 	}
 	else
@@ -81,7 +82,7 @@ void	cd_utils(t_global *g, char **cmd)
 		push_ustack(g->dir_stack,
 			ft_strjoin(get_node_by_name(g->env, "PWD")->value,
 				ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
-		change_value_by_name(g->env, "PWD", pwd, g->alloc);
+		change_value_by_name(g->env, "PWD", pwd, g->alloc2);
 		free(pwd);
 	}
 }
@@ -93,7 +94,7 @@ void	my_cd(t_global *g, char **cmd)
 	if (cmd[1] && !dir_change_stack(cmd[1]))
 	{
 		change_value_by_name(g->env, "OLDPWD",
-			get_node_by_name(g->env, "PWD")->value, g->alloc);
+			get_node_by_name(g->env, "PWD")->value, g->alloc2);
 		if (cmd[1][0] != '/')
 			cd = chdir(ft_strjoin(get_node_by_name(g->env, "PWD")->value,
 						ft_strjoin("/", cmd[1], &g->alloc), &g->alloc));
@@ -102,7 +103,7 @@ void	my_cd(t_global *g, char **cmd)
 		if (!cd)
 		{
 			cd_utils(g, cmd);
-			g->last_return = 0;
+			g_p->last_return = 0;
 		}
 		else
 			cd_error_msg(g, cmd);

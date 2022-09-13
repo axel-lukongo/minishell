@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 17:22:56 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 12:50:18 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ void	exit_utils(t_global *g, char **cmd)
 	if (cmd[2] != NULL)
 	{
 		error_msg("exit", "too many arguments");
-		g->last_return = 1;
+		g_p->last_return = 1;
 	}
 	else
 	{
 		clear_history();
 		tmp = ft_atoi(cmd[1]) % 256;
 		ft_malloc_clear(&g->alloc);
+		ft_malloc_clear(&g->alloc2);
 		exit(tmp);
 	}
 }
@@ -47,7 +48,14 @@ char	**convert_tree_to_cmd(t_tree	*tr, t_global *g)
 
 int	is_directory(char *str)
 {
-	if (!opendir(str) && !access(str, 0))
+	DIR	*folder;
+
+	folder = opendir(str);
+	if (!folder && !access(str, 0))
+	{
+		free(folder);
 		return (0);
+	}
+	free(folder);
 	return (1);
 }

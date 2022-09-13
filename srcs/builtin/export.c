@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 01:58:09 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/12 11:58:42 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,26 @@ void	add_value_export(char **split, t_global *g)
 {
 	t_env	*node;
 
-	node = ft_malloc(sizeof(*node), &g->alloc);
+	node = ft_malloc(sizeof(*node), &g->alloc2);
 	node->name = split[0];
 	node->value = NULL;
 	if (!is_var_env_exist(g->export, split[0]))
-		ft_lstadd_back(&g->export, ft_lstnew((void *){node}, &g->alloc));
-	g->last_return = 0;
+		ft_lstadd_back(&g->export, ft_lstnew((void *){node}, &g->alloc2));
+	g_p->last_return = 0;
 }
 
 void	export_utils(int i, char **cmd, t_global *g)
 {
 	char	**split;
 
-	split = ft_split_first(cmd[i], '=', &g->alloc);
+	split = ft_split_first(cmd[i], '=', &g->alloc2);
 	if (split[0] && split[0][0] == '-')
 	{
 		ft_putstr_fd("minishell: export: ", 2);
 		ft_putchar_fd(split[0][0], 2);
 		ft_putchar_fd(split[0][1], 2);
 		ft_putstr_fd(": invalid option\n", 2);
-		g->last_return = 2;
+		g_p->last_return = 2;
 	}
 	else if (split[0] && !split[1] && is_valid_identifier(split[0]))
 		add_value_export(split, g);
@@ -67,7 +67,7 @@ void	my_export(t_global *g, char **cmd)
 	if (!cmd[1])
 	{
 		my_aff_export(g->export, g);
-		g->last_return = 0;
+		g_p->last_return = 0;
 	}
 	while (cmd[i])
 		export_utils(i++, cmd, g);

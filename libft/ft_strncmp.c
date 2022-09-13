@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:14:27 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 18:28:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:52:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strncmp(char const *s1, char const *s2, size_t n)
 	if (!s1 || !s2)
 	{
 		if (!s1)
-			return (0 - ((unsigned char *)s2)[i] );
+			return (0 - ((unsigned char *)s2)[i]);
 		else if (!s2)
 			return (0);
 		else

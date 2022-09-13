@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/12 18:35:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:36:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_parsing
 	int		error_cd;
 	int		tmpfile;
 	int		hered;
+	volatile sig_atomic_t		last_return;
 }	t_parsing;
 
 typedef struct s_env
@@ -158,6 +159,7 @@ typedef struct s_global
 	int			sig_exited;
 	int			hered;
 	int			tmpfile;
+	t_alloc		*alloc2;
 }	t_global;
 
 typedef struct s_lex
@@ -244,6 +246,8 @@ void		buf_to_list(char *buffer, t_alloc **alloc, t_lex *lex);
 void		add_double_quote(char *buffer, t_alloc **alloc, t_lex *lex);
 void		add_to_list_index(int index, t_token token,
 				t_list **li, t_alloc **alloc);
+void		signal_call(void);
+void		write_buffer(int fd);
 //
 // PARSER
 //

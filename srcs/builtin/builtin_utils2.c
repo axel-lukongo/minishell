@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:32:29 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/12 11:57:10 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:19:27 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ char	*del_start_end_char(char *str, char c, t_alloc **alloc)
 
 void	print_err(t_global *g, char **s, int i)
 {
+	(void)g;
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(s[i], 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g->last_return = 1;
+	g_p->last_return = 1;
 }
 
 char	**split_two(char **new, char *str, char c, t_alloc **alloc)

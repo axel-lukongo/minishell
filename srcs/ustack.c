@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 17:47:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/08/19 14:52:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:36:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,29 @@ char	*get_value_ustack(t_ustack *st, int index)
 	if (index > st->stack_size)
 		return (NULL);
 	return (st->stack[index]);
+}
+
+char	*read_file(int fd, t_alloc **alloc)
+{
+	int		read_val;
+	char	*str;
+	char	*tmp;
+	char	buff[1084];
+
+	str = NULL;
+	read_val = 1;
+	if (fd < 1)
+		return (NULL);
+	if (read(fd, 0, 0) == -1)
+		return (NULL);
+	while (read_val)
+	{
+		read_val = read(fd, buff, 1084);
+		buff[read_val] = 0;
+		tmp = str;
+		str = ft_strjoin(tmp, buff, alloc);
+	}
+	if (str[0] == 0)
+		return (NULL);
+	return (str);
 }

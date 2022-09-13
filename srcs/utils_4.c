@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 15:11:11 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 18:35:16 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:35:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,23 @@ void	message_pwd(void)
 	ft_putstr_fd("directories: No suck file or directory\n", 2);
 }
 
+void	signal_call(void)
+{
+	signal(SIGQUIT, handle_signale_ctrl_c);
+	signal(SIGINT, SIG_IGN);
+}
+
+void	write_buffer(int fd)
+{
+	char	buf[101];
+	int		n;
+
+	n = read(fd, buf, 100);
+	while (n > 0)
+	{
+		buf[n - 1] = 0;
+		printf("%s", buf);
+		n = read(fd, buf, 100);
+	}
+	printf("\n");
+}

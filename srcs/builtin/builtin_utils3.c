@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:42:07 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/12 11:57:57 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ void	add_value_env(char **split, t_global *g)
 {
 	t_env	*node;
 
-	node = ft_malloc(sizeof(*node), &g->alloc);
+	node = ft_malloc(sizeof(*node), &g->alloc2);
 	node->name = split[0];
-	node->value = del_start_end_char(split[1], ' ', &g->alloc);
+	node->value = del_start_end_char(split[1], ' ', &g->alloc2);
 	change_value_or_add_it(g, &g->export, split[0], node->value);
 	change_value_or_add_it(g, &g->env, split[0], node->value);
-	g->last_return = 0;
+	g_p->last_return = 0;
 }

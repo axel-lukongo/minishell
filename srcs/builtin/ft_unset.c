@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 18:46:07 by alukongo          #+#    #+#             */
-/*   Updated: 2022/09/12 11:58:56 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:18:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ void	my_unset(t_global *g, char **cmd)
 			ft_putchar_fd(cmd[i][0], 2);
 			ft_putchar_fd(cmd[i][1], 2);
 			ft_putstr_fd(": invalid option\n", 2);
-			g->last_return = 2;
+			g_p->last_return = 2;
 		}
 		else if (cmd[i] && is_valid_identifier(cmd[i]) && !is_char(cmd[i], '='))
 		{
 			destroy_env_var(&g->env, cmd[i]);
 			destroy_env_var(&g->export, cmd[i]);
-			g->last_return = 0;
+			g_p->last_return = 0;
 		}
 		else
 		{
 			unset_utils(cmd, i);
-			g->last_return = 1;
+			g_p->last_return = 1;
 		}
 	}
 }

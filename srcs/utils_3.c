@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 16:51:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 18:47:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:36:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	handle_signale_ctrl_c(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	g_p->last_return = 1;
 	(void)sig;
 }
 
@@ -63,7 +64,7 @@ void	ft_waitpid(t_global *g, int pid)
 	waitpid(pid, &status, 0);
 	if ((WIFSIGNALED(status)))
 	{
-		g->last_return = 128 + WTERMSIG(status);
+		g_p->last_return = 128 + WTERMSIG(status);
 		if (WTERMSIG(status) != 3)
 		{
 			printf("\n");
@@ -71,5 +72,5 @@ void	ft_waitpid(t_global *g, int pid)
 		}
 	}
 	else
-		g->last_return = WEXITSTATUS(status);
+		g_p->last_return = WEXITSTATUS(status);
 }

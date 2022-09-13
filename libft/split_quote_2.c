@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:26:31 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/12 17:27:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:52:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,22 @@ char	*ft_lol(char *str[2], t_vector2D *quote, t_vector2D *last_q,
 	else
 		return (ft_lol_2(str, quote, last_q, it));
 	return (str[1]);
+}
+
+int	ft_body_2(t_vector4D *it, char **split, char const *s, t_alloc *alloc)
+{
+	split[it->z] = ft_strncpy_split_quote(s + it->x, it->y + 1, alloc);
+	if (it->w)
+	{
+		split[it->z] = ft_strjoin(" ", split[it->z], &alloc);
+		it->w = 0;
+		it->z++;
+	}
+	else if (split[it->z][0] == 0)
+		it->w = 1;
+	else if (!split[it->z++])
+		return (0);
+	it->x += it->y - 1;
+	it->y = 0;
+	return (1);
 }

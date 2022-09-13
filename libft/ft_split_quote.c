@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 17:47:05 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 17:28:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:53:13 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	count_words_quote(char const *s, char c)
 	return (w);
 }
 
-static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
+char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 {
 	char		*dest;
 	t_vector2D	quote;
@@ -60,7 +60,7 @@ static char	*ft_strncpy_split_quote(char const *src, size_t n, t_alloc *alloc)
 	return (dest);
 }
 
-int	ft_body(char *s, t_vector2D *quoted, t_vector3D *it, char c)
+int	ft_body(char *s, t_vector2D *quoted, t_vector4D *it, char c)
 {
 	if (s[it->x + it->y] == '"' && !is_backed((char *)s, it->x + it->y - 1)
 		&& !quoted->y)
@@ -76,25 +76,20 @@ int	ft_body(char *s, t_vector2D *quoted, t_vector3D *it, char c)
 static char	**ft_split_body_quote(char const *s, char c,
 char **split, t_alloc *alloc)
 {
-	t_vector3D	it;
+	t_vector4D	it;
 	t_vector2D	quoted;
 
-	it = (t_vector3D){0, 0, 0};
+	it = (t_vector4D){0, 0, 0, 0};
 	quoted = (t_vector2D){0, 0};
 	while (s[it.x])
 	{
 		while (s[it.x + it.y])
-		{
 			if (!ft_body((char *)s, &quoted, &it, c))
 				break ;
-		}
 		if (it.y != 0)
 		{
-			split[it.z] = ft_strncpy_split_quote(s + it.x, it.y + 1, alloc);
-			if (!split[it.z++])
+			if (!ft_body_2(&it, split, s, alloc))
 				return (NULL);
-			it.x += it.y - 1;
-			it.y = 0;
 		}
 		it.x++;
 	}

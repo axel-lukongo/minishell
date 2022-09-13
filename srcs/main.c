@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/12 18:37:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 11:37:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	exec_line(t_global *g)
 			g->ast = NULL;
 			g_p->error_cd = 0;
 		}
-		g->last_return = 0;
 		exec_tree(g);
 		add_history(cmds[i]);
 		g->node_id = 0;
@@ -101,8 +100,8 @@ int	loop(t_global *g, char **env)
 {
 	char		*str;
 
-	g->env = init_env(env, &g->alloc, 0);
-	g->export = init_env(env, &g->alloc, 0);
+	g->env = init_env(env, &g->alloc2, 0);
+	g->export = init_env(env, &g->alloc2, 0);
 	change_shlvl(g);
 	push_ustack(g->dir_stack, get_value_by_name(g->env, "PWD"));
 	while (1)
@@ -115,20 +114,19 @@ int	loop(t_global *g, char **env)
 		str = get_prompt_str(g);
 		g->line = readline(str);
 		if (!g->line)
-			return (0);
+			return (g_p->last_return);
 		exec_line(g);
+		ft_malloc_clear(&g->alloc);
 		free(g->line);
 	}
 }
 
-int	main(int argc, char **argv, char **env)
+t_global	init_global(char	**env)
 {
 	t_global	g;
 
-	(void)argc;
-	(void)argv;
+	rl_outstream = stderr;
 	g.alloc = NULL;
-	g.last_return = 0;
 	g.sh_pid = 3423;
 	g.ast = NULL;
 	g.lex = NULL;
@@ -140,10 +138,25 @@ int	main(int argc, char **argv, char **env)
 	g.error = 0;
 	g.hered = 0;
 	g.tmpfile = 0;
-	g_p = ft_malloc(sizeof(*g_p), &g.alloc);
+	g.alloc2 = NULL;
+	g_p = ft_malloc(sizeof(*g_p), &g.alloc2);
 	g_p->error_cd = 0;
+	g_p->last_return = 0;
 	g.dir_stack = init_ustack(99, &g);
-	loop(&g, env);
+	return (g);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_global	g;
+	int			ret;
+
+	(void)argc;
+	(void)argv;
+	g = init_global(env);
+	ret = loop(&g, env);
 	ft_malloc_clear(&g.alloc);
+	ft_malloc_clear(&g.alloc2);
 	clear_history();
+	return (ret);
 }

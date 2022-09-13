@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alukongo <alukongo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 14:30:09 by darian            #+#    #+#             */
-/*   Updated: 2022/09/12 12:11:58 by alukongo         ###   ########.fr       */
+/*   Updated: 2022/09/12 22:25:29 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	change_value_or_add_it(t_global *g, t_list **env, char *name
 		}
 		buf = buf->next;
 	}
-	new = ft_malloc(sizeof(*new), &g->alloc);
+	new = ft_malloc(sizeof(*new), &g->alloc2);
 	new->name = name;
 	new->value = value;
-	ft_lstadd_back(env, ft_lstnew((void *)new, &g->alloc));
+	ft_lstadd_back(env, ft_lstnew((void *)new, &g->alloc2));
 }

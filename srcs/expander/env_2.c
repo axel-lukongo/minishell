@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:25:59 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/07 17:40:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:37:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	dollar_question(char **result, t_global *g, t_vector2D *it, char *str)
 		it->x = ft_strlen(*result);
 		return ;
 	}
-	*result = ft_strjoin(*result, ft_itoa(g->last_return, g->alloc), &g->alloc);
+	*result = ft_strjoin(*result, ft_itoa(g_p->last_return, g->alloc),
+			&g->alloc);
 	it->y += 2;
 	it->x = ft_strlen(*result);
 }
