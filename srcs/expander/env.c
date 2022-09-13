@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:42:28 by darian            #+#    #+#             */
-/*   Updated: 2022/09/10 17:45:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:46:16 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	expander(t_tree *ast, t_global *g)
 			ast->value = extract_env_var_call(ast->value, g);
 		if (ast->type == WILDCARD || ast->type == WILDENV
 			|| ast->type == WILDENVBACK || ast->type == WILDBACK)
-			ast->value = wildcard(ast->value, g->alloc);
+			ast->value = wildcard(ast->value, g->alloc, g);
 		if (ast->type == BACKSLASH || ast->type == WILDENV
 			|| ast->type == BACKENV || ast->type == WILDENVBACK)
 			ast->value = backslash(ast->value, g);

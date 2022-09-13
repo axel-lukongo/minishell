@@ -6,13 +6,13 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 14:40:06 by darian            #+#    #+#             */
-/*   Updated: 2022/09/11 17:05:23 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:46:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**exec_ls(t_alloc **alloc)
+char	**exec_ls(t_alloc **alloc, t_global *g)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -26,7 +26,7 @@ char	**exec_ls(t_alloc **alloc)
 		dup2 (fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		execl("/bin/ls", "ls", (char *)0);
+		execve("/bin/ls", (char *[2]){"ls", NULL}, g->char_env);
 	}
 	else
 	{
@@ -97,14 +97,14 @@ void	match_loop(char *strs[2], char **res, t_alloc **alloc, char **files)
 	}
 }
 
-char	*wildcard(char *str, t_alloc *alloc)
+char	*wildcard(char *str, t_alloc *alloc, t_global *g)
 {
 	char		**files;
 	char		**strs;
 	char		*res;
 	int			i;
 
-	files = exec_ls(&alloc);
+	files = exec_ls(&alloc, g);
 	strs = ft_split_quote(str, ' ', alloc);
 	res = NULL;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 17:08:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/09/13 11:36:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/13 12:47:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ typedef struct s_tree
 
 typedef struct s_parsing
 {
-	t_token	*next_token;
-	t_list	*li;
-	int		error_cd;
-	int		tmpfile;
-	int		hered;
+	t_token						*next_token;
+	t_list						*li;
+	int							error_cd;
+	int							tmpfile;
+	int							hered;
 	volatile sig_atomic_t		last_return;
 }	t_parsing;
 
@@ -283,7 +283,7 @@ void		here_doc_parser(char *delim, t_global *g, int tmpfile);
 //
 // EXPANDER
 void		expander(t_tree *ast, t_global *g);
-char		*wildcard(char *str, t_alloc *alloc);
+char		*wildcard(char *str, t_alloc *alloc, t_global *g);
 int			is_char(char *str, char c);
 int			when_is_char(char *str, char c);
 int			count_char(char *str, int ch);
